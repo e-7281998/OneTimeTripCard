@@ -27,14 +27,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;  
-	private char email; 
-	private char firstName;
-	private char lastName;
-	private char password; 
-	private char phone; 
-	private char preferredCurrency;		//현재환율
+	private String email; 
+	private String firstName;
+	private String lastName;
+	private String password; 
+	private String phone; 
+	private String preferredCurrency;		//현재환율
 	private Boolean status;				//사용중 Y 탈퇴 N
-	private char accountNo;				//충전용 자국 계좌 번호
-	private char bankName;				//충전용 자국 계좌 이름
+	private String accountNo;				//충전용 자국 계좌 번호
+	private String bankName;				//충전용 자국 계좌 이름
 
 }

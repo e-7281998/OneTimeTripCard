@@ -24,7 +24,7 @@ public class CourseNode {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //pk
 	private String nodeName;
-	private Long courseId;
+	private Course course;
 	private Double latitude; // À§µµ
 	private Double longitude; // °æµµ
 }

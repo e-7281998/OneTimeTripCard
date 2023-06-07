@@ -22,6 +22,6 @@ import lombok.ToString;
 public class CardBenefit {
 	@Id
 	private Long id;
-	private String cardNo; 
-	private Long benefitId;
+	private Card card; 
+	private Benefit benefit;
 }

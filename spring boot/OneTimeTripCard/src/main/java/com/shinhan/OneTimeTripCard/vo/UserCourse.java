@@ -27,9 +27,9 @@ import lombok.ToString;
 public class UserCourse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userCourseId;		//pk
-	private Long userId; 	 		// user id
-	private Long courseId;	 		// course id
+	private Long id;		//pk
+	private User user; 	 		// user id
+	private Course course;	 		// course id
 	private Date createdAt; 		// 코스 생성 날짜
 	private Boolean completed; 		// Y / N
 
