@@ -25,6 +25,6 @@ public class Course {
 	private Long id; //  pk
 	private String courseName;
 	private String location;
-	private Double latitude; // À§µµ
-	private Double longitude; // °æµµ
+	private Double latitude; // Ã€Â§ÂµÂµ
+	private Double longitude; // Â°Ã¦ÂµÂµ
 }

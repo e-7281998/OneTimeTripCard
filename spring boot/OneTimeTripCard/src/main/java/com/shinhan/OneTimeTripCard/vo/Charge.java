@@ -25,12 +25,12 @@ public class Charge {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // pk
-	private Long chargerId; // ÃæÀüÀÚ ¾ÆÀÌµğ
-	private String cardNo; // Ä«µå ¹øÈ£
-	private String currency; // ÅëÈ­($)
-	private Double rate;  // È¯À²(ÃæÀü ´ç½Ã)
-	private Double amount; // ÃæÀü ±İ¾×(ÀÚ±¹ ÅëÈ­)
-	private Integer amountWon; // ÃæÀü ±İ¾×(¿øÈ­)
-	private Double commissionPct; // ¼ö¼ö·á
+	private Long chargerId; // ì¶©ì „ì ì•„ì´ë””
+	private String cardNo; // ì¹´ë“œ ë²ˆí˜¸
+	private String currency; // í†µí™”($)
+	private Double rate;  // í™˜ìœ¨(ì¶©ì „ ë‹¹ì‹œ)
+	private Double amount; // ì¶©ì „ ê¸ˆì•¡(ìêµ­ í†µí™”)
+	private Integer amountWon; // ì¶©ì „ ê¸ˆì•¡(ì›í™”)
+	private Double commissionPct; // ìˆ˜ìˆ˜ë£Œ
 	private LocalDateTime createdAt;
 }

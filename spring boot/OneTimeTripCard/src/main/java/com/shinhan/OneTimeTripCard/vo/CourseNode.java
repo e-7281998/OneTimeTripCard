@@ -25,6 +25,6 @@ public class CourseNode {
 	private Long id; //pk
 	private String nodeName;
 	private Long courseId;
-	private Double latitude; // À§µµ
-	private Double longitude; // °æµµ
+	private Double latitude; // Ã€Â§ÂµÂµ
+	private Double longitude; // Â°Ã¦ÂµÂµ
 }
