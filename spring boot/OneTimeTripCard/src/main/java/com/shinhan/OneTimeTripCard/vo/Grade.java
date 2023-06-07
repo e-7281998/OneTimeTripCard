@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Level {
+public class Grade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;					//pk

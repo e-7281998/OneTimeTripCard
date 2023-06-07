@@ -31,7 +31,7 @@ public class UserCard {
 	private char cardNo;				//카드넘버
 	private Long managerId;  			// nullable 모임 통장일 때만
 	private char nickName;  			// 카드별칭
-	private char level;  				// 카드등급
+	private char grade;  				// 카드등급
 	private Integer balance; 			// 카드잔액
 	private Integer discountAmount; 	// 받은 혜택 총액
 	private Integer rechargeCount; 	 	// 재충전 횟수
