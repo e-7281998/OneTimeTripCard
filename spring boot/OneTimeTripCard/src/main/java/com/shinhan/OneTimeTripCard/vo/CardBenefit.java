@@ -21,6 +21,7 @@ import lombok.ToString;
 @Entity
 public class CardBenefit {
 	@Id
+	private Long id;
 	private String cardNo; 
 	private Long benefitId;
 }
