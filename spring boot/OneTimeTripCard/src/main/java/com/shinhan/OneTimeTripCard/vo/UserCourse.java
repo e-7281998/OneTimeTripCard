@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,12 +25,12 @@ import lombok.ToString;
 @Table
 @Entity
 public class UserCourse {
-	@EmbeddedId
-	MultiKeyUserCourse UserCourseID;
-	
-//	Long userId; 	 //蜡历id
-//	Long courseId;	 //内胶id
-	Date createdAt; //内胶积己朝楼
-	Boolean completed;  // Y / N
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long userCourseId;		//pk
+	private Long userId; 	 		//蜡历id
+	private Long courseId;	 		//内胶id
+	private Date createdAt; 		//内胶积己朝楼
+	private Boolean completed; 		// Y / N
 
 }
