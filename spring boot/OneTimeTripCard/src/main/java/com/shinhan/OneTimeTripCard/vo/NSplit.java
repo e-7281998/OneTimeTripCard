@@ -21,7 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Split {
+public class NSplit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
