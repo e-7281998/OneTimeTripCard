@@ -25,8 +25,8 @@ public class Split {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private char cardNo;
-	private Long userId;
+	private Card card;
+	private User user;
 	private Integer amount; 
 	private LocalDateTime splitDate; 
 }

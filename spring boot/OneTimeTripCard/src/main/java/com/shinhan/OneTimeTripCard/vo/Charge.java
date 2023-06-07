@@ -25,8 +25,8 @@ public class Charge {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // pk
-	private Long chargerId; // 충전자 아이디
-	private String cardNo; // 카드 번호
+	private User charger; // 충전자 아이디
+	private Card card; // 카드 번호
 	private String currency; // 통화($)
 	private Double rate;  // 환율(충전 당시)
 	private Double amount; // 충전 금액(자국 통화)

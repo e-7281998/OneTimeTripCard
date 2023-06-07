@@ -23,8 +23,8 @@ import lombok.ToString;
 @Entity
 public class Store {
 	@Id
-	private char storeNo;			//가맹점번호
-	private char storeName;			//가맹점이름
+	private String storeNo;			//가맹점번호
+	private String storeName;			//가맹점이름
 	private Integer courseNodeId;	//해당코스아이디
 
 }

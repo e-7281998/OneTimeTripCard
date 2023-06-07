@@ -23,7 +23,7 @@ public class Stamp {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private Long userId;  
-	private Long courseNodeId; 
-	private char storeNo;
+	private User user;  
+	private CourseNode courseNode; 
+	private Store store;
 }

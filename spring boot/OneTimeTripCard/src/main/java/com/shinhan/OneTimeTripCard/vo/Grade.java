@@ -23,7 +23,7 @@ public class Grade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;					//pk
-	private String levelName; 
+	private String gradeName; 
 	private Integer minimumAmount; 
 	private Integer period; 
 	private Double refundRate;
