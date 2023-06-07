@@ -28,9 +28,9 @@ public class UserCourse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userCourseId;		//pk
-	private Long userId; 	 		//蜡历id
-	private Long courseId;	 		//内胶id
-	private Date createdAt; 		//内胶积己朝楼
+	private Long userId; 	 		// user id
+	private Long courseId;	 		// course id
+	private Date createdAt; 		// 旖旍姢 靸濎劚 雮犾
 	private Boolean completed; 		// Y / N
 
 }

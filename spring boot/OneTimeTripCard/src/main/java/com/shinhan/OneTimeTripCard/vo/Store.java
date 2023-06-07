@@ -23,8 +23,8 @@ import lombok.ToString;
 @Entity
 public class Store {
 	@Id
-	private char storeNo;			//°¡¸ÍÁ¡¹øÈ£
-	private char storeName;			//°¡¸ÍÁ¡ÀÌ¸§
-	private Integer courseNodeId;	//ÇØ´çÄÚ½º¾ÆÀÌµğ
+	private char storeNo;			//ê°€ë§¹ì ë²ˆí˜¸
+	private char storeName;			//ê°€ë§¹ì ì´ë¦„
+	private Integer courseNodeId;	//í•´ë‹¹ì½”ìŠ¤ì•„ì´ë””
 
 }

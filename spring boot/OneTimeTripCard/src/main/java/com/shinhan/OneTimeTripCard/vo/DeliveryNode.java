@@ -29,6 +29,6 @@ public class DeliveryNode {
 	private String opening_time;
 	private String closing_time;
 	private Integer max_quantity;
-	private Character is_departure; // Y : Ãâ¹ßÁö, N : µµÂøÁö
+	private Character is_departure; // Y : ì¶œë°œì§€, N : ë„ì°©ì§€
 
 }

@@ -32,9 +32,9 @@ public class User {
 	private char lastName;
 	private char password; 
 	private char phone; 
-	private char preferredCurrency;		//ÇöÀçÈ¯À²
-	private Boolean status;				//»ç¿ëÁß Y Å»Åğ N
-	private char accountNo;				//ÃæÀü¿ë ÀÚ±¹ °èÁÂ ¹øÈ£
-	private char bankName;				//ÃæÀü¿ë ÀÚ±¹ °èÁÂ ÀÌ¸§
+	private char preferredCurrency;		//í˜„ì¬í™˜ìœ¨
+	private Boolean status;				//ì‚¬ìš©ì¤‘ Y íƒˆí‡´ N
+	private char accountNo;				//ì¶©ì „ìš© ìêµ­ ê³„ì¢Œ ë²ˆí˜¸
+	private char bankName;				//ì¶©ì „ìš© ìêµ­ ê³„ì¢Œ ì´ë¦„
 
 }

@@ -28,19 +28,19 @@ public class UserCard {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userCardId;			//pk
 	private Long userId;
-	private char cardNo;				//Ä«µå³Ñ¹ö
-	private Long managerId;  			// nullable ¸ğÀÓ ÅëÀåÀÏ ¶§¸¸
-	private char nickName;  			// Ä«µåº°Äª
-	private char level;  				// Ä«µåµî±Ş
-	private Integer balance; 			// Ä«µåÀÜ¾×
-	private Integer discountAmount; 	// ¹ŞÀº ÇıÅÃ ÃÑ¾×
-	private Integer rechargeCount; 	 	// ÀçÃæÀü È½¼ö
-	private Boolean status; 			// Ä«µå »èÁ¦ ¿©ºÎ Y, N
-	private LocalDateTime createAt;		//Ä«µå »ı¼º³¯Â¥
-	private LocalDateTime expiredAt;	//¸¸·á³¯Â¥
+	private char cardNo;				//ì¹´ë“œë„˜ë²„
+	private Long managerId;  			// nullable ëª¨ì„ í†µì¥ì¼ ë•Œë§Œ
+	private char nickName;  			// ì¹´ë“œë³„ì¹­
+	private char level;  				// ì¹´ë“œë“±ê¸‰
+	private Integer balance; 			// ì¹´ë“œì”ì•¡
+	private Integer discountAmount; 	// ë°›ì€ í˜œíƒ ì´ì•¡
+	private Integer rechargeCount; 	 	// ì¬ì¶©ì „ íšŸìˆ˜
+	private Boolean status; 			// ì¹´ë“œ ì‚­ì œ ì—¬ë¶€ Y, N
+	private LocalDateTime createAt;		//ì¹´ë“œ ìƒì„±ë‚ ì§œ
+	private LocalDateTime expiredAt;	//ë§Œë£Œë‚ ì§œ
 	private Boolean isGroup; 			// Y, N
-	// ¸ğÀÓÅëÀå »èÁ¦½Ã È°¼ºÈ­µÈ user_card ÁÖÀÎµéÀÇ
-	// status¸¦ ÀüºÎ ºñÈ°¼ºÈ­ ½ÃÄÑÁØ´Ù.
-	private Boolean isDefault; 			// Y, N ±âº»Ä«µå
+	// ëª¨ì„í†µì¥ ì‚­ì œì‹œ í™œì„±í™”ëœ user_card ì£¼ì¸ë“¤ì˜
+	// statusë¥¼ ì „ë¶€ ë¹„í™œì„±í™” ì‹œì¼œì¤€ë‹¤.
+	private Boolean isDefault; 			// Y, N ê¸°ë³¸ì¹´ë“œ
 
 }

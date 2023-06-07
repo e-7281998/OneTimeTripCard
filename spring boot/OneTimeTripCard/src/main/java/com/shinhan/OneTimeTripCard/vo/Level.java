@@ -29,6 +29,6 @@ public class Level {
 	private Double refundRate;
 	private Integer benefitCount;
 	private String imgSrc;
-	private Integer maxRechargeCount; 	// ÀçÃæÀü °¡´É È½¼ö
-	private Integer deliveryCount;		// ¹«·á ¼öÈ­¹° È½¼ö(°ñµå, ´ÙÀÌ¾Æ¸¸)
+	private Integer maxRechargeCount; 	// ì¬ì¶©ì „ ê°€ëŠ¥ íšŸìˆ˜
+	private Integer deliveryCount;		// ë¬´ë£Œ ìˆ˜í™”ë¬¼ íšŸìˆ˜(ê³¨ë“œ, ë‹¤ì´ì•„ë§Œ)
  }
