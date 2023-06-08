@@ -25,8 +25,7 @@ public class Delivery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // pk
-	private User user;
-	private Card card;
+	private UserCard userCard;
 	private DeliveryNode deliveryNode;
 	private Integer quantity;
 	private Integer extraCost; // default 0
