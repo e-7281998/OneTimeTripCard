@@ -1,10 +1,14 @@
 package com.shinhan.OneTimeTripCard.vo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +25,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 public class Card {
-	 @Id
-	 private String cardNo; //pk
-	 private Long designId;
+	@Id
+	private String cardNo; // pk
+	
+	@OneToOne
+	@NotNull
+	private CardDesign cardDesign;
+	
+	@OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+	private List<UserCard> userCards;
 }

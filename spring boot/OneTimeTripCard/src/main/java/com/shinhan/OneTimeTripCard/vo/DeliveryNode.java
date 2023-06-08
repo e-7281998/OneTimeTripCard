@@ -30,5 +30,4 @@ public class DeliveryNode {
 	private String closing_time;
 	private Integer max_quantity;
 	private Character is_departure; // Y : 출발지, N : 도착지
-
 }

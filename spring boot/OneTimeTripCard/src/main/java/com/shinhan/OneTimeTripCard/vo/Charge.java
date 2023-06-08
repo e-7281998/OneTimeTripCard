@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +28,9 @@ public class Charge {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // pk
-	private User charger; // 충전자 아이디
-	private Card card; // 카드 번호
+	@ManyToOne
+	@NotNull
+	private UserCard userCard; // 충전자 아디이, 카드번호가 포함됨 -> 여행 모임 카드에서도 적용 가능
 	private String currency; // 통화($)
 	private Double rate;  // 환율(충전 당시)
 	private Double amount; // 충전 금액(자국 통화)

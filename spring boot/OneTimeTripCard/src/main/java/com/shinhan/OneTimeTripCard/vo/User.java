@@ -1,11 +1,13 @@
 package com.shinhan.OneTimeTripCard.vo;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,5 +38,12 @@ public class User {
 	private Boolean status;				//사용중 Y 탈퇴 N
 	private String accountNo;				//충전용 자국 계좌 번호
 	private String bankName;				//충전용 자국 계좌 이름
-
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<UserCard> userCards;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<UserCourse> userCourses;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Stamp> stamps;
 }
