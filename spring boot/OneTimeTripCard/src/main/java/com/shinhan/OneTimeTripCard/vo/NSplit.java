@@ -25,8 +25,7 @@ public class NSplit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private Card card;
-	private User user;
+	private UserCard userCard;
 	private Integer amount; 
 	private LocalDateTime splitDate; 
 }
