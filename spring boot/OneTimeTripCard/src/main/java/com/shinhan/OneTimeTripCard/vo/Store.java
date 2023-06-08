@@ -1,9 +1,12 @@
 package com.shinhan.OneTimeTripCard.vo;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,13 +21,20 @@ import lombok.ToString;
 @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor  
+@NoArgsConstructor
 @Table
 @Entity
 public class Store {
 	@Id
-	private String storeNo;			//가맹점번호
-	private String storeName;			//가맹점이름
-	private Integer courseNodeId;	//해당코스아이디
+	private String no; // 가맹점번호
+	private String storeName; // 가맹점이름
 
+	@ManyToOne
+	private CourseNode courseNode; // 코스에 포함되지 않는 가맹점 -> null
+	
+	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+	private List<Purchase> purchases;
+
+	private Double latitude; // 위도
+	private Double longitude; // 경도
 }
