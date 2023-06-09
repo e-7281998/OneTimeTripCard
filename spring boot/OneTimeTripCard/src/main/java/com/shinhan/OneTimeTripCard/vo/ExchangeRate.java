@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,14 +22,25 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ExchangeRate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //pk
-	private String curUni;  // 통화코드
-	private String curName ; // 국가/통화명
+	
+	@JsonProperty("cur_unit")
+	private String curUnit;  // 통화코드
+	
+	@JsonProperty("cur_nm")
+	private String curName; // 국가/통화명
+	
+	@JsonProperty("ttb")
 	private String ttb; // 전신환(송금) 받으실때
+	
+	@JsonProperty("tts")
 	private String tts; // 전신환(송금) 보내실때
+	
+	@JsonProperty("deal_bas_r")
 	private String dealBasRate; // 매매 기준율
 
 	  // 이 테이블은 9시~ 3시30분 - 1분단위 업데이트
