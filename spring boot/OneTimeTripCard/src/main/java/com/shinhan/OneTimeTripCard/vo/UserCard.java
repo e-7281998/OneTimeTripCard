@@ -42,7 +42,7 @@ public class UserCard {
 	@NotNull
 	private User user;
 	@ManyToOne
-	@JoinColumn(name = "card_id")
+	@JoinColumn(name = "card_no")
 	private Card card; // 카드넘버
 	@OneToOne
 	@JoinColumn(name = "manager_id")
@@ -69,7 +69,7 @@ public class UserCard {
 	private Integer discountAmount; // 받은 혜택 총액
 	private Integer rechargeCount; // 재충전 횟수
 	private Boolean status; // 카드 삭제 여부 Y, N
-	private LocalDateTime createAt; // 카드 생성날짜
+	private LocalDateTime createdAt; // 카드 생성날짜
 	private LocalDateTime expiredAt; // 만료날짜
 	private Boolean isGroup; // Y, N
 	// 모임통장 삭제시 활성화된 user_card 주인들의
