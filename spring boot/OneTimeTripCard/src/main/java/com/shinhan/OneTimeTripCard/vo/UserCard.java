@@ -16,12 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -33,6 +36,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table
 @Entity
+@RequiredArgsConstructor
 public class UserCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,15 +69,25 @@ public class UserCard {
 	@OneToMany(mappedBy = "userCard", fetch = FetchType.LAZY)
 	private List<Charge> charges;
 
+	@ColumnDefault("0")
 	private Integer balance; // 카드잔액
+	
+	@ColumnDefault("0")
 	private Integer discountAmount; // 받은 혜택 총액
+	
+	@ColumnDefault("0")
 	private Integer rechargeCount; // 재충전 횟수
-	private Boolean status; // 카드 삭제 여부 Y, N
+	
+	@ColumnDefault("1")
+	private Boolean status; // 카드 상태 1 : 사용, 0 : 해지 Y, N default
 	private LocalDateTime createdAt; // 카드 생성날짜
 	private LocalDateTime expiredAt; // 만료날짜
+	
+	@NotNull
 	private Boolean isGroup; // Y, N
 	// 모임통장 삭제시 활성화된 user_card 주인들의
 	// status를 전부 비활성화 시켜준다.
+	@ColumnDefault("0")
 	private Boolean isDefault; // Y, N 기본카드
 
 }
