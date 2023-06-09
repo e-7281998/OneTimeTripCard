@@ -16,11 +16,11 @@ public class ExchangeRateTest {
 	
 //	@Test
 	void callTheAPI() {
-		try {
-			exchangeRateScheduler.saveRateOpeningHour();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+////			exchangeRateScheduler.saveRateOpeningHour();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }
