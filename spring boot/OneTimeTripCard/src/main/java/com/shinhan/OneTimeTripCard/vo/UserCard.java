@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.sun.istack.NotNull;
 
@@ -80,6 +81,8 @@ public class UserCard {
 	
 	@ColumnDefault("1")
 	private Boolean status; // 카드 상태 1 : 사용, 0 : 해지 Y, N default
+	
+	@CreationTimestamp
 	private LocalDateTime createdAt; // 카드 생성날짜
 	private LocalDateTime expiredAt; // 만료날짜
 	

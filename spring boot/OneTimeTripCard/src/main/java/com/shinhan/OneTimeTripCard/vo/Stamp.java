@@ -1,10 +1,14 @@
 package com.shinhan.OneTimeTripCard.vo;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.sun.istack.NotNull;
 
@@ -38,4 +42,7 @@ public class Stamp {
 	@ManyToOne
 	@NotNull
 	private Store store;
+	
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 }
