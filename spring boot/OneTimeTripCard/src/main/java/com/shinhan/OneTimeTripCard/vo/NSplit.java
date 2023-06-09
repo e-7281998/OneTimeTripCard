@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +35,8 @@ public class NSplit {
 	@OneToOne
 	@JoinColumn(name = "user_card_id")
 	private UserCard userCard;
-	private Integer amount; 
+	private Integer amount;
+	
+	@CreationTimestamp
 	private LocalDateTime splitDate;
 }

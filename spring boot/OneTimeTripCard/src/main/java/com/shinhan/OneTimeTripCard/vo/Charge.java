@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -36,5 +38,7 @@ public class Charge {
 	private Double amount; // 충전 금액(자국 통화)
 	private Integer amountWon; // 충전 금액(원화)
 	private Double commissionPct; // 수수료
+	
+	@CreationTimestamp
 	private LocalDateTime createdAt;
 }
