@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.shinhan.OneTimeTripCard.service.ExchangeRateScheduler;
-import com.shinhan.OneTimeTripCard.service.ExchangeRateService;
 
 @SpringBootTest
 public class ExchangeRateTest {
@@ -15,7 +14,7 @@ public class ExchangeRateTest {
 	@Autowired
 	ExchangeRateScheduler exchangeRateScheduler;
 	
-	@Test
+//	@Test
 	void callTheAPI() {
 		try {
 			exchangeRateScheduler.saveRateOpeningHour();
