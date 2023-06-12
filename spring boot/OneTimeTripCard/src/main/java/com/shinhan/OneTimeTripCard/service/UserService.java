@@ -30,4 +30,23 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(email, password);
 	}
 	
+	//email(id)찾기
+	public List<String> findEmail(User user) {
+		List<String> emails = new ArrayList<>();
+		List<User> userInfos = userRepository.findByFirstNameAndLastNameAndPhone(user.getFirstName(), user.getLastName(), user.getPhone()); 
+		for (User userInfo : userInfos) {
+			emails.add(userInfo.getEmail());
+		}
+		return emails;
+	}
+	//비밀번호찾기
+	public String findPwd(String email) {
+		User user = userRepository.findByEmail(email);
+		String pwd = "";
+		if (user != null) {
+			pwd = user.getPassword();
+		}
+		return pwd;
+	}
+	
 }

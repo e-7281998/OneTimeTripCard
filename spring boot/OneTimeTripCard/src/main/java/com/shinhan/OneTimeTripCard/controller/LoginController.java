@@ -33,7 +33,25 @@ public class LoginController {
 		return loginuser;
 	}
 	
+	//id 찾기
+	@GetMapping("/searchUser")
+	public String searchUserbyId(@RequestBody User user) {
+		System.out.println(user.getFirstName());
+	    System.out.println(user.getLastName());
+	    System.out.println(user.getPhone());
+	   
+	    List<String> emails = userService.findEmail(user);
+	   
+	    return emails.toString();
+	}
 	
-	
+	//password찾기
+	@GetMapping("/searchPwd")
+	public String searchPwdbyId(@RequestBody User user) {
+		String pwd = userService.findPwd(user.getEmail());
+	    System.out.println(pwd);
+	    
+	    return pwd;
+	}
 
 }
