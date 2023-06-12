@@ -1,5 +1,6 @@
 package com.shinhan.OneTimeTripCard.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -35,7 +37,8 @@ public class CourseNode {
 	@NotNull
 	private Course course;
 	
-	@OneToMany(mappedBy = "courseNode", fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "courseNode", fetch = FetchType.EAGER)
 	private List<Store> stores;
 	
 	private Double latitude; // 위도
