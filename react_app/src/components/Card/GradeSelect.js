@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * 작성자 : 손준범
@@ -23,7 +24,14 @@ function GradeSelect(props) {
     const [gradeList, setGradeList] = useState([basicGrade]);
     const [grade, setGrade] = useState(basicGrade);
     const [gradeNames, setGradeNames] = useState([]);
-
+    const navigate = useNavigate();
+    const benefits = [
+        { id: 1, category: '대형마트', benefitName: '이마트', discountRate: 0.05, detail: '(주말-온라인 결제 제외)건당 3만원-10만원 결제 시, 5% 할인(최대 5천원 할인) ' },
+        { id: 5, category: '관광지', benefitName: '롯데월드', discountRate: 0.3, detail: '(온라인 결제 제외)건당 3만원-5만원 결제 시, 30% 입장료 할인(최대 5천원 할인)' },
+        { id: 7, category: '뷰티', benefitName: '올리브영', discountRate: 0.1, detail: '(온라인 결제 제외)건당 3만원-5만원 결제 시, 10% 할인(최대 5천원 할인)' },
+        { id: 9, category: '약국', benefitName: '약국', discountRate: 0.05, detail: '건당 3만원-5만원 결제 시, 5% 할인(최대 2.5천원 할인)' },
+        { id: 11, category: '편의점', benefitName: 'cu', discountRate: 0.05, detail: '건당 1만원-2만원 결제 시, 5% 할인(최대 1천원 할인)' }
+    ];
     useEffect(() => {
         axios({
             method: "get",
@@ -46,6 +54,42 @@ function GradeSelect(props) {
         })
     }
 
+    function purchase() {
+        let myBenefits = []
+        for (let i = 0; i < grade.benefitCount; ++i) {
+            myBenefits.push(benefits[i]);
+        }
+        axios({
+            method: "post",
+            url: "/user-card/purchase",
+            data: {
+                user: { id: 1 },
+                grade: grade,
+                nickName: 'testCard',
+                benefits: myBenefits
+            }
+        }).then(res => {
+            // 성공 후 결제 완료 창으로 이동
+            navigate('/card/complete-purchase', {
+                state: {
+                    userCard: res.data
+                }
+            })
+            console.log(res.data);
+        }).catch(error => { console.log(error); throw new Error(error); });
+    }
+
+    /**
+     * 혜택 선택 페이지로 이동
+     */
+    const goToSelectBenefits = () => {
+        navigate('/card/benefit-custom', {
+            state: {
+                grade: grade
+            }
+        });
+    }
+
     return (
         <div>
             <Container>
@@ -58,8 +102,6 @@ function GradeSelect(props) {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {gradeNames.map(gradeName => <Dropdown.Item key={gradeName} onClick={selectGrade}>{gradeName}</Dropdown.Item>)}
-                                {/* onclick method 만들고 바뀔때 setGrade해주기*/}
-
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
@@ -78,18 +120,18 @@ function GradeSelect(props) {
                 </Row>
                 <Row>
                     <Col>즉시 환급률</Col>
-                    <Col>{grade.refundRate}</Col>
+                    <Col>{grade.refundRate * 100}%</Col>
                 </Row>
                 <Row>
                     <Col>혜택 커스텀</Col>
-                    <Col></Col>
+                    <Col><Button onClick={goToSelectBenefits}>커스텀 하기</Button></Col>
                 </Row>
                 <Row>
                     <Col>재 충전 동일 혜택 수</Col>
                     <Col>{grade.maxRechargeCount}</Col>
                 </Row>
             </Container>
-            <Button>구입하기</Button>
+            <Button onClick={purchase}>구입하기</Button>
         </div>
     );
 }
