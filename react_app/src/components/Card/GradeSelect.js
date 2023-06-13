@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * 작성자 : 손준범
@@ -23,7 +24,7 @@ function GradeSelect(props) {
     const [gradeList, setGradeList] = useState([basicGrade]);
     const [grade, setGrade] = useState(basicGrade);
     const [gradeNames, setGradeNames] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         axios({
             method: "get",
@@ -46,6 +47,17 @@ function GradeSelect(props) {
         })
     }
 
+    /**
+     * 혜택 선택 페이지로 이동
+     */
+    const goToSelectBenefits = () => {
+        navigate('/card/benefit-custom', {
+            state: {
+                grade: grade
+            }
+        });
+    }
+
     return (
         <div>
             <Container>
@@ -58,8 +70,6 @@ function GradeSelect(props) {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {gradeNames.map(gradeName => <Dropdown.Item key={gradeName} onClick={selectGrade}>{gradeName}</Dropdown.Item>)}
-                                {/* onclick method 만들고 바뀔때 setGrade해주기*/}
-
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
@@ -78,11 +88,11 @@ function GradeSelect(props) {
                 </Row>
                 <Row>
                     <Col>즉시 환급률</Col>
-                    <Col>{grade.refundRate}</Col>
+                    <Col>{grade.refundRate * 100}%</Col>
                 </Row>
                 <Row>
                     <Col>혜택 커스텀</Col>
-                    <Col></Col>
+                    <Col><Button onClick={goToSelectBenefits}>커스텀 하기</Button></Col>
                 </Row>
                 <Row>
                     <Col>재 충전 동일 혜택 수</Col>
