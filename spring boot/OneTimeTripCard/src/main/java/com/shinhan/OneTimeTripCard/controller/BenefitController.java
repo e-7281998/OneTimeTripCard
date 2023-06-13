@@ -2,6 +2,7 @@ package com.shinhan.OneTimeTripCard.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public class BenefitController {
 	
 	private final BenefitService benefitService;
 	
+	@GetMapping("/getAll")
 	public List<Benefit> findAll() {
 		return benefitService.findAll();
 	}
