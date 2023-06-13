@@ -25,12 +25,12 @@ import "assets/scss/argon-design-system-react.scss?v1.1.0";
 
 import Index from "views/Index.js";
 import Landing from "views/examples/Landing.js";
-import Login from "views/examples/Login.js";
 import Profile from "views/examples/Profile.js";
 import Register from "views/examples/Register.js";
 import UserHome from "routes/UserHome";
 import CardHome from "routes/CardHome";
 import TripHome from "routes/TripHome";
+import LoginHome from "routes/LoginHome";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -39,7 +39,7 @@ root.render(
     <Routes>
       <Route path="/" exact element={<Index />} />
       <Route path="/landing-page" exact element={<Landing />} />
-      <Route path="/login-page" exact element={<Login />} />
+      <Route path="/login/*" element={<LoginHome />} />
       <Route path="/profile-page" exact element={<Profile />} />
       <Route path="/register-page" exact element={<Register />} />
       <Route path="/user/*" element={<UserHome />} />
