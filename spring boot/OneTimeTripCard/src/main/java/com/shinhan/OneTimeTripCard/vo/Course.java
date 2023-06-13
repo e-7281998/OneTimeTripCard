@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +33,8 @@ public class Course {
 	private String location;
 	private Double latitude; // 위도
 	private Double longitude; // 경도
-	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
 	private List<CourseNode> courseNodes;
 }
