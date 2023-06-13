@@ -25,6 +25,13 @@ function GradeSelect(props) {
     const [grade, setGrade] = useState(basicGrade);
     const [gradeNames, setGradeNames] = useState([]);
     const navigate = useNavigate();
+    const benefits = [
+        { id: 1, category: '대형마트', benefitName: '이마트', discountRate: 0.05, detail: '(주말-온라인 결제 제외)건당 3만원-10만원 결제 시, 5% 할인(최대 5천원 할인) ' },
+        { id: 5, category: '관광지', benefitName: '롯데월드', discountRate: 0.3, detail: '(온라인 결제 제외)건당 3만원-5만원 결제 시, 30% 입장료 할인(최대 5천원 할인)' },
+        { id: 7, category: '뷰티', benefitName: '올리브영', discountRate: 0.1, detail: '(온라인 결제 제외)건당 3만원-5만원 결제 시, 10% 할인(최대 5천원 할인)' },
+        { id: 9, category: '약국', benefitName: '약국', discountRate: 0.05, detail: '건당 3만원-5만원 결제 시, 5% 할인(최대 2.5천원 할인)' },
+        { id: 11, category: '편의점', benefitName: 'cu', discountRate: 0.05, detail: '건당 1만원-2만원 결제 시, 5% 할인(최대 1천원 할인)' }
+    ];
     useEffect(() => {
         axios({
             method: "get",
@@ -45,6 +52,31 @@ function GradeSelect(props) {
                 setGrade(g);
             }
         })
+    }
+
+    function purchase() {
+        let myBenefits = []
+        for (let i = 0; i < grade.benefitCount; ++i) {
+            myBenefits.push(benefits[i]);
+        }
+        axios({
+            method: "post",
+            url: "/user-card/purchase",
+            data: {
+                user: { id: 1 },
+                grade: grade,
+                nickName: 'testCard',
+                benefits: myBenefits
+            }
+        }).then(res => {
+            // 성공 후 결제 완료 창으로 이동
+            navigate('/card/complete-purchase', {
+                state: {
+                    userCard: res.data
+                }
+            })
+            console.log(res.data);
+        }).catch(error => { console.log(error); throw new Error(error); });
     }
 
     /**
@@ -99,7 +131,7 @@ function GradeSelect(props) {
                     <Col>{grade.maxRechargeCount}</Col>
                 </Row>
             </Container>
-            <Button>구입하기</Button>
+            <Button onClick={purchase}>구입하기</Button>
         </div>
     );
 }
