@@ -34,6 +34,7 @@ import TripHome from "routes/TripHome";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
+  <>
   <BrowserRouter>
       <DemoNavbar />
       <section className="section">
