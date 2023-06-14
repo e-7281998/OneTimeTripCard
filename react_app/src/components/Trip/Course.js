@@ -21,15 +21,13 @@ function Course(props) {
         latlng: new kakao.maps.LatLng(item.latitude, item.longitude),
       });
     });
-    var selectedMarker = null; // 클릭한 마커를 담을 변수
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc =
-      "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    var imageSrc = require("assets/img/icons/ottc/course_maker.png");
 
     positions.map((item) => {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(24, 35);
+      var imageSize = new kakao.maps.Size(34, 34);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
