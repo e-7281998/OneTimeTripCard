@@ -30,6 +30,8 @@ import Register from "views/examples/Register.js";
 import UserHome from "routes/UserHome";
 import CardHome from "routes/CardHome";
 import TripHome from "routes/TripHome";
+import DemoNavbar from "components/Navbars/DemoNavbar copy";
+import LoginHome from "routes/LoginHome";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
