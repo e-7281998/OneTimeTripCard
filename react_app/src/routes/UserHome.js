@@ -1,15 +1,15 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import MyPage from 'views/User/MyPage';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import MyPage from "views/User/MyPage";
 
 function UserHome(props) {
-    return (
-        <div>
-            <Routes>
-                <Route path='/' element={<MyPage />} />
-            </Routes>
-        </div>
-    );
+  return (
+    <main>
+      <Routes>
+        <Route path="/" element={<MyPage />} />
+      </Routes>
+    </main>
+  );
 }
 
 export default UserHome;
