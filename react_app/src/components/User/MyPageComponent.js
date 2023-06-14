@@ -6,7 +6,9 @@ function MyPageComponent(props) {
   return (
     <div>
       <h1>This is myPage</h1>
-      <Button>정보 수정</Button>
+      <Button>
+        <a href="/user/user-info-update">정보 수정</a>
+      </Button>
       <Button>
         <a href="/card/manage-card">카드 관리</a>
       </Button>
