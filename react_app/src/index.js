@@ -32,10 +32,12 @@ import CardHome from "routes/CardHome";
 import TripHome from "routes/TripHome";
 import LoginHome from "routes/LoginHome";
 import DemoNavbar from "components/Navbars/DemoNavbar";
+ 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
+  <>
   <BrowserRouter>
     <DemoNavbar />
     <section className="section">
