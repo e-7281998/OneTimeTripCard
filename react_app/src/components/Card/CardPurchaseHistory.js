@@ -24,7 +24,7 @@ function CardPurchaseHistory(props) {
                 <Row>
                     <Col>구매일</Col><Col>상품명</Col><Col>결제 금액</Col>
                 </Row>
-                {userCards.length !== 0 && userCards.map((userCard, index) => (
+                {userCards.map((userCard, index) => (
                     <Row key={index}>
                         <Col>{userCard.createdAt}</Col>
                         <Col>{userCard.card?.cardDesign?.cardName}</Col>
