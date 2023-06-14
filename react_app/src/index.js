@@ -30,22 +30,25 @@ import Register from "views/examples/Register.js";
 import UserHome from "routes/UserHome";
 import CardHome from "routes/CardHome";
 import TripHome from "routes/TripHome";
-import LoginHome from "routes/LoginHome";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
+      <DemoNavbar />
+      <section className="section">
     <Routes>
-      <Route path="/" exact element={<Index />} />
       <Route path="/landing-page" exact element={<Landing />} />
+      <Route path="/" exact element={<Index />} />
       <Route path="/login/*" element={<LoginHome />} />
-      <Route path="/profile-page" exact element={<Profile />} />
       <Route path="/register-page" exact element={<Register />} />
+      <Route path="/profile-page" exact element={<Profile />} />
       <Route path="/user/*" element={<UserHome />} />
       <Route path="/card/*" element={<CardHome />} />
       <Route path="/trip/*" element={<TripHome />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-  </BrowserRouter>
+      </section>
+    </BrowserRouter>
+  </>
 );
