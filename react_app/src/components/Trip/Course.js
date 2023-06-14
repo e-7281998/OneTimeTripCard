@@ -2,11 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { MapContext } from "./Map";
 
 function Course(props) {
-  // const { kakao, course } = props;
-  const { kakao, course } = useContext(MapContext);
-
+  const { kakao, course, changeValue } = useContext(MapContext);
   //지도 생성
   useEffect(() => {
+    console.log("여기");
+
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
@@ -14,8 +14,8 @@ function Course(props) {
       };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
     var positions = [];
+
     course.map((item) => {
       positions.push({
         id: item.id,
@@ -44,12 +44,17 @@ function Course(props) {
 
       //마커에 클릭 이벤트 등록
       kakao.maps.event.addListener(marker, "click", () => {
+        changeValue();
         console.log(item);
       });
     });
-  }, [course]);
+  });
 
-  return <div id="map"></div>;
+  return (
+    <>
+      <div id="map"></div>
+    </>
+  );
 }
 
 export default Course;
