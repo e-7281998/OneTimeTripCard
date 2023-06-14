@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import "assets/css/trip.css";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
 import Course from "./Course";
 const { kakao } = window;
 
+const MapContext = createContext();
 function Map(props) {
   const [course, setCourse] = useState([]);
   const [node, setNode] = useState([]);
@@ -24,10 +25,17 @@ function Map(props) {
   }, []);
 
   return (
-    <Container>
-      <Course kakao={kakao} course={course} />
-    </Container>
+    <MapContext.Provider
+      value={{
+        kakao: kakao,
+        course: course,
+      }}
+    >
+      <Container>
+        <Course />
+      </Container>
+    </MapContext.Provider>
   );
 }
 
-export default Map;
+export { Map as default, MapContext };

@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { MapContext } from "./Map";
 
 function Course(props) {
-  const { kakao, course } = props;
+  // const { kakao, course } = props;
+  const { kakao, course } = useContext(MapContext);
 
   //지도 생성
   useEffect(() => {
