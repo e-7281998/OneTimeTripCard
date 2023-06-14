@@ -39,7 +39,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
-class DemoNavbar extends React.Component {
+class DemoNavbarCopy extends React.Component {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
@@ -276,11 +276,10 @@ class DemoNavbar extends React.Component {
               </UncontrolledCollapse>
             </Container>
           </Navbar>
-          <div>ssddd</div>
         </header>
       </>
     );
   }
 }
 
-export default DemoNavbar;
+export default DemoNavbarCopy;
