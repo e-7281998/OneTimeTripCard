@@ -54,4 +54,5 @@ root.render(
       </Routes>
     </section>
   </BrowserRouter>
+ </>
 );
