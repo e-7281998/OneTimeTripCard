@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { selectUserCardsByUserId } from "js/userCard";
-import axios from 'axios';
 
 function CardPurchaseHistory(props) {
 
