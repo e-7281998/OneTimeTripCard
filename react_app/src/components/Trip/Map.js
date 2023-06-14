@@ -9,10 +9,15 @@ const { kakao } = window;
 
 const MapContext = createContext();
 function Map(props) {
+  var initialMapInfo = {
+    id: 0,
+    nodeId: 0,
+  };
   const [course, setCourse] = useState([]);
   const [node, setNode] = useState([]);
   const [store, setStore] = useState([]);
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState(0);
+  const [mapInfo, setMapInfo] = useState(initialMapInfo);
 
   async function getCourse() {
     const courses = await axios.get("/trip/course");
@@ -42,17 +47,20 @@ function Map(props) {
   return (
     <MapContext.Provider
       value={{
-        kakao: kakao,
-        course: course,
+        kakao,
+        course,
+        nodes: node,
+        store,
+        mapInfo,
         changeValue,
       }}
     >
       <Container>
-        {value == 0 && <Course />}
-        {value == 1 && <Node />}
-        {value == 2 && <Store />}
+        {value === 0 && <Course />}
+        {value === 1 && <Node />}
+        {value === 2 && <Store />}
       </Container>
-      {value != 0 && <button onClick={changeValue}>이전</button>}
+      {value !== 0 && <button onClick={changeValue}>이전</button>}
     </MapContext.Provider>
   );
 }
