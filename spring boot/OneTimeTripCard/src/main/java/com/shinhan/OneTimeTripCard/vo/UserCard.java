@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -38,6 +40,7 @@ import lombok.ToString;
 @Table
 @Entity
 @RequiredArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
