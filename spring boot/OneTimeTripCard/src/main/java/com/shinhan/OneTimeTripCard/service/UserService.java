@@ -26,8 +26,20 @@ public class UserService {
 	}
 	
 	//로그인
-	public User login(String email, String password) {
-		return userRepository.findByEmailAndPassword(email, password);
+	public User login(User user) {
+		System.out.println("aaa");
+		User emailcheck = userRepository.findByEmail(user.getEmail());
+		System.out.println(user.getPassword());
+		
+		if(emailcheck==null) {
+			emailcheck =User.builder().email("0").build();
+		} else if(!user.getPassword().equals(emailcheck.getPassword())) {
+			
+			emailcheck.setEmail("1");
+		}
+		
+		return emailcheck;
+		
 	}
 	
 	//email(id)찾기
@@ -40,13 +52,13 @@ public class UserService {
 		return emails;
 	}
 	//비밀번호찾기
-	public String findPwd(String email) {
-		User user = userRepository.findByEmail(email);
-		String pwd = "";
-		if (user != null) {
-			pwd = user.getPassword();
-		}
-		return pwd;
-	}
+//	public String findPwd(String email) {
+//		User user = userRepository.findByEmail(email);
+//		String pwd = "";
+//		if (user != null) {
+//			pwd = user.getPassword();
+//		}
+//		return pwd;
+//	}
 	
 }

@@ -41,49 +41,54 @@ import { useState } from "react";
 import axios from "axios";
 
 function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
+  //input 입력할때마다 이벤트 발생하여 값 받음
+  const handleInputEmail = (e) => {
+    setInputEmail(e.target.value);
+    console.log(e.target.value);
   };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+  const handleInputPassword = (e) => {
+    setInputPassword(e.target.value);
   };
 
   const onClickLogin = (e) => {
+    //기본기능을 수행하지 않음.
     e.preventDefault();
     console.log("click login");
-    console.log("email : ", email);
-    console.log("password : ", password);
+    console.log("email : ", inputEmail);
+    console.log("password : ", inputPassword);
+
     axios({
       method: "post",
       url: "/login",
-      data: { email: email, password: password },
+      data: { email: inputEmail, password: inputPassword },
     })
       .then((res) => {
-        console.log(res);
-        console.log("res.data.userId :: ", res.data.email);
+        console.log("data", res.data);
+        console.log("res.data.ID :: ", res.data.id);
         console.log("res.data.msg :: ", res.data.msg);
-        if (res.data.email === undefined) {
-          // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-          console.log("======================", res.data.msg);
-          alert("입력하신 id 가 일치하지 않습니다.");
-        } else if (res.data.email === null) {
-          // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-          console.log(
-            "======================",
-            "입력하신 비밀번호 가 일치하지 않습니다."
-          );
-          alert("입력하신 비밀번호 가 일치하지 않습니다.");
-        } else if (res.data.email === email) {
-          // id, pw 모두 일치 userId = userId1, msg = undefined
+
+        //로그인 경우를 3가지 case로 나눔
+        var email = res.data.email;
+
+        if (email === "0") {
+          // 일치하는 email 없을 경우
+          console.log("======================", "email을 확인해주세요.");
+          alert("email을 확인해주세요");
+        } else if (email === "1") {
+          // password가 틀린 경우
+          alert("비밀번호를 확인해주세요");
+          console.log("======================", "비밀번호를 확인해주세요");
+        } else {
+          alert("로그인 성공");
           console.log("======================", "로그인 성공");
-          sessionStorage.setItem("user_id", email); // sessionStorage에 id를 user_id라는 key 값으로 저장
-          sessionStorage.setItem("name", res.data.name); // sessionStorage에 id를 user_id라는 key 값으로 저장
+          sessionStorage.setItem("id", inputEmail); // sessionStorage에 id를 email이라는 key 값으로 저장
+
+          // 작업 완료 되면 페이지 이동(새로고침)
+          document.location.href = "/";
         }
-        // 작업 완료 되면 페이지 이동(새로고침)
-        document.location.href = "/";
       })
       .catch();
   };
@@ -124,9 +129,9 @@ function Login(props) {
                           <Input
                             placeholder="Email"
                             type="email"
-                            name="email"
-                            value={email}
-                            onChange={handleEmail}
+                            name="input_email"
+                            value={inputEmail}
+                            onChange={handleInputEmail}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -140,31 +145,22 @@ function Login(props) {
                           <Input
                             placeholder="Password"
                             type="password"
-                            name="password"
+                            name="input_password"
                             autoComplete="off"
-                            value={password}
-                            onChange={handlePassword}
+                            value={inputPassword}
+                            onChange={handleInputPassword}
                           />
                         </InputGroup>
                       </FormGroup>
-                      <div className="custom-control custom-control-alternative custom-checkbox">
-                        <input
-                          className="custom-control-input"
-                          id=" customCheckLogin"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor=" customCheckLogin"
-                        >
-                          <span>Remember me</span>
-                        </label>
-                      </div>
                       <div className="text-center">
+                        {/* 아이디 또는 비밀번호 입력안하면 버튼 비활성화 */}
                         <Button
+                          disabled={
+                            inputEmail.length === 0 ||
+                            inputPassword.length === 0
+                          }
                           className="my-4"
                           color="primary"
-                          type="submit"
                           onClick={onClickLogin}
                         >
                           Sign in
@@ -175,20 +171,12 @@ function Login(props) {
                 </Card>
                 <Row className="mt-3">
                   <Col xs="6">
-                    <a
-                      className="text-light"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
+                    <a href="login/find-password" className="text-light">
                       <small>Forgot password?</small>
                     </a>
                   </Col>
                   <Col className="text-right" xs="6">
-                    <a
-                      className="text-light"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                    >
+                    <a href="/login/sign-up" className="text-light">
                       <small>Create new account</small>
                     </a>
                   </Col>
