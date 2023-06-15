@@ -8,13 +8,17 @@ function Node(props) {
     var positions = [];
     var linePath = [];
 
-    //선택한 Course에 해당하는 Node만 배열에 담기
-    var node = nodes.filter((item) => item.course.id === mapInfo.id);
+    // //선택한 Course에 해당하는 Node만 배열에 담기
+    var node = nodes.filter((item) => {
+      return item.course === mapInfo.id;
+    });
+
+    console.log(node);
 
     node.map((item) => {
       positions.push({
         id: item.id,
-        courseId: item.course.id,
+        courseId: item.course,
         title: item.location,
         latlng: new kakao.maps.LatLng(item.latitude, item.longitude),
       });
@@ -34,8 +38,6 @@ function Node(props) {
       new kakao.maps.LatLng(positions[0].latlng.Ma, positions[0].latlng.La)
     );
 
-    console.log(linePath);
-
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
         center: new kakao.maps.LatLng(
@@ -48,11 +50,11 @@ function Node(props) {
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = require("assets/img/icons/ottc/course_maker.png");
 
-    positions.map((item) => {
+    positions.map((item, index) => {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(34, 34);
+      var imageSize = new kakao.maps.Size(24, 24);
+      var imageSrc = require(`assets/img/icons/ottc/node_maker_${index}.png`);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
