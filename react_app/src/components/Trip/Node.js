@@ -8,13 +8,15 @@ function Node(props) {
     var positions = [];
     var linePath = [];
 
-    //선택한 Course에 해당하는 Node만 배열에 담기
-    var node = nodes.filter((item) => item.course.id === mapInfo.id);
+    // //선택한 Course에 해당하는 Node만 배열에 담기
+    var node = nodes.filter((item) => {
+      return item.course === mapInfo.id;
+    });
 
     node.map((item) => {
       positions.push({
         id: item.id,
-        courseId: item.course.id,
+        courseId: item.course,
         title: item.location,
         latlng: new kakao.maps.LatLng(item.latitude, item.longitude),
       });
@@ -33,8 +35,6 @@ function Node(props) {
     linePath.push(
       new kakao.maps.LatLng(positions[0].latlng.Ma, positions[0].latlng.La)
     );
-
-    console.log(linePath);
 
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
