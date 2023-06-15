@@ -12,6 +12,7 @@ function Map(props) {
   var initialMapInfo = {
     id: 0,
     nodeId: 0,
+    location: "",
   };
   const [course, setCourse] = useState([]);
   const [nodes, setNodes] = useState([]);
@@ -71,6 +72,11 @@ function Map(props) {
       }}
     >
       <Container>
+        <div>
+          {value === 0
+            ? "지역을 선택해주세요."
+            : "선택한 지역 : " + mapInfo.location}
+        </div>
         {value === 0 && <Course />}
         {value === 1 && <Node />}
         {value === 2 && <Store />}
