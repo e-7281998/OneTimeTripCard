@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +32,7 @@ public class Store {
 	private String storeName; // 가맹점이름
 
 	@ManyToOne
+//	@JsonUnwrapped
 	private CourseNode courseNode; // 코스에 포함되지 않는 가맹점 -> null
 	
 	@OneToMany(mappedBy = "store", fetch = FetchType.LAZY)

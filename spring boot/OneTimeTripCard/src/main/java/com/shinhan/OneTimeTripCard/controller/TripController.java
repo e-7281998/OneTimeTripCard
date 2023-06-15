@@ -13,41 +13,56 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shinhan.OneTimeTripCard.repository.CourseNodeRepository;
 import com.shinhan.OneTimeTripCard.repository.CourseRepository;
 import com.shinhan.OneTimeTripCard.repository.StoreRepository;
+import com.shinhan.OneTimeTripCard.service.CourseNodeService;
+import com.shinhan.OneTimeTripCard.service.CourseService;
+import com.shinhan.OneTimeTripCard.service.StoreService;
 import com.shinhan.OneTimeTripCard.vo.Course;
 import com.shinhan.OneTimeTripCard.vo.CourseNode;
 import com.shinhan.OneTimeTripCard.vo.Store;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/trip")
 public class TripController {
-
-	@Autowired
-	CourseRepository courseRepo; 
 	
-	@Autowired
-	CourseNodeRepository nodeRepo;
+//	private final TripService tripService;
 	
-	@Autowired
-	StoreRepository storeRepo;
+	private final CourseService courseService;
+//	private final CourseNodeService courseNodeService;
+//	private final StoreService storeService;
+	
+//
+//	@Autowired
+//	CourseRepository courseRepo; 
+//	
+//	@Autowired
+//	CourseNodeRepository nodeRepo;
+//	
+//	@Autowired
+//	StoreRepository storeRepo;
 	
 	@GetMapping("/course")
 	public List<Course> getCourseInfo() { 
-		List<Course> courseList = (List<Course>) courseRepo.findAll(); 
-		 
-		return courseList;
+		return courseService.findAll();
+//		List<Course> courseList = (List<Course>) courseRepo.findAll(); 
+//		 
+//		return courseList;
 	}
+//	
+//	@GetMapping("/node")
+//	public List<CourseNode> getCourseNodeInfo() { 
+//		return  courseNodeService.findAll();
+////		List<CourseNode> nodeList = (List<CourseNode>) nodeRepo.findAll(); 
+////		return nodeList;
+//	}
 	
-	@GetMapping("/node")
-	public List<CourseNode> getCourseNodeInfo() { 
-		List<CourseNode> nodeList = (List<CourseNode>) nodeRepo.findAll(); 
-		 
-		return nodeList;
-	}
-	
-	@GetMapping("/store")
-	public List<Store> getCourseStoreInfo() { 
-		List<Store> storeList = (List<Store>) storeRepo.findAll(); 
-		 
-		return storeList;
-	}
+//	@GetMapping("/store")
+//	public List<Store> getCourseStoreInfo() { 
+//		return storeService.findAll();
+////		List<Store> storeList = (List<Store>) storeRepo.findAll(); 
+////		 
+////		return storeList;
+//	}
 }
