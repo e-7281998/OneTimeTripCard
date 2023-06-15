@@ -13,6 +13,8 @@ function Node(props) {
       return item.course === mapInfo.id;
     });
 
+    console.log(node);
+
     node.map((item) => {
       positions.push({
         id: item.id,
@@ -48,11 +50,11 @@ function Node(props) {
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = require("assets/img/icons/ottc/course_maker.png");
 
-    positions.map((item) => {
+    positions.map((item, index) => {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(34, 34);
+      var imageSize = new kakao.maps.Size(24, 24);
+      var imageSrc = require(`assets/img/icons/ottc/node_maker_${index}.png`);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);

@@ -43,11 +43,11 @@ function Store(props) {
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = require("assets/img/icons/ottc/course_maker.png");
+    var imageSrc = require("assets/img/icons/ottc/store_maker.png");
 
     positions.map((item) => {
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(34, 34);
+      var imageSize = new kakao.maps.Size(24, 24);
 
       // 마커 이미지를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
