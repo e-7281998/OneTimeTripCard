@@ -47,7 +47,7 @@ public class LoginController {
 	}
 	
 	//아이디찾기
-	@PostMapping("/find-emailpwd")
+	@PostMapping("/find-email")
 	public List<String> findEmail(@RequestBody User user) {
 		System.out.println(user.getFirstName());
 		System.out.println(user.getLastName());
