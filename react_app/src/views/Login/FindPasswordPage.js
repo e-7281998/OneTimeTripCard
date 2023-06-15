@@ -22,7 +22,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import axios from "axios";
 
-function FindEmailPage(props) {
+function FindPasswordPage(props) {
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
@@ -173,4 +173,4 @@ function FindEmailPage(props) {
   );
 }
 
-export default FindEmailPage;
+export default FindPasswordPage;

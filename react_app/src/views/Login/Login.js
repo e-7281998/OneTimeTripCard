@@ -111,7 +111,7 @@ function Login(props) {
           <Container className="pt-lg-7">
             <Row className="justify-content-center">
               <Col lg="5">
-                <Card className="bg-secondary shadow border-0">
+                <Card>
                   <CardHeader className="bg-white pb-5">
                     <div className="btn-wrapper text-center">
                       <p>로고삽입</p>
@@ -171,8 +171,8 @@ function Login(props) {
                 </Card>
                 <Row className="mt-3">
                   <Col xs="6">
-                    <a href="login/find-password" className="text-light">
-                      <small>Forgot password?</small>
+                    <a href="login/find-email" className="text-light">
+                      <small>Forgot email / password?</small>
                     </a>
                   </Col>
                   <Col className="text-right" xs="6">

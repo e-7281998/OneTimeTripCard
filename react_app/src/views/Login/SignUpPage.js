@@ -35,6 +35,9 @@ function SignUpPage(props) {
   const [inputPhone, setInputPhone] = useState("");
   const [inputcurrency, setInputCurrency] = useState("");
 
+  //이메일 중복체크
+  //   const [onCheckEmail, setIsCheckEmail] = useState(false);
+
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
     console.log(e.target.value);
@@ -70,10 +73,29 @@ function SignUpPage(props) {
     console.log("email : ", inputEmail);
     console.log("password : ", inputPassword);
     console.log("password comfirm : ", inputPasswordConfirm);
-    console.log("FistName : ", inputFirstName);
-    console.log("LastName : ", inputLastName);
-    console.log("Phone : ", inputPhone);
+    console.log("fistName : ", inputFirstName);
+    console.log("lastName : ", inputLastName);
+    console.log("phone : ", inputPhone);
     console.log("currency : ", inputcurrency);
+
+    axios({
+      method: "post",
+      url: "/login/sign-up",
+      data: {
+        email: inputEmail,
+        password: inputPassword,
+        firstName: inputFirstName,
+        lastName: inputLastName,
+        phone: inputPhone,
+        preferredCurrency: inputcurrency,
+      },
+    })
+      .then((res) => {
+        console.log("data", res.data);
+      })
+      .catch();
+
+    // document.location.href = "/";
   };
 
   return (
@@ -113,6 +135,7 @@ function SignUpPage(props) {
                             value={inputEmail}
                             onChange={handleInputEmail}
                           />
+                          <button>중복확인</button>
                         </InputGroup>
                       </FormGroup>
                       <FormGroup>
@@ -156,7 +179,7 @@ function SignUpPage(props) {
                           </InputGroupAddon>
                           <Input
                             placeholder="FistName"
-                            type="name"
+                            type="text"
                             value={inputFirstName}
                             onChange={handleInputFirstName}
                           />
@@ -171,7 +194,7 @@ function SignUpPage(props) {
                           </InputGroupAddon>
                           <Input
                             placeholder="LastName"
-                            type="name"
+                            type="text"
                             value={inputLastName}
                             onChange={handleInputLastName}
                           />
@@ -203,7 +226,7 @@ function SignUpPage(props) {
                           </InputGroupAddon>
                           <Input
                             placeholder="선호통화 임시 input"
-                            type="phone"
+                            type="text"
                             value={inputcurrency}
                             onChange={handleInputCurrency}
                           />
