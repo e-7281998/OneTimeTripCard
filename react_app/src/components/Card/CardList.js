@@ -19,8 +19,8 @@ function CardList(props) {
         setRegisterInput({ cardNo: '', nickName: '', isDefault: false });
     }
     // 모달 여는 함수
-    const showRegisterModal = (newUserCard) => {
-        setUserCard(newUserCard);
+    const showRegisterModal = (selectedUserCard) => {
+        setUserCard(selectedUserCard);
         setShow(true);
     }
 
@@ -31,12 +31,12 @@ function CardList(props) {
      * @param {*} event 
      */
     const clickCard = (event) => {
-        const newUserCard = JSON.parse(event.target.parentNode.getAttribute('value'));
-        if (newUserCard.hasOwnProperty('card')) {
-            navigate(`/card/charge/${newUserCard.id}`);
+        const selectedUserCard = JSON.parse(event.target.parentNode.getAttribute('value'));
+        if (selectedUserCard.hasOwnProperty('card')) {
+            navigate(`/card/charge/${selectedUserCard.id}`, { state: selectedUserCard });
         }
         else {
-            showRegisterModal(newUserCard);
+            showRegisterModal(selectedUserCard);
         }
     }
 
