@@ -1,12 +1,12 @@
-import React from 'react';
+import Charge from "components/Card/Charge";
+import React from "react";
 
 function ChargePage(props) {
-    return (
-        <div>
-            <h1>Charge Page</h1>
-
-        </div>
-    );
+  return (
+    <div>
+      <Charge />
+    </div>
+  );
 }
 
 export default ChargePage;
