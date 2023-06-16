@@ -33,7 +33,7 @@ function CardList(props) {
     const clickCard = (event) => {
         const selectedUserCard = JSON.parse(event.target.parentNode.getAttribute('value'));
         if (selectedUserCard.hasOwnProperty('card')) {
-            navigate(`/card/charge/${selectedUserCard.id}`, { state: selectedUserCard });
+            navigate(`/card/charge/${selectedUserCard.id}`, { state: { userCard: selectedUserCard } });
         }
         else {
             showRegisterModal(selectedUserCard);
@@ -84,7 +84,6 @@ function CardList(props) {
                     }
                     return userCard;
                 }));
-
                 handleClose();
             }
 
