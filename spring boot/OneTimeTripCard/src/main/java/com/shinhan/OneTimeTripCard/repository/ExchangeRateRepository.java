@@ -6,4 +6,5 @@ import com.shinhan.OneTimeTripCard.vo.ExchangeRate;
 
 public interface ExchangeRateRepository extends CrudRepository<ExchangeRate, Long> {
 
+	ExchangeRate findByCurUnit(String curUnit);
 }

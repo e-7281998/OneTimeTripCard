@@ -35,22 +35,22 @@ public class ExchangeRateScheduler {
 	private final ExchangeRateRepository exchangeRateRepository;
 	
 	// 개장 시간 내 거래 1
-	@Scheduled(cron = "0 * 9-15 * * 1-5") // 초 분 시간 일 월 요일 - 9시부터 3시까지 1분마다 실행
+	@Scheduled(cron = "0 * 10-15 * * 1-5") // 초 분 시간 일 월 요일 - 9시부터 3시까지 1분마다 실행
 	public void saveRateOpeningHour1() throws IOException {
 		saveTransferRate();
 	}
 	
 	// 개장 시간 내 거래 2
-	@Scheduled(cron = "0 0-30 15 * * 1-5") // 초 분 시간 일 월 요일 - 3시부터 3시30분까지 1분마다 실행
+	@Scheduled(cron = "0 0-29 15 * * 1-5") // 초 분 시간 일 월 요일 - 3시부터 3시30분까지 1분마다 실행
 	public void saveRateOpeningHour2() throws IOException {
 		saveTransferRate();
 	}
 	
 	// 시간외 거래
-	@Scheduled(cron = "0 0/30 4-6 * * 1-5") // 초 분 시간 일 월 요일 - 4시부터 6시까지 30분마다 실행
-	public void saveRateAfterHours() throws IOException {
-		saveTransferRate();
-	}
+//	@Scheduled(cron = "0 0/30 4-6 * * 1-5") // 초 분 시간 일 월 요일 - 4시부터 6시까지 30분마다 실행
+//	public void saveRateAfterHours() throws IOException {
+//		saveTransferRate();
+//	}
 
 	/**
 	 * 한국 수출입 은행에서 환율 정보를 가져와 업데이트한다.
