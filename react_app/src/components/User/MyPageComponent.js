@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 //import DemoNavbar from "components/Navbars/DemoNavbar.js";
 
@@ -7,14 +8,16 @@ function MyPageComponent(props) {
     <div>
       <h1>This is myPage</h1>
       <Button>
-        <a href="/user/user-info-update">정보 수정</a>
+        <Link to="/user/user-info-update">정보 수정</Link>
       </Button>
       <Button>
-        <a href="/card/manage-card">카드 관리</a>
+        <Link to="/card/manage-card">카드 관리</Link>
       </Button>
       <Button>충전하기</Button>
       <Button>사용내역 조회</Button>
-      <Button>혜택 커스텀</Button>
+      <Button>
+        <Link to="/card/benefit-custom">혜택 커스텀</Link>
+      </Button>
     </div>
   );
 }

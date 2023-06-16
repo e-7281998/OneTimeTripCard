@@ -38,7 +38,7 @@ public class UserCardTest {
 		User user = userService.findById(1L);
 		
 		// 2. 등급 정보
-		Grade grade = gradeService.findById(28L); // 28L : Basic 혜택 수 2개
+		Grade grade = gradeService.getGradeById(28L); // 28L : Basic 혜택 수 2개
 		
 		// 3. 혜택 선택(등급에 따른 혜택 수 선택)
 		List<Benefit> benefits = benefitService.findAll();
