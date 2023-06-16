@@ -6,7 +6,15 @@ const selectUserCardsByUserId = (userId) => {
             method: "get",
             url: `/user-card/history/${userId}`,
         }).then((res) => {
-            resolve(res.data);
+            let user = {};
+            const userCards = res.data.map(userCard => {
+                if (userCard.user instanceof Object) {
+                    user = userCard.user;
+                }
+                userCard.user = user;
+                return userCard;
+            });
+            resolve(userCards);
         }).catch(error => { reject(error); });
     })
 }

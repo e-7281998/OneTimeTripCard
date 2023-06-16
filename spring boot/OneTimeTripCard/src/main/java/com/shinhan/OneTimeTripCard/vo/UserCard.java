@@ -87,7 +87,6 @@ public class UserCard {
 	private LocalDateTime createdAt; // 카드 생성날짜
 	private LocalDateTime expiredAt; // 만료날짜
 	
-	@NotNull
 	private Boolean isGroup; // Y, N
 	// 모임통장 삭제시 활성화된 user_card 주인들의
 	// status를 전부 비활성화 시켜준다.
