@@ -51,7 +51,7 @@ function FindEmailPage(props) {
 
     axios({
       method: "post",
-      url: "/login/find-emailpwd",
+      url: "/login/find-email",
       data: {
         firstName: inputFirstName,
         lastName: inputLastName,
@@ -89,7 +89,17 @@ function FindEmailPage(props) {
                 <Card className="bg-secondary shadow border-0">
                   <CardHeader className="bg-white pb-5">
                     <div className="text-center">로고넣기</div>
+
+                    <Col style={{ display: "flex" }}>
+                      <div style={{ margin: "auto" }} className="text-center">
+                        <a href="find-email">Find ID</a>
+                      </div>
+                      <div style={{ margin: "auto" }} href="/find-password">
+                        <a href="find-password">Find Password</a>
+                      </div>
+                    </Col>
                   </CardHeader>
+
                   {/* 여기서부터 회색 칸 안쪽 */}
                   <CardBody className="px-lg-5 py-lg-5">
                     <Form role="form">
