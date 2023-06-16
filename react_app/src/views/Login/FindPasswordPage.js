@@ -22,13 +22,16 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import axios from "axios";
 
-function FindEmailPage(props) {
+function FindPasswordPage(props) {
+  const [inputEmail, setInputEmail] = useState("");
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
 
-  const [userEmail, setUserEmail] = useState([]);
-
+  const handleInputEmail = (e) => {
+    setInputEmail(e.target.value);
+    console.log(e.target.value);
+  };
   const handleInputFirstName = (e) => {
     setInputFirstName(e.target.value);
     console.log(e.target.value);
@@ -60,8 +63,6 @@ function FindEmailPage(props) {
     })
       .then((res) => {
         console.log("data", res.data);
-        //가지고온 데이터를 변수(setUserEmail)에다가 넣음
-        setUserEmail(res.data);
       })
       .catch();
 
@@ -88,11 +89,27 @@ function FindEmailPage(props) {
               <Col lg="5">
                 <Card className="bg-secondary shadow border-0">
                   <CardHeader className="bg-white pb-5">
-                    <div className="text-center">로고넣기</div>
+                    <div className="text-center">PW찾기</div>
                   </CardHeader>
                   {/* 여기서부터 회색 칸 안쪽 */}
                   <CardBody className="px-lg-5 py-lg-5">
                     <Form role="form">
+                      <FormGroup>
+                        <InputGroup className="input-group-alternative mb-3">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-email-83" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="Email"
+                            type="email"
+                            value={inputEmail}
+                            onChange={handleInputEmail}
+                          />
+                          <button>인증하기</button>
+                        </InputGroup>
+                      </FormGroup>
                       <FormGroup>
                         <InputGroup className="input-group-alternative mb-3">
                           <InputGroupAddon addonType="prepend">
@@ -139,18 +156,12 @@ function FindEmailPage(props) {
                         </InputGroup>
                       </FormGroup>
 
-                      <div>
-                        회원 email :
-                        {userEmail.map((item, index) => (
-                          <div key={index}> {item} </div>
-                        ))}
-                      </div>
                       <div className="text-center">
                         <Button
                           disabled={
                             inputFirstName.length === 0 ||
-                            inputLastName === 0 ||
-                            inputPhone === 0
+                            inputLastName.length === 0 ||
+                            inputPhone.length === 0
                           }
                           className="mt-4"
                           color="primary"
@@ -173,4 +184,4 @@ function FindEmailPage(props) {
   );
 }
 
-export default FindEmailPage;
+export default FindPasswordPage;

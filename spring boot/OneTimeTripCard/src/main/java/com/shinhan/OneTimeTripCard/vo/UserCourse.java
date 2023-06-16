@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -27,6 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserCourse {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +40,7 @@ public class UserCourse {
 	private User user; // user id
 	@ManyToOne
 	@NotNull
+	@JsonUnwrapped
 	private Course course; // course id
 	private Date createdAt; // 코스 생성 날짜
 	private Boolean completed; // Y / N

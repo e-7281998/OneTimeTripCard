@@ -12,22 +12,25 @@ function Map(props) {
   var initialMapInfo = {
     id: 0,
     nodeId: 0,
+    location: "",
   };
   const [course, setCourse] = useState([]);
-  const [node, setNode] = useState([]);
-  const [store, setStore] = useState([]);
+  const [nodes, setNodes] = useState([]);
+  const [stores, setStores] = useState([]);
   const [value, setValue] = useState(0);
   const [mapInfo, setMapInfo] = useState(initialMapInfo);
+  const nodeArr = [];
+  const storeArr = [];
 
+  //데이터 받아서 코스에 넣기
   async function getCourse() {
     const courses = await axios.get("/trip/course");
-    setCourse(courses.data);
-    const nodes = await axios.get("/trip/node");
-    setNode(nodes.data);
-    const stores = await axios.get("/trip/store");
-    setStore(stores.data);
+    setCourse(() => {
+      return courses.data;
+    });
   }
 
+  //마커 클릭했을 때 값 변경 시켜서 렌더링할 화면 고르기
   const changeValue = (e) => {
     if (e?.target != null) {
       if (value !== 0) {
@@ -40,22 +43,40 @@ function Map(props) {
     }
   };
 
+  //코스 관련 데이터 받아오기
   useEffect(() => {
     getCourse();
   }, []);
+
+  //노드 데이터 넣기
+  useEffect(() => {
+    course.map((item) => item.courseNodes.map((node) => nodeArr.push(node)));
+    setNodes(nodeArr);
+  }, [course]);
+
+  //스토어 데이터 넣기
+  useEffect(() => {
+    nodes.map((item) => item.stores.map((store) => storeArr.push(store)));
+    setStores(storeArr);
+  }, [nodes]);
 
   return (
     <MapContext.Provider
       value={{
         kakao,
         course,
-        nodes: node,
-        store,
+        nodes: nodes,
+        stores,
         mapInfo,
         changeValue,
       }}
     >
       <Container>
+        <div>
+          {value === 0
+            ? "지역을 선택해주세요."
+            : "선택한 지역 : " + mapInfo.location}
+        </div>
         {value === 0 && <Course />}
         {value === 1 && <Node />}
         {value === 2 && <Store />}

@@ -2,7 +2,6 @@ package com.shinhan.OneTimeTripCard.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +29,31 @@ public class LoginController {
 		System.out.println(loginuser);
 		
 		return loginuser;
+	}
+	
+	//sign up
+	@PostMapping("/sign-up")
+	public User signUp(@RequestBody User user) {
+		System.out.println(user.getEmail());
+		System.out.println(user.getPassword());
+		System.out.println(user.getFirstName());
+		System.out.println(user.getLastName());
+		System.out.println(user.getPhone());
+		System.out.println(user.getPreferredCurrency());
+		
+		userService.signUp(user);	
+		
+		return user;
+	}
+	
+	//아이디찾기
+	@PostMapping("/find-email")
+	public List<String> findEmail(@RequestBody User user) {
+		System.out.println(user.getFirstName());
+		System.out.println(user.getLastName());
+		System.out.println(user.getPhone());
+		List<String> emails = userService.findEmail(user);
+		return emails;
 	}
 	
 	//id 찾기
