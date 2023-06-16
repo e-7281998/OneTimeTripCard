@@ -42,6 +42,7 @@ function Course(props) {
 
       //마커에 클릭 이벤트 등록
       kakao.maps.event.addListener(marker, "click", () => {
+        mapInfo.location = item.title;
         mapInfo.id = item.id;
         changeValue();
         // console.log(item);

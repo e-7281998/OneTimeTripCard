@@ -18,11 +18,19 @@ public class UserService {
 	
 	//회원가입
 	public User signUp(User user) {
-		return userRepository.save(user);
+		userRepository.save(user);
+		return user;
 	}
 	
+	
+	//[이솔]: 마이페이지_유저정보_Read
 	public User findById(Long id) {
 		return userRepository.findById(id).orElse(null);
+	}
+	
+	//[이솔]: 마이페이지_유저정보_Update
+	public User updateUserInfo(User user) {
+		return userRepository.save(user);
 	}
 	
 	//로그인
@@ -37,18 +45,18 @@ public class UserService {
 			
 			emailcheck.setEmail("1");
 		}
-		
 		return emailcheck;
-		
 	}
 	
 	//email(id)찾기
 	public List<String> findEmail(User user) {
+		System.out.println("aaaaa");
 		List<String> emails = new ArrayList<>();
 		List<User> userInfos = userRepository.findByFirstNameAndLastNameAndPhone(user.getFirstName(), user.getLastName(), user.getPhone()); 
 		for (User userInfo : userInfos) {
 			emails.add(userInfo.getEmail());
 		}
+		
 		return emails;
 	}
 	//비밀번호찾기

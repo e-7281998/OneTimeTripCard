@@ -1,8 +1,215 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionContext from "react-bootstrap/AccordionContext";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
+import AccountComponent from "./AccountComponent";
+
+function InfoUpdateComponent() {
+  const [userInfo, setUserInfo] = useState([]);
+  const [eventKey, setEventKey] = useState([]);
+
+  const navi = useNavigate();
+  //const { userid } = useParams(); //파라미터 전달할 때
+
+  useEffect(() => {
+    axios({
+      url: `/user/userInfoGet/1`,
+      method: "get",
+    })
+      .then((r) => {
+        console.log(r.data);
+        setUserInfo(r.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+
+  const handleInsert = () => {
+    axios({
+      url: "/user/userInfoUpdate",
+      method: "put",
+      data: userInfo,
+    })
+      .then((r) => {
+        console.log(r.data);
+        window.location.href = "/user/user-info-update";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return (
+    <Accordion>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>이메일</div>
+            <div>{userInfo.email}</div>
+          </div>
+          <ContextAwareToggle eventKey="0">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="0">
+          <Card.Body className="d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserEmail"
+              aria-label="UserEmail"
+              name="email"
+              defaultValue={userInfo.email}
+              onChange={handleChange}
+            ></input>
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>비밀번호</div>
+            <div>{userInfo.password}</div>
+          </div>
+          <ContextAwareToggle eventKey="1">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="1">
+          <Card.Body className="d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserPassword"
+              aria-label="UserPassword"
+              name="password"
+              defaultValue={userInfo.password}
+              onChange={handleChange}
+            ></input>
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>이름(First Name) / 성(Last Name)</div>
+            <div>
+              {userInfo.firstName} /{userInfo.lastName}
+            </div>
+          </div>
+          <ContextAwareToggle eventKey="2">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="2">
+          <Card.Body className="d-flex">
+            <span>이름</span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserFirstName"
+              aria-label="UserFirstName"
+              name="firstName"
+              defaultValue={userInfo.firstName}
+              onChange={handleChange}
+            ></input>
+
+            <span>성</span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserLastName"
+              aria-label="UserLastName"
+              name="lastName"
+              defaultValue={userInfo.lastName}
+              onChange={handleChange}
+            ></input>
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>전화번호</div>
+            <div>{userInfo.phone}</div>
+          </div>
+          <ContextAwareToggle eventKey="3">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="3">
+          <Card.Body className="d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserPhone"
+              aria-label="UserPhone"
+              name="phone"
+              defaultValue={userInfo.phone}
+              onChange={handleChange}
+            ></input>
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>통화</div>
+            <div>{userInfo.preferredCurrency}</div>
+          </div>
+          <ContextAwareToggle eventKey="4">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="4">
+          <Card.Body className="d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="UserPreferredCurrency"
+              aria-label="UserPreferredCurrency"
+              name="preferredCurrency"
+              defaultValue={userInfo.preferredCurrency}
+              onChange={handleChange}
+            ></input>
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>계좌 등록</div>
+            <div>{userInfo.accountNo}</div>
+          </div>
+          <ContextAwareToggle eventKey="5">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="5">
+          <Card.Body>
+            <AccountComponent userInfo={userInfo} handleChange={handleChange} />
+
+            <Button onClick={handleInsert}>저장</Button>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Card.Header className="d-flex justify-content-between">
+          <div>
+            <div>프로필 이미지 등록</div>
+            <div>----------</div>
+          </div>
+          <ContextAwareToggle eventKey="6">수정</ContextAwareToggle>
+        </Card.Header>
+        <Accordion.Collapse eventKey="6">
+          <Card.Body className="d-flex">---</Card.Body>
+        </Accordion.Collapse>
+      </Card>
+    </Accordion>
+  );
+}
 
 function ContextAwareToggle({ children, eventKey, callback }) {
   const { activeEventKey } = useContext(AccordionContext);
@@ -15,195 +222,18 @@ function ContextAwareToggle({ children, eventKey, callback }) {
   const isCurrentEventKey = activeEventKey === eventKey;
 
   return (
-    <button
-      type="button"
-      style={{ backgroundColor: isCurrentEventKey ? "pink" : "lavender" }}
-      onClick={decoratedOnClick}
-    >
-      {children}
-    </button>
-  );
-}
-
-function InfoUpdateComponent() {
-  return (
-    <Accordion defaultActiveKey="0">
-      <Card>
-        <Card.Header>
-          <ContextAwareToggle eventKey="0">Click me!</ContextAwareToggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey="0">
-          <Card.Body>Hello! I am the body</Card.Body>
-        </Accordion.Collapse>
-      </Card>
-      <Card>
-        <Card.Header>
-          <ContextAwareToggle eventKey="1">Click me!</ContextAwareToggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey="1">
-          <Card.Body>Hello! I am another body</Card.Body>
-        </Accordion.Collapse>
-      </Card>
-    </Accordion>
+    <>
+      <div className="ms-auto p-2">
+        <Button
+          type="button"
+          style={{ backgroundColor: isCurrentEventKey ? "pink" : "lavender" }}
+          onClick={decoratedOnClick}
+        >
+          {children}
+        </Button>
+      </div>
+    </>
   );
 }
 
 export default InfoUpdateComponent;
-
-// !!!!!!지우지 마세요 절대
-// import axios from "axios";
-// import React, { useEffect } from "react";
-// import { Accordion, Button, Card } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-// function InfoUpdateComponent(props) {
-//   useEffect(() => {
-//     axios({
-//       url: "/user/userInfoUpdate",
-//       method: "get",
-//     })
-//       .then((r) => {
-//         console.log(r.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   });
-
-//   return (
-//     <>
-//       <div className="accordion" id="accordionExample">
-//         <div className="accordion-item">
-//           <h2 className="accordion-header">
-//             <button
-//               className="accordion-button"
-//               type="button"
-//               data-bs-toggle="collapse"
-//               data-bs-target="#collapseOne"
-//               aria-expanded="true"
-//               aria-controls="collapseOne"
-//             >
-//               Accordion Item #1
-//             </button>
-//           </h2>
-//           <div
-//             id="collapseOne"
-//             className="accordion-collapse collapse show"
-//             data-bs-parent="#accordionExample"
-//           >
-//             <div className="accordion-body">
-//               <strong>This is the first item's accordion body.</strong> It is
-//               shown by default, until the collapse plugin adds the appropriate
-//               classNamees that we use to style each element. These classNamees
-//               control the overall appearance, as well as the showing and hiding
-//               via CSS transitions. You can modify any of this with custom CSS or
-//               overriding our default variables. It's also worth noting that just
-//               about any HTML can go within the <code>.accordion-body</code>,
-//               though the transition does limit overflow.
-//             </div>
-//           </div>
-//         </div>
-//         <div className="accordion-item">
-//           <h2 className="accordion-header">
-//             <button
-//               className="accordion-button collapsed"
-//               type="button"
-//               data-bs-toggle="collapse"
-//               data-bs-target="#collapseTwo"
-//               aria-expanded="false"
-//               aria-controls="collapseTwo"
-//             >
-//               Accordion Item #2
-//             </button>
-//           </h2>
-//           <div
-//             id="collapseTwo"
-//             className="accordion-collapse collapse"
-//             data-bs-parent="#accordionExample"
-//           >
-//             <div className="accordion-body">
-//               <strong>This is the second item's accordion body.</strong> It is
-//               hidden by default, until the collapse plugin adds the appropriate
-//               classNamees that we use to style each element. These classNamees
-//               control the overall appearance, as well as the showing and hiding
-//               via CSS transitions. You can modify any of this with custom CSS or
-//               overriding our default variables. It's also worth noting that just
-//               about any HTML can go within the <code>.accordion-body</code>,
-//               though the transition does limit overflow.
-//             </div>
-//           </div>
-//         </div>
-//         <div className="accordion-item">
-//           <h2 className="accordion-header">
-//             <button
-//               className="accordion-button collapsed"
-//               type="button"
-//               data-bs-toggle="collapse"
-//               data-bs-target="#collapseThree"
-//               aria-expanded="false"
-//               aria-controls="collapseThree"
-//             >
-//               Accordion Item #3
-//             </button>
-//           </h2>
-//           <div
-//             id="collapseThree"
-//             className="accordion-collapse collapse"
-//             data-bs-parent="#accordionExample"
-//           >
-//             <div className="accordion-body">
-//               <strong>This is the third item's accordion body.</strong> It is
-//               hidden by default, until the collapse plugin adds the appropriate
-//               classNamees that we use to style each element. These classNamees
-//               control the overall appearance, as well as the showing and hiding
-//               via CSS transitions. You can modify any of this with custom CSS or
-//               overriding our default variables. It's also worth noting that just
-//               about any HTML can go within the <code>.accordion-body</code>,
-//               though the transition does limit overflow.
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//       {/* <Accordion>
-//         <Accordion.Item eventKey="0">
-//           <Accordion.Header>Accordion Item #1</Accordion.Header>
-//           <Accordion.Body>
-//             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-//             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//             aliquip ex ea commodo consequat. Duis aute irure dolor in
-//             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-//             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//             culpa qui officia deserunt mollit anim id est laborum.
-//           </Accordion.Body>
-//         </Accordion.Item>
-//         <Accordion.Item eventKey="1">
-//           <Accordion.Header>Accordion Item #2</Accordion.Header>
-//           <Accordion.Body>
-//             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-//             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-//             aliquip ex ea commodo consequat. Duis aute irure dolor in
-//             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-//             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-//             culpa qui officia deserunt mollit anim id est laborum.
-//           </Accordion.Body>
-//         </Accordion.Item>
-//       </Accordion>
-
-//       <Card style={{ width: "18rem" }}>
-//         <Card.Img variant="top" src="holder.js/100px180" />
-//         <Card.Body>
-//           <Card.Title>Card Title</Card.Title>
-//           <Card.Text>
-//             Some quick example text to build on the card title and make up the
-//             bulk of the card's content.
-//           </Card.Text>
-//           <Button variant="primary">Go somewhere</Button>
-//         </Card.Body>
-//       </Card> */}
-//     </>
-//   );
-// }
-
-// export default InfoUpdateComponent;

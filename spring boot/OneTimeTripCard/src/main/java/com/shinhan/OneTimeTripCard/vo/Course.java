@@ -9,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +28,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,5 +40,6 @@ public class Course {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+	@JsonUnwrapped
 	private List<CourseNode> courseNodes;
 }
