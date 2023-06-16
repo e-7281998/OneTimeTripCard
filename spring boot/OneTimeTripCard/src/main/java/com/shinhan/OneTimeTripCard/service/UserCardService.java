@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shinhan.OneTimeTripCard.repository.UserCardRepository;
 import com.shinhan.OneTimeTripCard.vo.Card;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
@@ -56,20 +59,35 @@ public class UserCardService {
 		UserCard savedUserCard = findByCard(savedCard);
 		if (savedUserCard == null) {
 			userCard.setCard(savedCard);
+			userCard.setNickName(nickName);
 			userCard.setIsDefault(isDefault);
-			return save(userCard).toString();
+			return userCardToString(save(userCard));
 		}
 		if (savedUserCard.getUser().equals(userCard.getUser())) {
 			return "alreadyRegistered";
 		}
 		if (savedUserCard.getIsGroup()) {
+			savedUserCard.setNickName(nickName);
 			savedUserCard.setIsDefault(isDefault);
-			return save(savedUserCard).toString();
+			return userCardToString(save(savedUserCard));
 		}
 		return "alreadyRegistered";
 	}
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
+	}
+	
+	private String userCardToString(UserCard userCard) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		String result = "";
+		try {
+			result = mapper.writeValueAsString(userCard);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
