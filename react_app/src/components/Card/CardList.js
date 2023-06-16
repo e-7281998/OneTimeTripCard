@@ -5,11 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function CardList(props) {
     const [userCards, setUserCards] = useState([]);
     const [userCard, setUserCard] = useState({});
     const [show, setShow] = useState(false);
     const [registerInput, setRegisterInput] = useState({ cardNo: '', nickName: '', isDefault: false });
+    const navigate = useNavigate();
 
     // 모달 닫는 함수
     const handleClose = () => {
@@ -17,14 +19,25 @@ function CardList(props) {
         setRegisterInput({ cardNo: '', nickName: '', isDefault: false });
     }
     // 모달 여는 함수
-    const showRegisterModal = async (event) => {
-        setUserCard(() => {
-            const newUserCard = JSON.parse(event.target.parentNode.getAttribute('value'));
-            if (newUserCard.card === null) {
-                setShow(true);
-            }
-            return newUserCard;
-        });
+    const showRegisterModal = (newUserCard) => {
+        setUserCard(newUserCard);
+        setShow(true);
+    }
+
+    /**
+     * 카드 클릭시 행동
+     * 1. 등록카드 -> 카드 충전 페이지로 이동
+     * 2. 미등록카드 -> 등록 프로세스
+     * @param {*} event 
+     */
+    const clickCard = (event) => {
+        const newUserCard = JSON.parse(event.target.parentNode.getAttribute('value'));
+        if (newUserCard.hasOwnProperty('card')) {
+            navigate(`/card/charge/${newUserCard.id}`);
+        }
+        else {
+            showRegisterModal(newUserCard);
+        }
     }
 
     const userId = 1;
@@ -92,7 +105,7 @@ function CardList(props) {
                     <Col>기본카드</Col>
                 </Row>
                 {userCards.map((userCard, index) => (
-                    <Row key={index} onClick={showRegisterModal} value={JSON.stringify(userCard)}>
+                    <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
                         <Col>{userCard.nickName}</Col>
                         <Col>{userCard.card?.cardNo}</Col>
                         <Col>{userCard.card?.cardName}</Col>
