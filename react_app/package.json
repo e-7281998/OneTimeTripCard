@@ -57,6 +57,8 @@
     "react": ">=16.0.0",
     "react-bootstrap": "^2.7.4",
     "react-datetime": "3.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": ">=16.0.0",
     "react-icons": "^4.9.0",
     "react-router-dom": "6.11.1",

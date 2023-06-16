@@ -4,20 +4,18 @@ import AccordionContext from "react-bootstrap/AccordionContext";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import AccountComponent from "./AccountComponent";
 
 function InfoUpdateComponent() {
   const [userInfo, setUserInfo] = useState([]);
-  const [eventKey, setEventKey] = useState([]);
-
-  const navi = useNavigate();
+  const { userid } = { userid: 1 };
   //const { userid } = useParams(); //파라미터 전달할 때
 
   useEffect(() => {
+    console.log();
     axios({
-      url: `/user/userInfoGet/1`,
+      url: `/user/userInfoGet/${userid}`,
       method: "get",
     })
       .then((r) => {
