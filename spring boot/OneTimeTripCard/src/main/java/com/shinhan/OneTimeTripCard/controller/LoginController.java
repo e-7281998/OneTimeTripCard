@@ -2,11 +2,14 @@ package com.shinhan.OneTimeTripCard.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shinhan.OneTimeTripCard.service.MailService;
 import com.shinhan.OneTimeTripCard.service.UserService;
 import com.shinhan.OneTimeTripCard.vo.User;
 
@@ -19,6 +22,10 @@ public class LoginController {
 
 	private final UserService userService;
 	
+	//email인증
+	@Resource(name = "mailService")
+	private MailService mailService;
+		
 	//login
 	@PostMapping()
 	public User login(@RequestBody User user) {
@@ -46,15 +53,32 @@ public class LoginController {
 		return user;
 	}
 	
-	//아이디찾기
+	//id(email)찾기
 	@PostMapping("/find-email")
 	public List<String> findEmail(@RequestBody User user) {
 		System.out.println(user.getFirstName());
 		System.out.println(user.getLastName());
 		System.out.println(user.getPhone());
+		
 		List<String> emails = userService.findEmail(user);
 		return emails;
 	}
+	
+	//password찾기
+	@PostMapping("/find-password")
+	public User findPwd(@RequestBody User user) {
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhone());
+		
+		//인증번호 보내기
+		System.out.println("메일 보내기 탔나?");
+		mailService.sendSimpleEmail();
+		
+		return null;
+	}
+	
+	
+	
 	
 	//id 찾기
 //	@GetMapping("/searchUser")

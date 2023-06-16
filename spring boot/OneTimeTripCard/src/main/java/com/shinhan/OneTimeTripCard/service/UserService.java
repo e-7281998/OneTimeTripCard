@@ -59,14 +59,7 @@ public class UserService {
 		
 		return emails;
 	}
-	//비밀번호찾기
-//	public String findPwd(String email) {
-//		User user = userRepository.findByEmail(email);
-//		String pwd = "";
-//		if (user != null) {
-//			pwd = user.getPassword();
-//		}
-//		return pwd;
-//	}
+	
+	
 	
 }
