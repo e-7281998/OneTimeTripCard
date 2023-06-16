@@ -22,8 +22,15 @@ public class UserService {
 		return user;
 	}
 	
+	
+	//[이솔]: 마이페이지_유저정보_Read
 	public User findById(Long id) {
 		return userRepository.findById(id).orElse(null);
+	}
+	
+	//[이솔]: 마이페이지_유저정보_Update
+	public User updateUserInfo(User user) {
+		return userRepository.save(user);
 	}
 	
 	//로그인

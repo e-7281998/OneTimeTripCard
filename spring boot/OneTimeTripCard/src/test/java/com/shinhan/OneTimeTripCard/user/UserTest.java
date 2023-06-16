@@ -44,7 +44,7 @@ public class UserTest {
 			users.add(user);
 		}
 		for (User user : users) {
-			savedUsers.add(userService.save(user));
+			//savedUsers.add(userService.save(user));
 		}
 		Assertions.assertThat(savedUsers.size()).isEqualTo(banks.length);
 		for (int i = 0; i < users.size(); ++i ) {

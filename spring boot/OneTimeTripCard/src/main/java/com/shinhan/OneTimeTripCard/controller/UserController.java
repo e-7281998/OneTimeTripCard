@@ -1,8 +1,10 @@
 package com.shinhan.OneTimeTripCard.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,11 +27,15 @@ public class UserController {
 		return userService.signUp(user);
 	}
 	
-	//정보수정
-	@GetMapping("/userInfoUpdate")
-	public User userInfoUpdate() {
-		System.out.println(userService.findById(21L).getEmail()); 
-		return userService.findById(21L);
-		
+	//[이솔]: 마이페이지_유저정보_Read
+	@GetMapping("/userInfoGet/1")
+	public User userInfoGet() {
+		return userService.findById(1L);
+	}
+	
+	//[이솔]: 마이페이지_유저정보_Update
+	@PutMapping(value="/userInfoUpdate")
+	public User userInUpdate(@RequestBody User user) {
+		return userService.updateUserInfo(user);
 	}
 }
