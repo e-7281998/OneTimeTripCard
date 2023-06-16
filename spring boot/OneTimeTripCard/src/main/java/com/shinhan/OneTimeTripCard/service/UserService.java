@@ -42,7 +42,6 @@ public class UserService {
 		if(emailcheck==null) {
 			emailcheck =User.builder().email("0").build();
 		} else if(!user.getPassword().equals(emailcheck.getPassword())) {
-			
 			emailcheck.setEmail("1");
 		}
 		return emailcheck;

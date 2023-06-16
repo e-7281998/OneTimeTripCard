@@ -17,5 +17,5 @@ public interface UserRepository extends CrudRepository<User, Long>{
 	public List<User> findByFirstNameAndLastNameAndPhone(String firstName, String lastName, String phone);
 	
 	//비밀번호찾기(인증번호 구현해야함)
-	
+	public User findByEmailAndPassword(String email, String password);
 }

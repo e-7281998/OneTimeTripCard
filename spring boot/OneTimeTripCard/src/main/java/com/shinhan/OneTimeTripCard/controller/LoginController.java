@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shinhan.OneTimeTripCard.service.MailService;
@@ -70,11 +71,12 @@ public class LoginController {
 		System.out.println(user.getEmail());
 		System.out.println(user.getPhone());
 		
-		//인증번호 보내기
+		//임시비밀번호 보내기
 		System.out.println("메일 보내기 탔나?");
-		mailService.sendSimpleEmail();
 		
-		return null;
+		User emailcheck = mailService.updatePwd(user);
+		mailService.sendSimpleEmail(user);
+		return emailcheck;
 	}
 	
 	
