@@ -15,7 +15,7 @@ public class GradeService {
 
 	private final GradeRepository gradeRepository;
 	
-	public Grade findById(Long id) {
+	public Grade getGradeById(Long id) {
 		return gradeRepository.findById(id).orElse(null);
 	}
 	

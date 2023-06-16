@@ -3,6 +3,7 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +29,9 @@ public class UserController {
 	}
 	
 	//[이솔]: 마이페이지_유저정보_Read
-	@GetMapping("/userInfoGet/1")
-	public User userInfoGet() {
-		return userService.findById(1L);
+	@GetMapping("/userInfoGet/{userid}")
+	public User userInfoGet(@PathVariable Long userid) {
+		return userService.findById(userid);
 	}
 	
 	//[이솔]: 마이페이지_유저정보_Update
