@@ -32,6 +32,6 @@ public class Card {
 	@NotNull
 	private CardDesign cardDesign;
 	
-	@OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
-	private List<UserCard> userCards;
+//	@OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+//	private List<UserCard> userCards;
 }

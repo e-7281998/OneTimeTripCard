@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import BenefitCustomPage from 'views/Card/BenefitCustomPage';
 import CardManagePage from 'views/Card/CardManagePage';
 import CardPurchasePage from 'views/Card/CardPurchasePage';
+import ChargePage from 'views/Card/ChargePage';
 import CompletePurchasePage from 'views/Card/CompletePurchasePage';
 
 function CardHome(props) {
@@ -14,6 +15,7 @@ function CardHome(props) {
                 <Route path='/purchase' element={<CardPurchasePage />} />
                 <Route path='/benefit-custom' element={<BenefitCustomPage />} />
                 <Route path='/complete-purchase' element={<CompletePurchasePage />} />
+                <Route path='/charge/:userCardId' element={<ChargePage />} />
             </Routes>
         </div>
     );

@@ -24,20 +24,10 @@ import axios from "axios";
 
 function FindPasswordPage(props) {
   const [inputEmail, setInputEmail] = useState("");
-  const [inputFirstName, setInputFirstName] = useState("");
-  const [inputLastName, setInputLastName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
-    console.log(e.target.value);
-  };
-  const handleInputFirstName = (e) => {
-    setInputFirstName(e.target.value);
-    console.log(e.target.value);
-  };
-  const handleInputLastName = (e) => {
-    setInputLastName(e.target.value);
     console.log(e.target.value);
   };
   const handleInputPhone = (e) => {
@@ -48,21 +38,40 @@ function FindPasswordPage(props) {
   const onClickOK = (e) => {
     //기본기능을 수행하지 않음.
     e.preventDefault();
-    console.log("fistName : ", inputFirstName);
-    console.log("lastName : ", inputLastName);
     console.log("phone : ", inputPhone);
 
     axios({
       method: "post",
-      url: "/login/find-emailpwd",
+      url: "/login/find-password",
       data: {
-        firstName: inputFirstName,
-        lastName: inputLastName,
+        email: inputEmail,
         phone: inputPhone,
       },
     })
       .then((res) => {
         console.log("data", res.data);
+
+        var email = res.data.email;
+        //이메일이 없을경우
+        if (email === "0") {
+          console.log(
+            "======================",
+            "가입되어있지 않은 email 입니다."
+          );
+          alert("가입되어있지 않은 email 입니다.");
+        } else if (email === "1") {
+          console.log(
+            "======================",
+            "전화번호가 일치하지 않습니다."
+          );
+          alert("전화번호가 일치하지 않습니다.");
+        } else {
+          console.log(
+            "======================",
+            "임시비밀번호를 전송하였습니다."
+          );
+          alert("임시 비밀번호를 전송하였습니다.");
+        }
       })
       .catch();
 
@@ -90,6 +99,14 @@ function FindPasswordPage(props) {
                 <Card className="bg-secondary shadow border-0">
                   <CardHeader className="bg-white pb-5">
                     <div className="text-center">PW찾기</div>
+                    <Col style={{ display: "flex" }}>
+                      <div style={{ margin: "auto" }} className="text-center">
+                        <a href="find-email">Find ID</a>
+                      </div>
+                      <div style={{ margin: "auto" }} href="/find-password">
+                        <a href="find-password">Find Password</a>
+                      </div>
+                    </Col>
                   </CardHeader>
                   {/* 여기서부터 회색 칸 안쪽 */}
                   <CardBody className="px-lg-5 py-lg-5">
@@ -106,37 +123,6 @@ function FindPasswordPage(props) {
                             type="email"
                             value={inputEmail}
                             onChange={handleInputEmail}
-                          />
-                          <button>인증하기</button>
-                        </InputGroup>
-                      </FormGroup>
-                      <FormGroup>
-                        <InputGroup className="input-group-alternative mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-email-83" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            placeholder="FistName"
-                            type="text"
-                            value={inputFirstName}
-                            onChange={handleInputFirstName}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                      <FormGroup>
-                        <InputGroup className="input-group-alternative mb-3">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-email-83" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            placeholder="LastName"
-                            type="text"
-                            value={inputLastName}
-                            onChange={handleInputLastName}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -158,17 +144,13 @@ function FindPasswordPage(props) {
 
                       <div className="text-center">
                         <Button
-                          disabled={
-                            inputFirstName.length === 0 ||
-                            inputLastName.length === 0 ||
-                            inputPhone.length === 0
-                          }
+                          disabled={inputPhone.length === 0}
                           className="mt-4"
                           color="primary"
                           type="submit"
                           onClick={onClickOK}
                         >
-                          OK
+                          인증번호 발송
                         </Button>
                       </div>
                     </Form>
