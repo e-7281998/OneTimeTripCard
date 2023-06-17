@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
+import CardDefaultInfo from "./CardDefaultInfo";
 
 
 function Charge(props) {
@@ -13,16 +13,7 @@ function Charge(props) {
   const navigate = useNavigate();
   return (
     <>
-      <Card className="mb-3 text-center btn-block" >
-        <Card.Body >
-          카드 잔액 <span> 22,400 W</span>
-        </Card.Body>
-        <Card.Img className="m-auto" src={require("assets/img/card/cardImg1.png")} style={{ width: '13rem' }} />
-        <Card.Body>
-          미국 <span>골드</span>
-        </Card.Body>
-      </Card>
-
+      <CardDefaultInfo />
       <Form className="m-auto" style={{ width: '400px' }}>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
