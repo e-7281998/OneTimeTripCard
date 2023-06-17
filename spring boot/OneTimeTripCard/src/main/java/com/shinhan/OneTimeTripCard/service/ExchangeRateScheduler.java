@@ -110,7 +110,7 @@ public class ExchangeRateScheduler {
 		for (ExchangeRate savedExchangeRate : savedExchangeRates) {
 			ExchangeRate exchangeRate = exchangeRates.get(savedExchangeRate.getCurUnit());
 			savedExchangeRate.setDealBasRate(exchangeRate.getDealBasRate());
-			savedExchangeRate.setTtb(exchangeRate.getTtb());
+			savedExchangeRate.setTtb(exchangeRate.getTtb().replace(",", ""));
 			savedExchangeRate.setTts(exchangeRate.getTts());
 		}
 		
