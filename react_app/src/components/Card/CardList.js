@@ -125,6 +125,7 @@ function CardList(props) {
           <Col>등급</Col>
           <Col>그룹카드</Col>
           <Col>기본카드</Col>
+          <Col></Col>
         </Row>
         {userCards.map((userCard, index) => (
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
@@ -135,6 +136,8 @@ function CardList(props) {
             <Col>{userCard.grade?.gradeName}</Col>
             <Col>{userCard.isGroup ? "Yes" : "No"}</Col>
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
+            {/* 수정사항 : 선택한 카드 아이디 보내기 */}
+            <Col><Button onClick={() => navigate('/card/history/10')}>사용내역</Button></Col>
           </Row>
         ))}
       </Container>

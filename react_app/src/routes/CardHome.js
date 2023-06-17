@@ -5,6 +5,7 @@ import CardManagePage from 'views/Card/CardManagePage';
 import CardPurchasePage from 'views/Card/CardPurchasePage';
 import ChargePage from 'views/Card/ChargePage';
 import CompletePurchasePage from 'views/Card/CompletePurchasePage';
+import HistoryPage from 'views/Card/HistoryPage';
 
 function CardHome(props) {
     return (
@@ -16,6 +17,7 @@ function CardHome(props) {
                 <Route path='/benefit-custom' element={<BenefitCustomPage />} />
                 <Route path='/complete-purchase' element={<CompletePurchasePage />} />
                 <Route path='/charge/:userCardId' element={<ChargePage />} />
+                <Route path='/history/:userCardId' element={<HistoryPage />} />
             </Routes>
         </div>
     );
