@@ -23,7 +23,7 @@ public class ChargeService {
      * @return
      */
     @Transactional
-    public Charge charge(@RequestBody Charge charge) {
+    public Charge charge(Charge charge) {
         Charge afterCharge = chargeRepository.save(charge);
         UserCard userCard = afterCharge.getUserCard();
         userCard.setBalance(userCard.getBalance() + charge.getAmountWon());
