@@ -122,6 +122,34 @@ public class UserCardTest {
 //		UserCard userCard = (UserCard)map.get("userCard");
 		
 	}
+
+	@Test
+	void deleteTest() {
+		Long [] ids = { 300L, 107L, 107L };
+		String [] results = { "notValidId", "succeed", "alreadyDeactivated" };
+		for (int i = 0; i < ids.length; ++i) {
+			Assertions.assertThat(userCardService.deactivateUserCard(ids[i])).isEqualTo(results[i]);
+		}
+	}
+
+	@Test
+	void transferBetweenUserCards() {
+		Long from = 107L;
+		Long to = 90L;
+		int amount = userCardService.transferBetweenUserCards(from, to);
+		Assertions.assertThat(amount).isEqualTo(500000);
+		amount = userCardService.transferBetweenUserCards(from, to);
+		Assertions.assertThat(amount).isEqualTo(0);
+	}
+
+	@Test
+	void refund() {
+		Long userCardId = 76L;
+		int refundAmount = userCardService.refund(userCardId);
+		UserCard userCard = userCardService.findById(userCardId);
+		Assertions.assertThat(refundAmount).isEqualTo(120000);
+		Assertions.assertThat(userCard.getBalance()).isEqualTo(0);
+	}
 	
 	private String registerTest(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		return userCardService.register(userCard, cardNo, nickName, isDefault);

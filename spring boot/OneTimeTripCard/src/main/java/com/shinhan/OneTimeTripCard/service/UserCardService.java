@@ -12,6 +12,8 @@ import com.shinhan.OneTimeTripCard.vo.Card;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Service
@@ -76,6 +78,74 @@ public class UserCardService {
 
 	public UserCard findById(Long id) {
 		return userCardRepository.findById(id).orElse(null);
+	}
+
+	/**
+	 * 유저카드 삭제(비활성화) 하는 기능
+	 * 1. userCardId가 유효한지 확인
+	 * 2. 이미 비활성화 했는지 확인
+	 * 3. 카드가 유효하고, 활성화 상태이면 비활성화
+	 * 4. Transactional 처리는 Dirty Check를 통한 update를 위해 사용
+	 * @param userCardId
+	 * @return
+	 */
+	@Transactional
+	public String deactivateUserCard(Long userCardId) {
+		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
+		if (userCard == null) {
+			return "notValidId";
+		}
+		if (!userCard.getStatus()) {
+			return "alreadyDeactivated";
+		}
+		userCard.setStatus(false);
+//		save(userCard);
+		return "succeed";
+	}
+
+	/**
+	 * 유저카드 -> 유저카드 잔액 전송
+	 * 1. from, to가 request body에 들어오지 않으면 전송 실패
+	 * 2. 둘 중 하나가 유효하지 않은 아이디면 return
+	 * 3. 이 외, 보내는 카드의 잔액을 받는 카드의 잔액에 더해주고, 그만큼의 금액을 리턴
+	 * Dirty checking을 위해 @Transactional 사용
+	 * @param from
+	 * @param to
+	 * @return 전송한 금액
+	 */
+	@Transactional
+	public int transferBetweenUserCards(Long from, Long to) {
+		if (from == null || to == null) {
+			return 0;
+		}
+		UserCard sender = userCardRepository.findById(from).orElse(null);
+		UserCard receiver = userCardRepository.findById(to).orElse(null);
+		if (sender == null || receiver == null) {
+			return 0;
+		}
+		int amount = sender.getBalance();
+		receiver.setBalance(receiver.getBalance() + amount);
+		sender.setBalance(0);
+		return amount;
+	}
+
+	/**
+	 * 유저카드 환불 기능
+	 * 1. userCardId를 기반으로 userCard 검색
+	 * 2. 유효하지 않은 카드는 0원 환불(return 0)
+	 * 3. 잔액을 0으로 만들고 차감한 금액만큼 return
+	 * @param userCardId
+	 * @return
+	 */
+	@Transactional
+	public int refund(Long userCardId) {
+		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
+		if (userCard == null) {
+			return 0;
+		}
+		int amount = userCard.getBalance();
+		userCard.setBalance(0);
+		return amount;
 	}
 	
 	private UserCard findByCard(Card card) {

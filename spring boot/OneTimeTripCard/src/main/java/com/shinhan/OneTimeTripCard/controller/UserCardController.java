@@ -3,9 +3,11 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +44,23 @@ public class UserCardController {
 		String cardNo = (String) map.get("cardNo");
 		String nickName = (String) map.get("nickName");
 		Boolean isDefault = (Boolean) map.get("isDefault");
-		return userCardService.register(userCard, cardNo, nickName, isDefault);	
+		return userCardService.register(userCard, cardNo, nickName, isDefault);
+	}
+
+	@DeleteMapping("/delete/{userCardId}")
+	public String deactivateUserCard(@PathVariable Long userCardId) {
+		return userCardService.deactivateUserCard(userCardId);
+	}
+
+	@PutMapping("/transfer/user-cards")
+	public int transferBetweenUserCards(@RequestBody Map<String, Object> userCards) {
+		Long from = (Long) userCards.get("from");
+		Long to = (Long) userCards.get("to");
+		return userCardService.transferBetweenUserCards(from, to);
+	}
+
+	@PutMapping("/refund/{userCardId}")
+	public int refund(@PathVariable Long userCardId) {
+		return userCardService.refund(userCardId);
 	}
 }
