@@ -122,6 +122,15 @@ public class UserCardTest {
 //		UserCard userCard = (UserCard)map.get("userCard");
 		
 	}
+
+	@Test
+	void deleteTest() {
+		Long [] ids = { 300L, 107L, 107L };
+		String [] results = { "notValidId", "succeed", "alreadyDeactivated" };
+		for (int i = 0; i < ids.length; ++i) {
+			Assertions.assertThat(userCardService.deactivateUserCard(ids[i])).isEqualTo(results[i]);
+		}
+	}
 	
 	private String registerTest(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		return userCardService.register(userCard, cardNo, nickName, isDefault);
