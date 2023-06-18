@@ -102,6 +102,32 @@ public class UserCardService {
 //		save(userCard);
 		return "succeed";
 	}
+
+	/**
+	 * 유저카드 -> 유저카드 잔액 전송
+	 * 1. from, to가 request body에 들어오지 않으면 전송 실패
+	 * 2. 둘 중 하나가 유효하지 않은 아이디면 return
+	 * 3. 이 외, 보내는 카드의 잔액을 받는 카드의 잔액에 더해주고, 그만큼의 금액을 리턴
+	 * Dirty checking을 위해 @Transactional 사용
+	 * @param from
+	 * @param to
+	 * @return 전송한 금액
+	 */
+	@Transactional
+	public int transferBetweenUserCards(Long from, Long to) {
+		if (from == null || to == null) {
+			return 0;
+		}
+		UserCard sender = userCardRepository.findById(from).orElse(null);
+		UserCard receiver = userCardRepository.findById(to).orElse(null);
+		if (sender == null || receiver == null) {
+			return 0;
+		}
+		int amount = sender.getBalance();
+		receiver.setBalance(receiver.getBalance() + amount);
+		sender.setBalance(0);
+		return amount;
+	}
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
