@@ -57,6 +57,7 @@ class Index extends React.Component {
       <>
         {/* <DemoNavbar /> */}
         <main ref="main">
+          <h1> g</h1>
           <Hero />
           <Buttons />
           <Inputs />
