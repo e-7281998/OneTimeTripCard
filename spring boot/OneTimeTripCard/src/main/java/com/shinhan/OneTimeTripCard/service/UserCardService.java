@@ -73,6 +73,10 @@ public class UserCardService {
 		}
 		return "alreadyRegistered";
 	}
+
+	public UserCard findById(Long id) {
+		return userCardRepository.findById(id).orElse(null);
+	}
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
