@@ -4,6 +4,7 @@ import com.shinhan.OneTimeTripCard.service.ChargeService;
 import com.shinhan.OneTimeTripCard.service.UserCardService;
 import com.shinhan.OneTimeTripCard.vo.Charge;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,12 @@ public class ChargeTest {
         Charge savedCharge = chargeService.charge(charge);
 
         Assertions.assertThat(savedCharge.getUserCard().getBalance()).isEqualTo(money + chargeMoney);
+    }
+
+    @Test
+    void getHistoryByUserCardAndMonth() {
+        Long userCardId = 76L;
+        List<Charge> charges = chargeService.getChargeHistoryByMonth(userCardId, 2023, 6);
+        Assertions.assertThat(charges.size()).isEqualTo(3);
     }
 }
