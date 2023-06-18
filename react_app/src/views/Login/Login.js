@@ -97,9 +97,11 @@ function Login(props) {
 
   return (
     <>
-      <DemoNavbar />
+      {/* <DemoNavbar /> */}
       <main ref={props.ref}>
+        {/* 스크롤 내려가게하는거임 */}
         <section className="section section-shaped section-lg">
+          {/* 파랑색 배경 */}
           <div className="shape shape-style-1 bg-gradient-default">
             <span />
             <span />
@@ -111,6 +113,7 @@ function Login(props) {
             <span />
           </div>
           <Container className="pt-lg-7">
+            {/* 안에 로그인 흰 창 위치 */}
             <Row className="justify-content-center">
               <Col lg="5">
                 <Card>
