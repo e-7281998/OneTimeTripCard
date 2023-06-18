@@ -141,6 +141,15 @@ public class UserCardTest {
 		amount = userCardService.transferBetweenUserCards(from, to);
 		Assertions.assertThat(amount).isEqualTo(0);
 	}
+
+	@Test
+	void refund() {
+		Long userCardId = 76L;
+		int refundAmount = userCardService.refund(userCardId);
+		UserCard userCard = userCardService.findById(userCardId);
+		Assertions.assertThat(refundAmount).isEqualTo(120000);
+		Assertions.assertThat(userCard.getBalance()).isEqualTo(0);
+	}
 	
 	private String registerTest(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		return userCardService.register(userCard, cardNo, nickName, isDefault);
