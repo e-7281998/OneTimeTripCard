@@ -131,6 +131,16 @@ public class UserCardTest {
 			Assertions.assertThat(userCardService.deactivateUserCard(ids[i])).isEqualTo(results[i]);
 		}
 	}
+
+	@Test
+	void transferBetweenUserCards() {
+		Long from = 107L;
+		Long to = 90L;
+		int amount = userCardService.transferBetweenUserCards(from, to);
+		Assertions.assertThat(amount).isEqualTo(500000);
+		amount = userCardService.transferBetweenUserCards(from, to);
+		Assertions.assertThat(amount).isEqualTo(0);
+	}
 	
 	private String registerTest(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		return userCardService.register(userCard, cardNo, nickName, isDefault);
