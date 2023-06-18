@@ -8,12 +8,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public enum ExchangeRateName {
-	DOLLAR("$", "미국 달러", "USD"),
-	EURO("€", "유로", "EUR"),
-	YUAN("元", "위안화", "CNH"),
-	YEN("¥", "일본 엔", "JPY(100)");
+	DOLLAR("$", "미국 달러", "dollar", "USD"),
+	EURO("€", "유로", "euro", "EUR"),
+	YUAN("元", "위안화", "yuan", "CNH"),
+	YEN("¥", "일본 엔", "yen", "JPY(100)");
 	
 	private String symbol;
+	private String engName;
 	private String korName;
 	private String unit;
+
+	public static ExchangeRateName getExchangeRateName(String currencyName) {
+		for (ExchangeRateName exchangeRateName : ExchangeRateName.values()) {
+			if (exchangeRateName.engName.equals(currencyName)) {
+				return exchangeRateName;
+			}
+		}
+		return null;
+	}
 }

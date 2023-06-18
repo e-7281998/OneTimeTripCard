@@ -1,5 +1,6 @@
 package com.shinhan.OneTimeTripCard.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,7 +36,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Table
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -63,12 +64,15 @@ public class UserCard {
 	private List<Benefit> benefits;
 
 	@OneToMany(mappedBy = "userCard", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Delivery> deliveries;
 
 	@OneToMany(mappedBy = "userCard", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Purchase> purchases;
 
 	@OneToMany(mappedBy = "userCard", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Charge> charges;
 
 	@ColumnDefault("0")

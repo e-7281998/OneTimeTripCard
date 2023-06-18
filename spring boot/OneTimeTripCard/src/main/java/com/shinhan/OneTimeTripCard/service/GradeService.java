@@ -18,8 +18,30 @@ public class GradeService {
 	public Grade getGradeById(Long id) {
 		return gradeRepository.findById(id).orElse(null);
 	}
-	
+
 	public List<Grade> getAllGrades() {
 		return (List<Grade>) gradeRepository.findAll();
+	}
+
+	/**
+	 * 등급 이름을 입력받고, 한 등급 높은 등급 리턴
+	 * 1. 0 ~ 마지막 - 1번째의 등급을 순회하며 이름 비교
+	 * 2. 이름이 동일하면, i + 1번째의 등급 리턴
+	 * 3. 끝까지 동일한 이름이 없으면, null 리턴
+	 * @param grade
+	 * @return
+	 */
+	public Grade getNextGrade(String grade) {
+		List<Grade> grades = getAllGradesOrderInOrder();
+		for (int i = 0; i < grades.size() - 1; ++i) {
+			if (grade.equals(grades.get(i).getGradeName())) {
+				return grades.get(i + 1);
+			}
+		}
+		return null;
+	}
+
+	private List<Grade> getAllGradesOrderInOrder() {
+		return gradeRepository.findAllByOrderByPriceAsc();
 	}
 }
