@@ -3,10 +3,13 @@ package com.shinhan.OneTimeTripCard.service;
 import com.shinhan.OneTimeTripCard.repository.ChargeRepository;
 import com.shinhan.OneTimeTripCard.vo.Charge;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +32,12 @@ public class ChargeService {
         userCard.setBalance(userCard.getBalance() + charge.getAmountWon());
         afterCharge.setUserCard(userCardService.save(userCard));
         return afterCharge;
+    }
+
+    public List<Charge> getChargeHistoryByMonth(Long userCardId, int year, int month) {
+        YearMonth standard = YearMonth.of(year, month);
+        LocalDateTime from = LocalDateTime.of(year, month, 1, 0, 0);
+        LocalDateTime to = LocalDateTime.of(standard.atEndOfMonth(), LocalTime.of(23, 59, 59));
+        return chargeRepository.findByUserCard_IdAndCreatedAtBetween(userCardId, from, to);
     }
 }
