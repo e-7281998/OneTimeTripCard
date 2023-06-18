@@ -3,6 +3,7 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,5 +44,10 @@ public class UserCardController {
 		String nickName = (String) map.get("nickName");
 		Boolean isDefault = (Boolean) map.get("isDefault");
 		return userCardService.register(userCard, cardNo, nickName, isDefault);	
+	}
+
+	@DeleteMapping("/delete/{userCardId}")
+	public String deactivateUserCard(@PathVariable Long userCardId) {
+		return userCardService.deactivateUserCard(userCardId);
 	}
 }

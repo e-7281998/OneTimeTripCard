@@ -12,6 +12,8 @@ import com.shinhan.OneTimeTripCard.vo.Card;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Service
@@ -76,6 +78,29 @@ public class UserCardService {
 
 	public UserCard findById(Long id) {
 		return userCardRepository.findById(id).orElse(null);
+	}
+
+	/**
+	 * 유저카드 삭제(비활성화) 하는 기능
+	 * 1. userCardId가 유효한지 확인
+	 * 2. 이미 비활성화 했는지 확인
+	 * 3. 카드가 유효하고, 활성화 상태이면 비활성화
+	 * 4. Transactional 처리는 Dirty Check를 통한 update를 위해 사용
+	 * @param userCardId
+	 * @return
+	 */
+	@Transactional
+	public String deactivateUserCard(Long userCardId) {
+		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
+		if (userCard == null) {
+			return "notValidId";
+		}
+		if (!userCard.getStatus()) {
+			return "alreadyDeactivated";
+		}
+		userCard.setStatus(false);
+//		save(userCard);
+		return "succeed";
 	}
 	
 	private UserCard findByCard(Card card) {
