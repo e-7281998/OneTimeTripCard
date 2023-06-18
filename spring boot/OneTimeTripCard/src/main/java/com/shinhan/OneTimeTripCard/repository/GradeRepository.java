@@ -7,5 +7,5 @@ import com.shinhan.OneTimeTripCard.vo.Grade;
 
 public interface GradeRepository extends CrudRepository<Grade, Long>{
 
-    public List<Grade> findAllOrderByPrice();
+    public List<Grade> findAllByOrderByPriceAsc();
 }
