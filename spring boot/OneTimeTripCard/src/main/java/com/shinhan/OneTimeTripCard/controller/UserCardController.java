@@ -44,7 +44,7 @@ public class UserCardController {
 		String cardNo = (String) map.get("cardNo");
 		String nickName = (String) map.get("nickName");
 		Boolean isDefault = (Boolean) map.get("isDefault");
-		return userCardService.register(userCard, cardNo, nickName, isDefault);	
+		return userCardService.register(userCard, cardNo, nickName, isDefault);
 	}
 
 	@DeleteMapping("/delete/{userCardId}")
@@ -57,5 +57,10 @@ public class UserCardController {
 		Long from = (Long) userCards.get("from");
 		Long to = (Long) userCards.get("to");
 		return userCardService.transferBetweenUserCards(from, to);
+	}
+
+	@PutMapping("/refund/{userCardId}")
+	public int refund(@PathVariable Long userCardId) {
+		return userCardService.refund(userCardId);
 	}
 }

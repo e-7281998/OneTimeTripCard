@@ -128,6 +128,25 @@ public class UserCardService {
 		sender.setBalance(0);
 		return amount;
 	}
+
+	/**
+	 * 유저카드 환불 기능
+	 * 1. userCardId를 기반으로 userCard 검색
+	 * 2. 유효하지 않은 카드는 0원 환불(return 0)
+	 * 3. 잔액을 0으로 만들고 차감한 금액만큼 return
+	 * @param userCardId
+	 * @return
+	 */
+	@Transactional
+	public int refund(Long userCardId) {
+		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
+		if (userCard == null) {
+			return 0;
+		}
+		int amount = userCard.getBalance();
+		userCard.setBalance(0);
+		return amount;
+	}
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
