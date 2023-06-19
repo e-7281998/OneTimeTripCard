@@ -40,6 +40,15 @@ public class GradeService {
 		}
 		return null;
 	}
+	
+	/**
+	 * grade 이름기반 조회
+	 * @param gradeName
+	 * @return
+	 */
+	public Grade getGradeByName(String gradeName) {
+		return gradeRepository.findByGradeName(gradeName);
+	}
 
 	private List<Grade> getAllGradesOrderInOrder() {
 		return gradeRepository.findAllByOrderByPriceAsc();
