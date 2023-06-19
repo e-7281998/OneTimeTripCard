@@ -14,4 +14,6 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
 	public UserCard findByCard(Card card);
 	@Query(value = "SELECT group_sequence.NEXTVAL FROM DUAL", nativeQuery = true)
     Long getNextGroupSequence();
+	
+	public List<UserCard> findByUser_IdAndIsGroup(Long userId, Boolean isGroup);
 }

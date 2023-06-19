@@ -74,4 +74,8 @@ public class TravelWithService {
 				.build();
 		return userCard;
 	}
+
+	public List<UserCard> getAllTravelWithCards(Long userId) {
+		return userCardRepository.findByUser_IdAndIsGroup(userId, true);
+	}
 }
