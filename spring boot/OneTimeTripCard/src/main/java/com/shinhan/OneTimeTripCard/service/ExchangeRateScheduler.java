@@ -109,9 +109,9 @@ public class ExchangeRateScheduler {
 		
 		for (ExchangeRate savedExchangeRate : savedExchangeRates) {
 			ExchangeRate exchangeRate = exchangeRates.get(savedExchangeRate.getCurUnit());
-			savedExchangeRate.setDealBasRate(exchangeRate.getDealBasRate());
+			savedExchangeRate.setDealBasRate(exchangeRate.getDealBasRate().replace(",", ""));
 			savedExchangeRate.setTtb(exchangeRate.getTtb().replace(",", ""));
-			savedExchangeRate.setTts(exchangeRate.getTts());
+			savedExchangeRate.setTts(exchangeRate.getTts().replace(",", ""));
 		}
 		
 		// 업데이트 된 데이터 저장
