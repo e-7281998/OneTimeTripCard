@@ -59,4 +59,11 @@ public class TravelWithTest {
 			Assertions.assertThat(result).isEqualTo(1);
 		}
 	}
+	
+	@Test
+	void getAllTravelWithCardsByUserId() {
+		Long userId = 21L;
+		List<UserCard> travelCards = travelWithService.getAllTravelWithCards(userId);
+		Assertions.assertThat(travelCards.size()).isEqualTo(2);
+	}
 }

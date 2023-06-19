@@ -3,6 +3,8 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,10 @@ public class TravelWithController {
 		List<String> invitedEmails = (List<String>) map.get("emails");
 		Boolean isDefault = (Boolean) map.get("isDefault");
 		return travelWithService.register(managerId, nickName, invitedEmails, isDefault);
+	}
+	
+	@GetMapping("/getAll/{userId}")
+	public List<UserCard> getAllTravelWithCards(@PathVariable Long userId) {
+		return travelWithService.getAllTravelWithCards(userId);
 	}
 }

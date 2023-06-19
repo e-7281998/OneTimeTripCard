@@ -60,6 +60,8 @@ public class TravelWithService {
 	 * managerId를 기반으로 TravelWithCard(공용카드) 생성
 	 * @param user
 	 * @param manager
+	 * @param basicGrade
+	 * @param travelWithId (그룹 카드 id)
 	 * @return
 	 */
 	private UserCard createTravelWithCard(User user, User manager, Grade basicGrade, Long travelWithId) {
@@ -71,5 +73,9 @@ public class TravelWithService {
 				.travelWithId(travelWithId)
 				.build();
 		return userCard;
+	}
+
+	public List<UserCard> getAllTravelWithCards(Long userId) {
+		return userCardRepository.findByUser_IdAndIsGroup(userId, true);
 	}
 }
