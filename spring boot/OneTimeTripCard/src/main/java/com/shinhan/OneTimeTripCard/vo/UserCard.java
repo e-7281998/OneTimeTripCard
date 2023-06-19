@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @Table
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -92,6 +92,8 @@ public class UserCard {
 	private LocalDateTime expiredAt; // 만료날짜
 	
 	private Boolean isGroup; // Y, N
+	
+	private Long travelWithId;
 	// 모임통장 삭제시 활성화된 user_card 주인들의
 	// status를 전부 비활성화 시켜준다.
 	@ColumnDefault("0")

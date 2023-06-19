@@ -36,7 +36,7 @@ public class UserService {
 	//로그인
 	public User login(User user) {
 		System.out.println("aaa");
-		User emailcheck = userRepository.findByEmail(user.getEmail());
+		User emailcheck = findByEmail(user.getEmail());
 		System.out.println(user.getPassword());
 		
 		if(emailcheck==null) {
@@ -59,6 +59,13 @@ public class UserService {
 		return emails;
 	}
 	
-	
+	/**
+	 * 입력된 email을 기반으로 user 정보 찾기
+	 * @param email
+	 * @return 이메일이 유효하면 user, 유효하지 않다면 null 
+	 */
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 	
 }
