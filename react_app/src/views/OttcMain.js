@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import InfiniteCarousel from 'react-leaf-carousel';
+import InfiniteCarousel from "react-leaf-carousel";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 
@@ -21,23 +21,22 @@ import Typography from "./IndexSections/Typography.js";
 import Modals from "./IndexSections/Modals.js";
 import Datepicker from "./IndexSections/Datepicker.js";
 import TooltipPopover from "./IndexSections/TooltipPopover.js";
-import SimpleFooter from 'components/Footers/SimpleFooter.js';
+import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 function OttcMain(props) {
+  // const listOfData = [
+  //   // your data array here
+  // ];
 
-  const listOfData = [
-    // your data array here
+  // function CarouselContainer(props) {
+  //   // render the carousel structure
+  // }
 
-  ]
+  // function renderCard(index, modIndex, cursor) {
+  //   const item = listOfData[modIndex];
+  //   // render the item
+  // }
 
-  function CarouselContainer(props) {
-    // render the carousel structure
-  }
-
-  function renderCard(index, modIndex, cursor) {
-    const item = listOfData[modIndex]
-    // render the item
-  }
   return (
     <div>
       <>
@@ -64,38 +63,25 @@ function OttcMain(props) {
             dots={true}
             showSides={true}
             // 투명도
-            sidesOpacity={.3}
+            sidesOpacity={0.3}
             // 그림 사이즈 (9가제일 작음)
-            sideSize={.9}
+            sideSize={0.9}
             slidesToScroll={1}
             slidesToShow={1}
             scrollOnDevice={true}
           >
             <div>
-              <img
-                alt=''
-                src={require('assets/img/card/cardImg1.png')}
-              />
+              <img alt="" src={require("assets/img/card/cardImg1.png")} />
             </div>
             <div>
-              <img
-                alt=''
-                src={require('assets/img/card/1.png')}
-              />
+              <img alt="" src={require("assets/img/card/1.png")} />
             </div>
             <div>
-              <img
-                alt=''
-                src={require('assets/img/card/2.png')}
-              />
+              <img alt="" src={require("assets/img/card/2.png")} />
             </div>
             <div>
-              <img
-                alt=''
-                src={require('assets/img/card/3.png')}
-              />
+              <img alt="" src={require("assets/img/card/3.png")} />
             </div>
-
           </InfiniteCarousel>
           <section className="section">
             <Container>
