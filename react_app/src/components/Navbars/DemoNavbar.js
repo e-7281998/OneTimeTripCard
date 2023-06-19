@@ -49,6 +49,11 @@ function DemoNavbar(props) {
     };
   }, []);
 
+  const onClickLogOut = (e) => {
+    sessionStorage.clear();
+    document.location.href = "/";
+  };
+
   return (
     <>
       <header className="header-global">
@@ -59,7 +64,11 @@ function DemoNavbar(props) {
         >
           <Container>
             <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-              <img alt="..." src={require("assets/img/brand/logo4.png")} />
+              <img
+                alt="..."
+                src={require("assets/img/brand/navlogo.png")}
+                style={{ height: 38 }}
+              />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar_global">
               <span className="navbar-toggler-icon" />
@@ -198,17 +207,37 @@ function DemoNavbar(props) {
             </Nav> */}
             </UncontrolledCollapse>
             <Link to="/login/sign-up">
-              <Button color="secondary" type="button" style={{ margin: 10 }}>
+              <Button
+                hidden={userId}
+                color="secondary"
+                type="button"
+                style={{ margin: 10 }}
+              >
                 회원가입
               </Button>
             </Link>
 
-            <i className="ni ni-circle-08" disabled={userId === undefined}></i>
+            <Link to="/user/user-info-update">
+              <Button
+                color="secondary"
+                type="button"
+                hidden={!userId}
+                style={{ margin: 10 }}
+              >
+                <i
+                  className="ni ni-circle-08"
+                  style={{ marginLeft: -5, marginRight: 5 }}
+                ></i>
+                My Page
+              </Button>
+            </Link>
 
-            <Button disabled={userId === undefined}>로그아웃</Button>
+            <Button hidden={!userId} onClick={onClickLogOut}>
+              로그아웃
+            </Button>
 
             <Link to="/login">
-              <Button color="secondary" type="button">
+              <Button hidden={userId} color="secondary" type="button">
                 로그인
               </Button>
             </Link>

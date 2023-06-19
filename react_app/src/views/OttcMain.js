@@ -24,23 +24,22 @@ import TooltipPopover from "./IndexSections/TooltipPopover.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 function OttcMain(props) {
-  const listOfData = [
-    // your data array here
-  ];
+  // const listOfData = [
+  //   // your data array here
+  // ];
 
-  function CarouselContainer(props) {
-    // render the carousel structure
-  }
+  // function CarouselContainer(props) {
+  //   // render the carousel structure
+  // }
 
-  function renderCard(index, modIndex, cursor) {
-    const item = listOfData[modIndex];
-    // render the item
-  }
+  // function renderCard(index, modIndex, cursor) {
+  //   const item = listOfData[modIndex];
+  //   // render the item
+  // }
 
   return (
     <div>
       <>
-        <i className="circle-08"></i>
         {/* <DemoNavbar /> */}
         <main ref={props.ref}>
           {/* 카드슬라이드 이미지 */}
