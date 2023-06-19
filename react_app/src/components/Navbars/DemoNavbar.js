@@ -24,28 +24,30 @@ import {
 } from "reactstrap";
 
 function DemoNavbar(props) {
+  const [collapseClasses, setCollapseClasses] = useState("");
+  const [collapseOpen, setCollapseOpen] = useState(false);
+
+  const userId = window.sessionStorage.getItem("id");
+
   useEffect(() => {
+    //let = 변수
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
+    //const = 상수
 
-    const state = {
-      collapseClasses: "",
-      collapseOpen: false,
-    };
-
-    const onExiting = () => {
+    let onExiting = () => {
       this.setState({
         collapseClasses: "collapsing-out",
       });
     };
 
-    const onExited = () => {
+    let onExited = () => {
       this.setState({
         collapseClasses: "",
       });
     };
-  });
+  }, []);
 
   return (
     <>
@@ -65,7 +67,7 @@ function DemoNavbar(props) {
             <UncontrolledCollapse
               toggler="#navbar_global"
               navbar
-              className={useEffect.collapseClasses}
+              className={collapseClasses}
               onExiting={useEffect.onExiting}
               onExited={useEffect.onExited}
             >
@@ -201,9 +203,9 @@ function DemoNavbar(props) {
               </Button>
             </Link>
 
-            <i className="ni ni-circle-08"></i>
+            <i className="ni ni-circle-08" disabled={userId === undefined}></i>
 
-            <Button>로그아웃</Button>
+            <Button disabled={userId === undefined}>로그아웃</Button>
 
             <Link to="/login">
               <Button color="secondary" type="button">
