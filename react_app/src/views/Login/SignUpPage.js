@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
@@ -22,7 +22,6 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import axios from "axios";
 
@@ -34,9 +33,6 @@ function SignUpPage(props) {
   const [inputLastName, setInputLastName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
   const [inputcurrency, setInputCurrency] = useState("");
-
-  //이메일 중복체크
-  //   const [onCheckEmail, setIsCheckEmail] = useState(false);
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
@@ -66,6 +62,21 @@ function SignUpPage(props) {
     setInputCurrency(e.target.value);
     console.log(e.target.value);
   };
+
+  //이메일 중복체크
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "/login/sign-up",
+    })
+      .then((res) => {
+        setInputEmail(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error(error);
+      });
+  }, []);
 
   const onClickSignUp = (e) => {
     //기본기능을 수행하지 않음.
@@ -100,7 +111,6 @@ function SignUpPage(props) {
 
   return (
     <>
-      {/* <DemoNavbar /> */}
       <main ref={props.main}>
         <section className="section section-shaped section-lg">
           <div className="shape shape-style-1 bg-gradient-default">
@@ -135,7 +145,9 @@ function SignUpPage(props) {
                             value={inputEmail}
                             onChange={handleInputEmail}
                           />
-                          <button>중복확인</button>
+                          <Button color="primary" type="button">
+                            중복확인
+                          </Button>
                         </InputGroup>
                       </FormGroup>
                       <FormGroup>
