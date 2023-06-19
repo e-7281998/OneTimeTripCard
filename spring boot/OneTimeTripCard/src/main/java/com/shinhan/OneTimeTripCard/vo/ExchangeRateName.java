@@ -14,8 +14,8 @@ public enum ExchangeRateName {
 	YEN("¥", "일본 엔", "yen", "JPY(100)");
 	
 	private String symbol;
-	private String engName;
 	private String korName;
+	private String engName;
 	private String unit;
 
 	public static ExchangeRateName getExchangeRateName(String currencyName) {
