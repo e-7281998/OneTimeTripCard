@@ -8,4 +8,5 @@ import com.shinhan.OneTimeTripCard.vo.Grade;
 public interface GradeRepository extends CrudRepository<Grade, Long>{
 
     public List<Grade> findAllByOrderByPriceAsc();
+    public Grade findByGradeName(String gradeName);
 }
