@@ -23,4 +23,6 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
 	public List<User> getUsersByTravelWithId(@Param(value = "travelWithId") Long travelWithId);
 	
 	public List<UserCard> findAllByTravelWithId(Long travelWithId);
+	
+	public UserCard findByUser_IdAndTravelWithId(Long userId, Long travelWithId);
 }

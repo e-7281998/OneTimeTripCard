@@ -47,4 +47,11 @@ public class TravelWithController {
 	public UserCard deactivateTravelWithCard(@RequestBody UserCard travelWithCard) {
 		return travelWithService.deactivateTravelWithCard(travelWithCard);
 	}
+	
+	@DeleteMapping("/expel")
+	public UserCard expelMember(@RequestBody Map<String, Object> map) {
+		String email = String.valueOf(map.get("email"));
+		Long travelWithId = (Long) map.get("travelWithId");
+		return travelWithService.expelMember(email, travelWithId);
+	}
 }

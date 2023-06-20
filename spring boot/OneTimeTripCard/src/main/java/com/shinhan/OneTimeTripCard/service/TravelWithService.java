@@ -117,6 +117,20 @@ public class TravelWithService {
 	}
 	
 	/**
+	 * 그룹에서 멤버 한명 내보내기
+	 * @param email
+	 * @param travelWithId
+	 * @return
+	 */
+	@Transactional
+	public UserCard expelMember(String email, Long travelWithId) {
+		User user = userService.findByEmail(email);
+		UserCard expelledUserCard = userCardRepository.findByUser_IdAndTravelWithId(user.getId(), travelWithId);
+		expelledUserCard.setStatus(false);
+		return expelledUserCard;
+	}
+	
+	/**
 	 * travelWithId를 기반으로 포함된 멤버들의 카드 역시 deactivate
 	 * @param travelWithId
 	 */
