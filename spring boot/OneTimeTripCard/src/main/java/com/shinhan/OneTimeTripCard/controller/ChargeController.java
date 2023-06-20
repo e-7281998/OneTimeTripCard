@@ -29,6 +29,6 @@ public class ChargeController {
 
     @GetMapping("/getHistory/{userCardId}") // getMapping이기 때문에 RequestBody가 아니라, Requestparam or pathvariable사용
     public List<Charge> getHistory(@PathVariable Long userCardId, @RequestParam int year, @RequestParam int month) {
-        return chargeService.getChargeHistoryByMonth(userCardId, year, month);
+         return chargeService.getChargeHistoryByMonth(userCardId, year, month);
     }
 }
