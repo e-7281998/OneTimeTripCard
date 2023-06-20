@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.shinhan.OneTimeTripCard.repository.UserCardRepository;
 import com.shinhan.OneTimeTripCard.vo.Grade;
@@ -83,5 +85,45 @@ public class TravelWithService {
 	
 	public List<User> getAllUsersInTravelWithGroup(Long travelWithId) {
 		return userCardRepository.getUsersByTravelWithId(travelWithId);
+	}
+	
+	/**
+	 * 그룹카드 비활성화
+	 * 1. 그룹의 매니저인지확인하고 아니면 notAllowed return
+	 * 2. 그룹에 포함된 다른 사람들 모두 deactivate
+	 * @param travelWithCard
+	 * @return
+	 */
+	@Transactional
+	public UserCard deactivateTravelWithCard(UserCard travelWithCard) {
+		User manager = travelWithCard.getManager();
+		User user = travelWithCard.getUser();
+		if (manager == null || !(manager.getId().equals(user.getId()))) {
+			return null;
+		}
+		travelWithCard.setStatus(false);
+		deactivateMemberCards(travelWithCard.getTravelWithId());
+		
+		return travelWithCard;
+	}
+	
+	/**
+	 * 같은 그룹에 포함된 유저카드 조회
+	 * @param travelWithId
+	 * @return
+	 */
+	public List<UserCard> findAllMemberCards(Long travelWithId) {
+		return userCardRepository.findAllByTravelWithId(travelWithId);
+	}
+	
+	/**
+	 * travelWithId를 기반으로 포함된 멤버들의 카드 역시 deactivate
+	 * @param travelWithId
+	 */
+	private void deactivateMemberCards(Long travelWithId) {
+		List<UserCard> travelWithCards = findAllMemberCards(travelWithId);
+		for (UserCard travelWithCard : travelWithCards) {
+			travelWithCard.setStatus(false);
+		}
 	}
 }

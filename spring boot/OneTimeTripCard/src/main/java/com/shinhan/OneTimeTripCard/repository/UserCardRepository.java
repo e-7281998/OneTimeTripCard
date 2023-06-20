@@ -21,4 +21,6 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
 	
 	@Query ("select uc.user from UserCard uc where uc.travelWithId = :travelWithId")
 	public List<User> getUsersByTravelWithId(@Param(value = "travelWithId") Long travelWithId);
+	
+	public List<UserCard> findAllByTravelWithId(Long travelWithId);
 }

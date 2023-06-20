@@ -3,6 +3,7 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,5 +41,10 @@ public class TravelWithController {
 	@GetMapping("/users/{travelWithId}")
 	public List<User> getAllUsersInTravelWithGroup(@PathVariable Long travelWithId) {
 		return travelWithService.getAllUsersInTravelWithGroup(travelWithId);
+	}
+	
+	@DeleteMapping("/delete")
+	public UserCard deactivateTravelWithCard(@RequestBody UserCard travelWithCard) {
+		return travelWithService.deactivateTravelWithCard(travelWithCard);
 	}
 }
