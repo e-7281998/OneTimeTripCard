@@ -1,9 +1,12 @@
 package com.shinhan.OneTimeTripCard.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shinhan.OneTimeTripCard.service.MailService;
 import com.shinhan.OneTimeTripCard.service.UserService;
+import com.shinhan.OneTimeTripCard.vo.ExchangeRateName;
 import com.shinhan.OneTimeTripCard.vo.User;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +58,14 @@ public class LoginController {
 		return user;
 	}
 	
+	//아이디 중복체크
+	@GetMapping("/sign-up")
+	public int emailDupCheck(@RequestParam String email) {
+		System.out.println(email);
+		
+		return userService.dupCheck(email);
+	}
+	
 	//id(email)찾기
 	@PostMapping("/find-email")
 	public List<String> findEmail(@RequestBody User user) {
@@ -78,29 +90,5 @@ public class LoginController {
 		mailService.sendSimpleEmail(user);
 		return emailcheck;
 	}
-	
-	
-	
-	
-	//id 찾기
-//	@GetMapping("/searchUser")
-//	public String searchUserbyId(@RequestBody User user) {
-//		System.out.println(user.getFirstName());
-//	    System.out.println(user.getLastName());
-//	    System.out.println(user.getPhone());
-//	   
-//	    List<String> emails = userService.findEmail(user);
-//	   
-//	    return emails.toString();
-//	}
-	
-	//password찾기
-//	@GetMapping("/searchPwd")
-//	public String searchPwdbyId(@RequestBody User user) {
-//		String pwd = userService.findPwd(user.getEmail());
-//	    System.out.println(pwd);
-//	    
-//	    return pwd;
-//	}
 
 }

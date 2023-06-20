@@ -68,4 +68,12 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 	
+	public int dupCheck(String email) {
+		User user = findByEmail(email);
+		if (user != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
 }
