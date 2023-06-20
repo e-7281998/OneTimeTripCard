@@ -66,4 +66,14 @@ public class TravelWithTest {
 		List<UserCard> travelCards = travelWithService.getAllTravelWithCards(userId);
 		Assertions.assertThat(travelCards.size()).isEqualTo(2);
 	}
+	
+	@Test
+	void getAllUsersInTravelWithGroup() {
+		Long travelWithId = 2L;
+		List<User> usersInGroup = travelWithService.getAllUsersInTravelWithGroup(travelWithId);
+		for (User user : usersInGroup) {
+			System.out.println(user);
+		}
+		Assertions.assertThat(usersInGroup.size()).isEqualTo(4);
+	}
 }
