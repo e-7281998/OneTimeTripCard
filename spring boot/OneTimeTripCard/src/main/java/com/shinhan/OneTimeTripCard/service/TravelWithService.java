@@ -36,14 +36,14 @@ public class TravelWithService {
 		User manager = userService.findById(managerId);
 		Grade basicGrade = gradeService.getGradeByName("일반");
 		Long travelWithId = userCardRepository.getNextGroupSequence();
-		UserCard managerCard = createTravelWithCard(manager, manager, basicGrade, travelWithId);
+		UserCard managerCard = createTravelWithCard(manager, manager, nickName, basicGrade, travelWithId, isDefault);
 		userCards.add(managerCard);
 		for (String invitedEmail : invitedEmails) {
 			User user = userService.findByEmail(invitedEmail);
 			if (user == null) {
 				continue;
 			}
-			UserCard userCard = createTravelWithCard(user, manager, basicGrade, travelWithId);
+			UserCard userCard = createTravelWithCard(user, manager, nickName, basicGrade, travelWithId, isDefault);
 			
 			userCards.add(userCard);
 		}
@@ -64,13 +64,15 @@ public class TravelWithService {
 	 * @param travelWithId (그룹 카드 id)
 	 * @return
 	 */
-	private UserCard createTravelWithCard(User user, User manager, Grade basicGrade, Long travelWithId) {
+	private UserCard createTravelWithCard(User user, User manager, String nickName, Grade basicGrade, Long travelWithId, Boolean isDefault) {
 		UserCard userCard = UserCard.builder()
 				.user(user)
 				.manager(manager)
+				.nickName(nickName)
 				.grade(basicGrade)
 				.isGroup(true)
 				.travelWithId(travelWithId)
+				.isDefault(isDefault)
 				.build();
 		return userCard;
 	}
