@@ -92,4 +92,21 @@ public class TravelWithTest {
 			Assertions.assertThat(travelWithCard.getStatus()).isFalse();
 		}
 	}
+	
+	@Test
+	void expelMemberTest() {
+		String targetMemberEmail = "3333@naver.com";
+		Long travelWithId = 3L;
+		travelWithService.expelMember(targetMemberEmail, travelWithId);
+		List<UserCard> sameGroupCards = travelWithService.findAllMemberCards(travelWithId);
+		Assertions.assertThat(sameGroupCards.size()).isEqualTo(4);
+		for (UserCard sameGroupCard : sameGroupCards) {
+			if (sameGroupCard.getUser().getEmail().equals(targetMemberEmail)) {
+				Assertions.assertThat(sameGroupCard.getStatus()).isFalse();
+			}
+			else {
+				Assertions.assertThat(sameGroupCard.getStatus()).isTrue();
+			}
+		}
+	}
 }
