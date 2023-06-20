@@ -78,4 +78,8 @@ public class TravelWithService {
 	public List<UserCard> getAllTravelWithCards(Long userId) {
 		return userCardRepository.findByUser_IdAndIsGroup(userId, true);
 	}
+	
+	public List<User> getAllUsersInTravelWithGroup(Long travelWithId) {
+		return userCardRepository.getUsersByTravelWithId(travelWithId);
+	}
 }

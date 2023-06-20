@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shinhan.OneTimeTripCard.service.TravelWithService;
+import com.shinhan.OneTimeTripCard.vo.User;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,10 @@ public class TravelWithController {
 	@GetMapping("/getAll/{userId}")
 	public List<UserCard> getAllTravelWithCards(@PathVariable Long userId) {
 		return travelWithService.getAllTravelWithCards(userId);
+	}
+	
+	@GetMapping("/users/{travelWithId}")
+	public List<User> getAllUsersInTravelWithGroup(@PathVariable Long travelWithId) {
+		return travelWithService.getAllUsersInTravelWithGroup(travelWithId);
 	}
 }
