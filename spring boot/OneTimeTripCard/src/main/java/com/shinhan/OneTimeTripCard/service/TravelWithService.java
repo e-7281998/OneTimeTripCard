@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.shinhan.OneTimeTripCard.repository.UserCardRepository;
 import com.shinhan.OneTimeTripCard.vo.Grade;
@@ -36,14 +38,14 @@ public class TravelWithService {
 		User manager = userService.findById(managerId);
 		Grade basicGrade = gradeService.getGradeByName("일반");
 		Long travelWithId = userCardRepository.getNextGroupSequence();
-		UserCard managerCard = createTravelWithCard(manager, manager, basicGrade, travelWithId);
+		UserCard managerCard = createTravelWithCard(manager, manager, nickName, basicGrade, travelWithId, isDefault);
 		userCards.add(managerCard);
 		for (String invitedEmail : invitedEmails) {
 			User user = userService.findByEmail(invitedEmail);
 			if (user == null) {
 				continue;
 			}
-			UserCard userCard = createTravelWithCard(user, manager, basicGrade, travelWithId);
+			UserCard userCard = createTravelWithCard(user, manager, nickName, basicGrade, travelWithId, isDefault);
 			
 			userCards.add(userCard);
 		}
@@ -64,18 +66,78 @@ public class TravelWithService {
 	 * @param travelWithId (그룹 카드 id)
 	 * @return
 	 */
-	private UserCard createTravelWithCard(User user, User manager, Grade basicGrade, Long travelWithId) {
+	private UserCard createTravelWithCard(User user, User manager, String nickName, Grade basicGrade, Long travelWithId, Boolean isDefault) {
 		UserCard userCard = UserCard.builder()
 				.user(user)
 				.manager(manager)
+				.nickName(nickName)
 				.grade(basicGrade)
 				.isGroup(true)
 				.travelWithId(travelWithId)
+				.isDefault(isDefault)
 				.build();
 		return userCard;
 	}
 
 	public List<UserCard> getAllTravelWithCards(Long userId) {
 		return userCardRepository.findByUser_IdAndIsGroup(userId, true);
+	}
+	
+	public List<User> getAllUsersInTravelWithGroup(Long travelWithId) {
+		return userCardRepository.getUsersByTravelWithId(travelWithId);
+	}
+	
+	/**
+	 * 그룹카드 비활성화
+	 * 1. 그룹의 매니저인지확인하고 아니면 notAllowed return
+	 * 2. 그룹에 포함된 다른 사람들 모두 deactivate
+	 * @param travelWithCard
+	 * @return
+	 */
+	@Transactional
+	public UserCard deactivateTravelWithCard(UserCard travelWithCard) {
+		User manager = travelWithCard.getManager();
+		User user = travelWithCard.getUser();
+		if (manager == null || !(manager.getId().equals(user.getId()))) {
+			return null;
+		}
+		travelWithCard.setStatus(false);
+		deactivateMemberCards(travelWithCard.getTravelWithId());
+		
+		return travelWithCard;
+	}
+	
+	/**
+	 * 같은 그룹에 포함된 유저카드 조회
+	 * @param travelWithId
+	 * @return
+	 */
+	public List<UserCard> findAllMemberCards(Long travelWithId) {
+		return userCardRepository.findAllByTravelWithId(travelWithId);
+	}
+	
+	/**
+	 * 그룹에서 멤버 한명 내보내기
+	 * @param email
+	 * @param travelWithId
+	 * @return
+	 */
+	@Transactional
+	public UserCard expelMember(String email, Long travelWithId) {
+		User user = userService.findByEmail(email);
+		UserCard expelledUserCard = userCardRepository.findByUser_IdAndTravelWithId(user.getId(), travelWithId);
+		expelledUserCard.setStatus(false);
+		return expelledUserCard;
+	}
+	
+	/**
+	 * travelWithId를 기반으로 포함된 멤버들의 카드 역시 deactivate
+	 * @param travelWithId
+	 */
+	private void deactivateMemberCards(Long travelWithId) {
+		List<UserCard> travelWithCards = findAllMemberCards(travelWithId);
+		for (UserCard travelWithCard : travelWithCards) {
+			travelWithCard.setStatus(false);
+		}
 	}
 }

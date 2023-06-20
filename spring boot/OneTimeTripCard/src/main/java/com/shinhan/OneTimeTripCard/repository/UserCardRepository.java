@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.shinhan.OneTimeTripCard.vo.Card;
+import com.shinhan.OneTimeTripCard.vo.User;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 public interface UserCardRepository extends CrudRepository<UserCard, Long>{
@@ -16,4 +18,11 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
     Long getNextGroupSequence();
 	
 	public List<UserCard> findByUser_IdAndIsGroup(Long userId, Boolean isGroup);
+	
+	@Query ("select uc.user from UserCard uc where uc.travelWithId = :travelWithId")
+	public List<User> getUsersByTravelWithId(@Param(value = "travelWithId") Long travelWithId);
+	
+	public List<UserCard> findAllByTravelWithId(Long travelWithId);
+	
+	public UserCard findByUser_IdAndTravelWithId(Long userId, Long travelWithId);
 }

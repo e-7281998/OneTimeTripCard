@@ -103,7 +103,25 @@
 ### 유저별 TravelWith 카드 리스트 조회
 * url : /travel-with/getAll/{userId}  
 * method : get  
-* return : List UserCard  
+* return : List UserCard
+
+### 같은 그룹에 있는 user 리스트 조회
+* url : /travel-with/users/{travelWithId}
+* method : get
+* return : List User
+
+### TravelWith 그룹 해제
+* url : /travel-with/delete
+* method : delete
+* data : UserCard travelWithCard
+* return : 해제 시도 유저 == 매니저 -> UserCard 해제된 카드
+* return : 해제 시도 유저 != 매니저 -> null
+
+### 멤버 내보내기
+* url : /travel-with/expel
+* method : delete
+* data : map(email, travelWithId)
+* return : UserCard (내보낸 User의 UserCard)
 
 ## 충전
 ### 충전
