@@ -66,4 +66,47 @@ public class TravelWithTest {
 		List<UserCard> travelCards = travelWithService.getAllTravelWithCards(userId);
 		Assertions.assertThat(travelCards.size()).isEqualTo(2);
 	}
+	
+	@Test
+	void getAllUsersInTravelWithGroup() {
+		Long travelWithId = 2L;
+		List<User> usersInGroup = travelWithService.getAllUsersInTravelWithGroup(travelWithId);
+		for (User user : usersInGroup) {
+			System.out.println(user);
+		}
+		Assertions.assertThat(usersInGroup.size()).isEqualTo(4);
+	}
+	
+	@Test
+	void deactivateTravelWithCards() {
+		UserCard notTravelWithCard = userCardService.findById(76L); 
+		UserCard notManagerCard = userCardService.findById(137L);
+		UserCard managerCard = userCardService.findById(136L);
+		
+		Assertions.assertThat(travelWithService.deactivateTravelWithCard(notTravelWithCard)).isNull();
+		Assertions.assertThat(travelWithService.deactivateTravelWithCard(notManagerCard)).isNull();
+		Assertions.assertThat(travelWithService.deactivateTravelWithCard(managerCard)).isNotNull();
+		
+		List<UserCard> travelWithCards = travelWithService.findAllMemberCards(managerCard.getTravelWithId());
+		for (UserCard travelWithCard : travelWithCards) {
+			Assertions.assertThat(travelWithCard.getStatus()).isFalse();
+		}
+	}
+	
+	@Test
+	void expelMemberTest() {
+		String targetMemberEmail = "3333@naver.com";
+		Long travelWithId = 3L;
+		travelWithService.expelMember(targetMemberEmail, travelWithId);
+		List<UserCard> sameGroupCards = travelWithService.findAllMemberCards(travelWithId);
+		Assertions.assertThat(sameGroupCards.size()).isEqualTo(4);
+		for (UserCard sameGroupCard : sameGroupCards) {
+			if (sameGroupCard.getUser().getEmail().equals(targetMemberEmail)) {
+				Assertions.assertThat(sameGroupCard.getStatus()).isFalse();
+			}
+			else {
+				Assertions.assertThat(sameGroupCard.getStatus()).isTrue();
+			}
+		}
+	}
 }

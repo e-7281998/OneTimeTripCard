@@ -3,6 +3,7 @@ package com.shinhan.OneTimeTripCard.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shinhan.OneTimeTripCard.service.TravelWithService;
+import com.shinhan.OneTimeTripCard.vo.User;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
@@ -34,5 +36,22 @@ public class TravelWithController {
 	@GetMapping("/getAll/{userId}")
 	public List<UserCard> getAllTravelWithCards(@PathVariable Long userId) {
 		return travelWithService.getAllTravelWithCards(userId);
+	}
+	
+	@GetMapping("/users/{travelWithId}")
+	public List<User> getAllUsersInTravelWithGroup(@PathVariable Long travelWithId) {
+		return travelWithService.getAllUsersInTravelWithGroup(travelWithId);
+	}
+	
+	@DeleteMapping("/delete")
+	public UserCard deactivateTravelWithCard(@RequestBody UserCard travelWithCard) {
+		return travelWithService.deactivateTravelWithCard(travelWithCard);
+	}
+	
+	@DeleteMapping("/expel")
+	public UserCard expelMember(@RequestBody Map<String, Object> map) {
+		String email = String.valueOf(map.get("email"));
+		Long travelWithId = (Long) map.get("travelWithId");
+		return travelWithService.expelMember(email, travelWithId);
 	}
 }
