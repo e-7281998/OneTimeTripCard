@@ -60,6 +60,7 @@ public class UserCard {
 	private Grade grade; // 카드등급
 
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(name = "card_benefit", joinColumns = @JoinColumn(name = "user_card_id"), inverseJoinColumns = @JoinColumn(name = "benefit_id"))
 	private List<Benefit> benefits;
 
