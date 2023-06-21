@@ -5,8 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { selectTravelCardsByUserId } from "js/travelCard";
 function CardList(props) {
+  const location = useLocation();
+  console.log("location");
+  console.log(location);
+
   const [userCards, setUserCards] = useState([]);
   const [userCard, setUserCard] = useState({});
   const [show, setShow] = useState(false);
@@ -23,7 +28,6 @@ function CardList(props) {
     "상품명",
     "구매일시",
     "등급",
-    "그룹카드",
     "기본카드",
     "",
     "",
@@ -64,13 +68,26 @@ function CardList(props) {
 
   const userId = window.sessionStorage.getItem("id");
   useEffect(() => {
-    selectUserCardsByUserId(userId)
-      .then((userCards) => {
-        setUserCards(cardList(userCards));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //개인카드
+    if (location.pathname === "/card") {
+      selectUserCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    //여행카드
+    else if (location.pathname === "/travelCard") {
+      selectTravelCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   const getInput = (event) => {
@@ -152,10 +169,9 @@ function CardList(props) {
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
             <Col>{userCard.nickName}</Col>
             <Col>{userCard.card?.cardNo}</Col>
-            <Col>{userCard.card?.cardName}</Col>
+            <Col>{userCard.card?.cardDesign.cardName}</Col>
             <Col>{userCard.createdAt}</Col>
             <Col>{userCard.grade?.gradeName}</Col>
-            <Col>{userCard.isGroup ? "Yes" : "No"}</Col>
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
             <Col>
               <Button
