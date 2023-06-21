@@ -31,4 +31,10 @@ public class ChargeController {
     public List<Charge> getHistory(@PathVariable Long userCardId, @RequestParam int year, @RequestParam int month) {
          return chargeService.getChargeHistoryByMonth(userCardId, year, month);
     }
+    
+    @PostMapping("/travelWith")
+    public Charge chargeTravelWith(@RequestBody Charge charge) {
+    	Long travelWithId = charge.getUserCard().getTravelWithId();
+    	return chargeService.chargeTravelWithCard(charge, travelWithId);
+    }
 }
