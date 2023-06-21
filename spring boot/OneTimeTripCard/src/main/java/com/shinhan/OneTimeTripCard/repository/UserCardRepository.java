@@ -25,4 +25,8 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
 	public List<UserCard> findAllByTravelWithId(Long travelWithId);
 	
 	public UserCard findByUser_IdAndTravelWithId(Long userId, Long travelWithId);
+	
+	public Boolean existsByCard_CardNo(String cardNo);
+	
+	public List<UserCard> findAllByUserInAndIsDefault(List<User> users, Boolean isDefault);
 }
