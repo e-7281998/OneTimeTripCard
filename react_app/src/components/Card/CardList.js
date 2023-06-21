@@ -23,7 +23,6 @@ function CardList(props) {
     "상품명",
     "구매일시",
     "등급",
-    "그룹카드",
     "기본카드",
     "",
     "",
@@ -67,6 +66,8 @@ function CardList(props) {
     selectUserCardsByUserId(userId)
       .then((userCards) => {
         setUserCards(cardList(userCards));
+        console.log("userCards");
+        console.log(userCards);
       })
       .catch((error) => {
         console.log(error);
@@ -152,10 +153,9 @@ function CardList(props) {
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
             <Col>{userCard.nickName}</Col>
             <Col>{userCard.card?.cardNo}</Col>
-            <Col>{userCard.card?.cardName}</Col>
+            <Col>{userCard.card?.cardDesign.cardName}</Col>
             <Col>{userCard.createdAt}</Col>
             <Col>{userCard.grade?.gradeName}</Col>
-            <Col>{userCard.isGroup ? "Yes" : "No"}</Col>
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
             <Col>
               <Button
