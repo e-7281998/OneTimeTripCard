@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shinhan.OneTimeTripCard.repository.UserCardRepository;
 import com.shinhan.OneTimeTripCard.vo.Card;
+import com.shinhan.OneTimeTripCard.vo.User;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
@@ -150,6 +151,15 @@ public class UserCardService {
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
+	}
+	
+	/**
+	 * 유저들의 기본 카드를 찾아주는 메서드
+	 * @param users
+	 * @return
+	 */
+	public List<UserCard> findDefaultCards(List<User> users) {
+		return userCardRepository.findAllByUserInAndIsDefault(users, true);
 	}
 	
 	private String userCardToString(UserCard userCard) {
