@@ -33,7 +33,7 @@ public class UserCardController {
 	
 	@GetMapping("/history/{userId}")
 	public List<UserCard> getPurchasedHistory(@PathVariable Long userId) {
-		return userCardService.findByUser_Id(userId);
+		return userCardService.findByUser_IdAndIsGroup(userId);
 	}
 	
 	@PostMapping("/register")

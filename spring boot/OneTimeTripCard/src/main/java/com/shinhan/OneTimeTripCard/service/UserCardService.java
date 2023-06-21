@@ -36,8 +36,8 @@ public class UserCardService {
 		return userCardRepository.save(userCard);
 	}
 	
-	public List<UserCard> findByUser_Id(Long userId) {
-		return userCardRepository.findByUser_Id(userId);
+	public List<UserCard> findByUser_IdAndIsGroup(Long userId) {
+		return userCardRepository.findByUser_IdAndIsGroup(userId, false);
 	}
 	
 	/**
