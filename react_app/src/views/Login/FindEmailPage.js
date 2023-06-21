@@ -31,23 +31,17 @@ function FindEmailPage(props) {
 
   const handleInputFirstName = (e) => {
     setInputFirstName(e.target.value);
-    console.log(e.target.value);
   };
   const handleInputLastName = (e) => {
     setInputLastName(e.target.value);
-    console.log(e.target.value);
   };
   const handleInputPhone = (e) => {
     setInputPhone(e.target.value);
-    console.log(e.target.value);
   };
 
   const onClickOK = (e) => {
     //기본기능을 수행하지 않음.
     e.preventDefault();
-    console.log("fistName : ", inputFirstName);
-    console.log("lastName : ", inputLastName);
-    console.log("phone : ", inputPhone);
 
     axios({
       method: "post",
@@ -59,7 +53,6 @@ function FindEmailPage(props) {
       },
     })
       .then((res) => {
-        console.log("data", res.data);
         //가지고온 데이터를 변수(setUserEmail)에다가 넣음
         setUserEmail(res.data);
       })
@@ -86,10 +79,17 @@ function FindEmailPage(props) {
             <Row className="justify-content-center">
               <Col lg="5">
                 <Card className="bg-secondary shadow border-0">
-                  <CardHeader className="bg-white pb-5">
-                    <div className="text-center">로고넣기</div>
-
-                    <Col style={{ display: "flex" }}>
+                  {/* 여기서부터 회색 칸 안쪽 */}
+                  <CardBody className="px-lg-5 py-lg-5">
+                    <div style={{ textAlign: "center" }}>
+                      <img
+                        alt="..."
+                        className=""
+                        src={require("assets/img/brand/logo2.png")}
+                        style={{ width: "250px" }}
+                      />
+                    </div>
+                    <Col style={{ display: "flex", margin: 10 }}>
                       <div style={{ margin: "auto" }} className="text-center">
                         <a href="find-email">Find ID</a>
                       </div>
@@ -97,16 +97,12 @@ function FindEmailPage(props) {
                         <a href="find-password">Find Password</a>
                       </div>
                     </Col>
-                  </CardHeader>
-
-                  {/* 여기서부터 회색 칸 안쪽 */}
-                  <CardBody className="px-lg-5 py-lg-5">
                     <Form role="form">
                       <FormGroup>
                         <InputGroup className="input-group-alternative mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="ni ni-email-83" />
+                              <i className="ni ni-single-02" />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
@@ -121,7 +117,7 @@ function FindEmailPage(props) {
                         <InputGroup className="input-group-alternative mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="ni ni-email-83" />
+                              <i className="ni ni-single-02" />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
@@ -136,7 +132,7 @@ function FindEmailPage(props) {
                         <InputGroup className="input-group-alternative mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="ni ni-email-83" />
+                              <i className="ni ni-mobile-button" />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
@@ -148,12 +144,12 @@ function FindEmailPage(props) {
                         </InputGroup>
                       </FormGroup>
 
-                      <div>
+                      <small className="text-muted">
                         회원 email :
                         {userEmail.map((item, index) => (
                           <div key={index}> {item} </div>
                         ))}
-                      </div>
+                      </small>
                       <div className="text-center">
                         <Button
                           disabled={
