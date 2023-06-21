@@ -75,9 +75,6 @@ function CardList(props) {
     });
   };
 
-  /**
-   *
-   */
   const register = () => {
     if (registerInput.cardNo === "") {
       alert("카드 번호를 입력하세요");
@@ -136,8 +133,18 @@ function CardList(props) {
             <Col>{userCard.grade?.gradeName}</Col>
             <Col>{userCard.isGroup ? "Yes" : "No"}</Col>
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
-            {/* 수정사항 : 선택한 카드 아이디 보내기 */}
-            <Col><Button onClick={() => navigate('/card/history/10')}>사용내역</Button></Col>
+            <Col>
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/card/history/${userCard.id}`, {
+                    state: { userCard: userCard },
+                  });
+                }}
+              >
+                사용내역
+              </Button>
+            </Col>
           </Row>
         ))}
       </Container>

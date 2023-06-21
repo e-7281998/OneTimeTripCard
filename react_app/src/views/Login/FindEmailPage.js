@@ -70,7 +70,6 @@ function FindEmailPage(props) {
 
   return (
     <>
-      <DemoNavbar />
       <main ref={props.main}>
         <section className="section section-shaped section-lg">
           <div className="shape shape-style-1 bg-gradient-default">
