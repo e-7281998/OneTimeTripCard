@@ -17,6 +17,18 @@ function CardList(props) {
   });
   const navigate = useNavigate();
 
+  const title = [
+    "별칭",
+    "카드 번호 ",
+    "상품명",
+    "구매일시",
+    "등급",
+    "그룹카드",
+    "기본카드",
+    "",
+    "",
+  ];
+
   // 모달 닫는 함수
   const handleClose = () => {
     setShow(false);
@@ -115,14 +127,9 @@ function CardList(props) {
       <h1>Card List Area</h1>
       <Container fluid>
         <Row>
-          <Col>별칭</Col>
-          <Col>카드 번호</Col>
-          <Col>상품명</Col>
-          <Col>구매일시</Col>
-          <Col>등급</Col>
-          <Col>그룹카드</Col>
-          <Col>기본카드</Col>
-          <Col></Col>
+          {title.map((item, index) => (
+            <Col key={index}>{item}</Col>
+          ))}
         </Row>
         {userCards.map((userCard, index) => (
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
@@ -143,6 +150,19 @@ function CardList(props) {
                 }}
               >
                 사용내역
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                disabled={userCard.isDefault ? "disabled" : ""}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/card/history/${userCard.id}`, {
+                    state: { userCard: userCard },
+                  });
+                }}
+              >
+                삭제하기
               </Button>
             </Col>
           </Row>
