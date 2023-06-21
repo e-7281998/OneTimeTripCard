@@ -54,8 +54,9 @@ public class UserCardController {
 
 	@PutMapping("/transfer/user-cards")
 	public int transferBetweenUserCards(@RequestBody Map<String, Object> userCards) {
-		Long from = (Long) userCards.get("from");
-		Long to = (Long) userCards.get("to");
+		Long from = Long.valueOf((String) userCards.get("from")).longValue();
+		Long to = Long.valueOf((String) userCards.get("to")).longValue();
+ 		
 		return userCardService.transferBetweenUserCards(from, to);
 	}
 
