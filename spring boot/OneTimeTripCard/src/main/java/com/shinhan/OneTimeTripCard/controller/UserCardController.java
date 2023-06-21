@@ -48,7 +48,7 @@ public class UserCardController {
 	}
 
 	@DeleteMapping("/delete/{userCardId}")
-	public String deactivateUserCard(@PathVariable Long userCardId) {
+	public List<UserCard> deactivateUserCard(@PathVariable Long userCardId) {
 		return userCardService.deactivateUserCard(userCardId);
 	}
 

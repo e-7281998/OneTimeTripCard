@@ -91,17 +91,16 @@ public class UserCardService {
 	 * @return
 	 */
 	@Transactional
-	public String deactivateUserCard(Long userCardId) {
+	public List<UserCard> deactivateUserCard(Long userCardId) {
 		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
-		if (userCard == null) {
-			return "notValidId";
-		}
+		Long userId = userCard.getUser().getId();
+		List<UserCard> userCards = userCardRepository.findByUser_Id(userId);
 		if (!userCard.getStatus()) {
-			return "alreadyDeactivated";
+			return userCards;
 		}
 		userCard.setStatus(false);
-//		save(userCard);
-		return "succeed";
+		save(userCard);
+		return userCardRepository.findByUser_Id(userId);
 	}
 
 	/**
