@@ -5,8 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { selectTravelCardsByUserId } from "js/travelCard";
 function CardList(props) {
+  const location = useLocation();
+  console.log("location");
+  console.log(location);
+
   const [userCards, setUserCards] = useState([]);
   const [userCard, setUserCard] = useState({});
   const [show, setShow] = useState(false);
@@ -63,15 +68,26 @@ function CardList(props) {
 
   const userId = window.sessionStorage.getItem("id");
   useEffect(() => {
-    selectUserCardsByUserId(userId)
-      .then((userCards) => {
-        setUserCards(cardList(userCards));
-        console.log("userCards");
-        console.log(userCards);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //개인카드
+    if (location.pathname === "/card") {
+      selectUserCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    //여행카드
+    else if (location.pathname === "/travelCard") {
+      selectTravelCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   const getInput = (event) => {
