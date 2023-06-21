@@ -151,6 +151,23 @@ public class UserCardTest {
 		Assertions.assertThat(userCard.getBalance()).isEqualTo(0);
 	}
 	
+	@Test
+	void findDefaultCards() {
+		List<User> users = new ArrayList<>();
+		users.add(userService.findById(2L));
+		users.add(userService.findById(3L));
+		users.add(userService.findById(4L));
+		users.add(userService.findById(21L));
+		List<Long> userIds = new ArrayList<>();
+		userIds.add(2L); userIds.add(3L); userIds.add(4L); userIds.add(21L);
+		List<UserCard> defaultCards = userCardService.findDefaultCards(users);
+		Assertions.assertThat(defaultCards.size()).isEqualTo(4);
+		for (UserCard defaultCard : defaultCards) {
+			Assertions.assertThat(defaultCard.getUser().getId()).isIn(userIds);
+		}
+		
+	}
+	
 	private String registerTest(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		return userCardService.register(userCard, cardNo, nickName, isDefault);
 	}

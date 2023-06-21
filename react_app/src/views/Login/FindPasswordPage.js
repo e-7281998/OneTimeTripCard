@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -18,7 +17,6 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import axios from "axios";
 
@@ -52,6 +50,7 @@ function FindPasswordPage(props) {
         console.log("data", res.data);
 
         var email = res.data.email;
+
         //이메일이 없을경우
         if (email === "0") {
           console.log(
@@ -75,12 +74,11 @@ function FindPasswordPage(props) {
       })
       .catch();
 
-    // document.location.href = "/";
+    //document.location.href = "/";
   };
 
   return (
     <>
-      <DemoNavbar />
       <main ref={props.main}>
         <section className="section section-shaped section-lg">
           <div className="shape shape-style-1 bg-gradient-default">
@@ -97,9 +95,17 @@ function FindPasswordPage(props) {
             <Row className="justify-content-center">
               <Col lg="5">
                 <Card className="bg-secondary shadow border-0">
-                  <CardHeader className="bg-white pb-5">
-                    <div className="text-center">PW찾기</div>
-                    <Col style={{ display: "flex" }}>
+                  {/* 여기서부터 회색 칸 안쪽 */}
+                  <CardBody className="px-lg-5 py-lg-5">
+                    <div style={{ textAlign: "center" }}>
+                      <img
+                        alt="..."
+                        className=""
+                        src={require("assets/img/brand/logo2.png")}
+                        style={{ width: "250px" }}
+                      />
+                    </div>
+                    <Col style={{ display: "flex", margin: 10 }}>
                       <div style={{ margin: "auto" }} className="text-center">
                         <a href="find-email">Find ID</a>
                       </div>
@@ -107,9 +113,6 @@ function FindPasswordPage(props) {
                         <a href="find-password">Find Password</a>
                       </div>
                     </Col>
-                  </CardHeader>
-                  {/* 여기서부터 회색 칸 안쪽 */}
-                  <CardBody className="px-lg-5 py-lg-5">
                     <Form role="form">
                       <FormGroup>
                         <InputGroup className="input-group-alternative mb-3">
@@ -130,7 +133,7 @@ function FindPasswordPage(props) {
                         <InputGroup className="input-group-alternative mb-3">
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="ni ni-email-83" />
+                              <i className="ni ni-mobile-button" />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
