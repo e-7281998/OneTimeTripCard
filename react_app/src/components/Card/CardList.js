@@ -66,7 +66,7 @@ function CardList(props) {
   useEffect(() => {
     selectUserCardsByUserId(userId)
       .then((userCards) => {
-        setUserCards(userCards);
+        setUserCards(cardList(userCards));
       })
       .catch((error) => {
         console.log(error);
@@ -85,6 +85,23 @@ function CardList(props) {
       ...registerInput,
       isDefault: !registerInput["isDefault"],
     });
+  };
+
+  const onDelete = (e) => {
+    e.stopPropagation();
+
+    if (
+      window.confirm(
+        `${e.target.getAttribute("nick")} 카드를 정말 삭제하시겠습니까?`
+      )
+    ) {
+      console.log("삭제할게요 : ", e.target.getAttribute("value"));
+      axios
+        .delete(`/user-card/delete/${e.target.getAttribute("value")}`)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        });
+    }
   };
 
   const register = () => {
@@ -155,12 +172,9 @@ function CardList(props) {
             <Col>
               <Button
                 disabled={userCard.isDefault ? "disabled" : ""}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`/card/history/${userCard.id}`, {
-                    state: { userCard: userCard },
-                  });
-                }}
+                value={userCard.id}
+                nick={userCard.nickName}
+                onClick={onDelete}
               >
                 삭제하기
               </Button>
@@ -218,4 +232,15 @@ function CardList(props) {
   );
 }
 
-export default CardList;
+//카드 삭제, 비활성화 거르기
+function cardList(userCards) {
+  const card = [];
+  for (var i = 0; i < userCards.length; i++) {
+    console.log(userCards[i].status);
+    if (userCards[i].status) card.push(userCards[i]);
+    if (userCards[i].status === null) card.push(userCards[i]);
+  }
+  return card;
+}
+
+export { CardList as default, cardList };
