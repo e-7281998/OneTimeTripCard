@@ -51,6 +51,7 @@ root.render(
                 <Route path="/profile-page" exact element={<Profile />} />
                 <Route path="/user/*" element={<UserHome />} />
                 <Route path="/card/*" element={<CardHome />} />
+                <Route path="/travelCard/*" element={<CardHome />} />
                 <Route path="/trip/*" element={<TripHome />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
