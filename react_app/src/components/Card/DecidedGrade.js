@@ -1,10 +1,15 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 
 function DecidedGrade(props) {
-  const userCard = props.userCard;
+  const location = useLocation();
+
+  //const userCard = props.userCard;
+  const userCard = location.state.userCard;
   const grade = userCard.grade;
   const benefits = userCard.benefits;
+
   return (
     <div>
       <Container>
@@ -35,12 +40,13 @@ function DecidedGrade(props) {
         <Row>
           <Col>선택한 혜택</Col>
         </Row>
-        {benefits.map((benefit) => (
-          <Row key={benefit.benefitName}>
-            <Col>{benefit.benefitName}</Col>
-            <Col>{benefit.discountRate * 100}% 할인</Col>
-          </Row>
-        ))}
+        {benefits &&
+          benefits.map((benefit) => (
+            <Row key={benefit.benefitName}>
+              <Col>{benefit.benefitName}</Col>
+              <Col>{benefit.discountRate * 100}% 할인</Col>
+            </Row>
+          ))}
       </Container>
     </div>
   );

@@ -24,7 +24,7 @@ function GradeSelect(props) {
   const [grade, setGrade] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const [myBenefits, setMyBenefits] = useState([]);
+  //const [myBenefits, setMyBenefits] = useState([]);
   useEffect(() => {
     axios({
       method: "get",
@@ -60,7 +60,7 @@ function GradeSelect(props) {
         );
       });
     }
-    setMyBenefits(null);
+    //setMyBenefits(null);
   }, [gradeList]);
 
   function selectGrade(event) {
@@ -72,8 +72,6 @@ function GradeSelect(props) {
   }
 
   function purchase() {
-    setMyBenefits(location.state.myBenefits);
-
     axios({
       method: "post",
       url: "/user-card/purchase",
@@ -81,17 +79,18 @@ function GradeSelect(props) {
         user: { id: userId },
         grade: grade,
         nickName: "testCard",
-        benefits: location.state.myBenefits,
+        benefits: location.state == null ? null : location.state.myBenefits,
       },
     })
       .then((res) => {
         // 성공 후 결제 완료 창으로 이동
+
         navigate("/card/complete-purchase", {
           state: {
             userCard: res.data,
           },
         });
-        console.log(res.data);
+        console.log("res.data:", res.data);
       })
       .catch((error) => {
         console.log(error);
