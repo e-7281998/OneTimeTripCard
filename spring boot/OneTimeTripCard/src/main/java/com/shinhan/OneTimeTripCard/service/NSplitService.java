@@ -18,4 +18,8 @@ public class NSplitService {
 	public List<NSplit> saveAll(List<NSplit> splits) {
 		return (List<NSplit>) nSplitRepository.saveAll(splits);
 	}
+	
+	public List<NSplit> getSplitHistories(Long travelWithId) {
+		return nSplitRepository.findAllByTravelWithId(travelWithId);
+	}
 }
