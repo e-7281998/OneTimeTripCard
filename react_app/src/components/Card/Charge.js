@@ -62,7 +62,7 @@ function Charge() {
       <Form className="m-auto" style={{ width: "400px" }}>
         {currentState && <TravelCardCharge userCard={userCard} />}
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-          <Form.Label column sm={2}>
+          <Form.Label column sm={2} style={{ fontWeight: 800 }}>
             KRW
           </Form.Label>
           <Col sm={10}>
@@ -80,7 +80,7 @@ function Charge() {
           className="mb-3"
           controlId="formHorizontalPassword"
         >
-          <Form.Label column sm={2}>
+          <Form.Label column sm={2} style={{ fontWeight: 800 }}>
             {userCard.user.preferredCurrency.toUpperCase()}
           </Form.Label>
           <Col sm={10}>
@@ -98,7 +98,7 @@ function Charge() {
           className="mb-3"
           controlId="formHorizontalPassword"
         >
-          <Form.Label column sm={2}>
+          <Form.Label column sm={2} style={{ fontWeight: 800 }}>
             출금계좌
           </Form.Label>
           <Col sm={10}>
@@ -114,7 +114,7 @@ function Charge() {
           className="mb-3"
           controlId="formHorizontalPassword"
         >
-          <Form.Label column sm={2}>
+          <Form.Label column sm={2} style={{ fontWeight: 800 }}>
             남은 충전 횟수
           </Form.Label>
           <Col sm={10}>
