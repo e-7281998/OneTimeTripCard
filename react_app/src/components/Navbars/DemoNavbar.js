@@ -88,13 +88,13 @@ function DemoNavbar(props) {
                     <span className="nav-link-inner--text">OTT Card</span>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem to="/landing-page" tag={Link}>
+                    <DropdownItem to="/aboutottc" tag={Link}>
                       about OTT Card
                     </DropdownItem>
-                    <DropdownItem to="/profile-page" tag={Link}>
+                    <DropdownItem to="/aboutbenefit" tag={Link}>
                       카드혜택
                     </DropdownItem>
-                    <DropdownItem to="/login-page" tag={Link}>
+                    <DropdownItem to="/aboutgrade" tag={Link}>
                       등급제
                     </DropdownItem>
                     <DropdownItem to="/register-page" tag={Link}>
