@@ -19,17 +19,19 @@ public class MailService {
 	private JavaMailSender javaMailSender;
 	
 	//인증번호 발송 유효성 check
-	public User updatePwd(User user) {
+	public int updatePwd(User user) {
+		int flag = 0;
 		
-		User emailcheck = userRepository.findByEmail(user.getEmail());
+		//이메일이 없으면 
+		if(userRepository.findByEmail(user.getEmail()) == null) {
+			flag = 0;
+		} else if (userRepository.findByEmail(user.getPhone()) == null) {
+			flag = 1;
+		} else 
+			flag =3;
 		
-		//이메일 존재 여부, 전화번호 일치여부 확인
-		if(emailcheck==null) {
-			emailcheck =User.builder().email("0").build();
-		} else if(!user.getPhone().equals(emailcheck.getPhone())) {
-			emailcheck.setEmail("1");
-		}
-		return emailcheck;
+		
+		return flag;
 	}
 	
 	//임시비밀번호 메일 보내기

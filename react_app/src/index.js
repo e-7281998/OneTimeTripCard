@@ -33,6 +33,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar";
 import LoginHome from "routes/LoginHome";
 import { Container, Row, Col } from "reactstrap";
 import OttcMain from "views/OttcMain";
+import TravelHome from "routes/TravelHome";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -51,7 +52,7 @@ root.render(
                 <Route path="/profile-page" exact element={<Profile />} />
                 <Route path="/user/*" element={<UserHome />} />
                 <Route path="/card/*" element={<CardHome />} />
-                <Route path="/travelCard/*" element={<CardHome />} />
+                <Route path="/travelCard/*" element={<TravelHome />} />
                 <Route path="/trip/*" element={<TripHome />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
