@@ -63,4 +63,9 @@ public class TravelWithController {
 		String cardNo = (String) map.get("cardNo");
 		return travelWithService.registerCard(travelWithId, memberId, managerId, cardNo);
 	}
+	
+	@PostMapping("/split/{travelWithId}")
+	public UserCard splitBalance(@PathVariable Long travelWithId) {
+		return travelWithService.splitBalance(travelWithId);
+	}
 }
