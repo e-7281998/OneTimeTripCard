@@ -1,24 +1,74 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Form, Link } from "react-router-dom";
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Container,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
+} from "reactstrap";
+
 //import DemoNavbar from "components/Navbars/DemoNavbar.js";
 
 function MyPageComponent(props) {
+  const userId = window.sessionStorage.getItem("id");
+  const firstName = window.sessionStorage.getItem("firstName");
+  const lastName = window.sessionStorage.getItem("lastName");
+
   return (
-    <div>
-      <h1>This is myPage</h1>
-      <Button>
-        <Link to="/user/user-info-update">정보 수정</Link>
-      </Button>
-      <Button>
-        <Link to="/card/manage-card">카드 관리</Link>
-      </Button>
-      <Button>충전하기</Button>
-      <Button>사용내역 조회</Button>
-      <Button>
-        <Link to="/card/benefit-custom">혜택 커스텀</Link>
-      </Button>
-    </div>
+    <>
+      <main ref={props.ref}>
+        <section className="section section-shaped section-lg">
+          <Container className="pt-lg-7">
+            <Row className="justify-content-center">
+              <div>
+                <h1> {lastName + " " + firstName}</h1>
+                <Col lg="auto">
+                  <Link to="/user/user-info-update">
+                    <Button
+                      color="success"
+                      style={{ height: 100, marginRight: 50 }}
+                    >
+                      정보수정
+                    </Button>
+                  </Link>
+                  <Link to="/card/manage-card">
+                    <Button
+                      color="default"
+                      style={{ height: 100, marginRight: 50 }}
+                    >
+                      카드관리
+                    </Button>
+                  </Link>
+                  <Link to="/">
+                    <Button
+                      color="warning"
+                      style={{ height: 100, marginRight: 50 }}
+                    >
+                      충전하기
+                    </Button>
+                  </Link>
+                  <Button color="info" style={{ height: 100, marginRight: 50 }}>
+                    사용내역 조회
+                  </Button>
+                  <Link to="/card/benefit-custom">
+                    <Button color="danger" style={{ height: 100 }}>
+                      혜택 커스텀
+                    </Button>
+                  </Link>
+                </Col>
+              </div>
+            </Row>
+          </Container>
+        </section>
+      </main>
+    </>
   );
 }
 

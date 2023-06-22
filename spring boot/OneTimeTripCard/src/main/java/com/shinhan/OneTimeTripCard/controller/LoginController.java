@@ -79,16 +79,23 @@ public class LoginController {
 	
 	//password찾기
 	@PostMapping("/find-password")
-	public User findPwd(@RequestBody User user) {
+	public int findPwd(@RequestBody User user) {
 		System.out.println(user.getEmail());
 		System.out.println(user.getPhone());
 		
 		//임시비밀번호 보내기
 		System.out.println("메일 보내기 탔나?");
 		
-		User emailcheck = mailService.updatePwd(user);
+		int emailcheck = mailService.updatePwd(user);
+		System.out.println("ddd"+emailcheck);
+		
+		if(emailcheck == 1 || emailcheck == 0) {
+			return emailcheck;
+		} else
+		
 		mailService.sendSimpleEmail(user);
-		return emailcheck;
+		 
+		return 3;
 	}
 
 }
