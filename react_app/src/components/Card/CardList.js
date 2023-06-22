@@ -57,9 +57,15 @@ function CardList(props) {
     console.log("selectedUserCard: ", selectedUserCard);
     if (selectedUserCard.card) {
       //카드 계좌 있는 경우
-      navigate(`/card/charge/${selectedUserCard.id}`, {
-        state: { userCard: selectedUserCard },
-      });
+      if (location.pathname === "/travelCard") {
+        navigate(`/travelCard/charge/${selectedUserCard.id}`, {
+          state: { userCard: selectedUserCard },
+        });
+      } else {
+        navigate(`/card/charge/${selectedUserCard.id}`, {
+          state: { userCard: selectedUserCard },
+        });
+      }
     } else {
       //카드 계좌 없는 경우
       showRegisterModal(selectedUserCard);
@@ -191,9 +197,15 @@ function CardList(props) {
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigate(`/card/history/${userCard.id}`, {
-                    state: { userCard: userCard },
-                  });
+                  if (location.pathname === "/travelCard") {
+                    navigate(`/travelCard/history/${userCard.id}`, {
+                      state: { userCard: userCard },
+                    });
+                  } else {
+                    navigate(`/card/history/${userCard.id}`, {
+                      state: { userCard: userCard },
+                    });
+                  }
                 }}
               >
                 사용내역
