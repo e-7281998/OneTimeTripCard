@@ -56,15 +56,6 @@ function MyPageComponent(props) {
                     </Button>
                   </Link>
 
-                  <Link to="/">
-                    <Button
-                      color="warning"
-                      style={{ height: 100, marginRight: 50 }}
-                    >
-                      충전하기
-                    </Button>
-                  </Link>
-
                   <Link to="/card/benefit-custom">
                     <Button
                       color="info"
