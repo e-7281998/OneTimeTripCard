@@ -38,7 +38,7 @@ function MyPageComponent(props) {
                       정보수정
                     </Button>
                   </Link>
-                  <Link to="/card/manage-card">
+                  <Link to="/card">
                     <Button
                       color="default"
                       style={{ height: 100, marginRight: 50 }}
@@ -46,6 +46,16 @@ function MyPageComponent(props) {
                       카드관리
                     </Button>
                   </Link>
+
+                  <Link to="/card/transfer">
+                    <Button
+                      color="danger"
+                      style={{ height: 100, marginRight: 50 }}
+                    >
+                      카드 잔액이동
+                    </Button>
+                  </Link>
+
                   <Link to="/">
                     <Button
                       color="warning"
@@ -54,9 +64,16 @@ function MyPageComponent(props) {
                       충전하기
                     </Button>
                   </Link>
-                  <Button color="info" style={{ height: 100, marginRight: 50 }}>
-                    사용내역 조회
-                  </Button>
+
+                  <Link to="/card/benefit-custom">
+                    <Button
+                      color="info"
+                      style={{ height: 100, marginRight: 50 }}
+                    >
+                      사용내역 조회
+                    </Button>
+                  </Link>
+
                   <Link to="/card/benefit-custom">
                     <Button color="danger" style={{ height: 100 }}>
                       혜택 커스텀

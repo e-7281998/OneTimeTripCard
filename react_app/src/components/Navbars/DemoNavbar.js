@@ -102,21 +102,13 @@ function DemoNavbar(props) {
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                  여행 카드 서비스
-                </NavbarBrand>
-                <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                  여행 추천 서비스
-                </NavbarBrand>
-                <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                  배송서비스
-                </NavbarBrand>
-                <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                  이벤트
-                </NavbarBrand>
-                <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                  공지사항
-                </NavbarBrand>
+
+                <NavbarBrand href="/travelcard">여행 카드 서비스</NavbarBrand>
+
+                <NavbarBrand href="/trip">여행 추천 서비스</NavbarBrand>
+                <NavbarBrand href="#pablo">배송서비스</NavbarBrand>
+                <NavbarBrand href="#pablo">이벤트</NavbarBrand>
+                <NavbarBrand href="#pablo">공지사항</NavbarBrand>
               </Nav>
 
               {/* <Nav className="navbar-nav-hover align-items-lg-center" navbar>

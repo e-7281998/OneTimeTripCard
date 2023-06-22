@@ -91,11 +91,11 @@ public class LoginController {
 		
 		if(emailcheck == 1 || emailcheck == 0) {
 			return emailcheck;
-		} else
+		} 
 		
 		mailService.sendSimpleEmail(user);
 		 
-		return 3;
+		return emailcheck;
 	}
 
 }
