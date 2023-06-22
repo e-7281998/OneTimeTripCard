@@ -166,6 +166,20 @@ function CardList(props) {
       });
   };
 
+  /**
+   * 환불 메소드
+   * @param {} event 
+   */
+  const refund = (event) => {
+    event.stopPropagation();
+    const selecteduserCardId = event.target.getAttribute('value');
+    axios
+      .put(`/user-card/refund/${selecteduserCardId}`)
+      .then((response) => {
+        alert('환불 완료, 환불금:', response.data);
+      });
+  };
+
   return (
     <div>
       <h1>Card List Area</h1>
@@ -232,6 +246,15 @@ function CardList(props) {
                 삭제하기
               </Button>
             </Col>
+            <Col>
+                <Button
+                  disabled={userCard.balance === 0 ? "disabled" : ""}
+                  value={userCard.id}
+                  onClick={refund}
+                >
+                  환불하기
+                </Button>
+              </Col>
           </Row>
         ))}
       </Container>
