@@ -52,18 +52,20 @@ function FindPasswordPage(props) {
         var email = res.data.email;
 
         //이메일이 없을경우
-        if (email === "0") {
+        if (email === 0) {
           console.log(
             "======================",
             "가입되어있지 않은 email 입니다."
           );
           alert("가입되어있지 않은 email 입니다.");
-        } else if (email === "1") {
+          return;
+        } else if (email === 1) {
           console.log(
             "======================",
             "전화번호가 일치하지 않습니다."
           );
           alert("전화번호가 일치하지 않습니다.");
+          return;
         } else {
           console.log(
             "======================",
