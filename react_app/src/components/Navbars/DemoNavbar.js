@@ -217,7 +217,7 @@ function DemoNavbar(props) {
               </Button>
             </Link>
 
-            <Link to="/user/user-info-update">
+            <Link to="/user">
               <Button
                 color="secondary"
                 type="button"
