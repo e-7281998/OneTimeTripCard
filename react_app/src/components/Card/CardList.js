@@ -21,8 +21,9 @@ function CardList(props) {
     isDefault: false,
   });
   const navigate = useNavigate();
+  const currentState = location.pathname.split("/")[1] === "travelCard";
 
-  const title = [
+  var title = [
     "별칭",
     "카드 번호 ",
     "상품명",
@@ -32,6 +33,9 @@ function CardList(props) {
     "",
     "",
   ];
+  if (currentState) {
+    delete title[5];
+  }
 
   // 모달 닫는 함수
   const handleClose = () => {
@@ -170,6 +174,7 @@ function CardList(props) {
           {title.map((item, index) => (
             <Col key={index}>{item}</Col>
           ))}
+          {currentState && <Col></Col>}
         </Row>
         {userCards.map((userCard, index) => (
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
@@ -177,7 +182,7 @@ function CardList(props) {
             <Col>{userCard.card?.cardNo}</Col>
             <Col>{userCard.card?.cardDesign.cardName}</Col>
             <Col>{userCard.createdAt}</Col>
-            <Col>{userCard.grade?.gradeName}</Col>
+            {!currentState && <Col>{userCard.grade?.gradeName}</Col>}
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
             <Col>
               <Button
@@ -197,6 +202,26 @@ function CardList(props) {
                 사용내역
               </Button>
             </Col>
+            {currentState && (
+              <Col>
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (location.pathname === "/travelCard") {
+                      navigate(`/travelCard/history/${userCard.id}`, {
+                        state: { userCard: userCard },
+                      });
+                    } else {
+                      navigate(`/card/history/${userCard.id}`, {
+                        state: { userCard: userCard },
+                      });
+                    }
+                  }}
+                >
+                  정산하기
+                </Button>
+              </Col>
+            )}
             <Col>
               <Button
                 disabled={userCard.isDefault ? "disabled" : ""}
