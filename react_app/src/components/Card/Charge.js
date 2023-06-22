@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import { useLocation, useNavigate } from "react-router-dom";
 import CardDefaultInfo from "./CardDefaultInfo";
 import axios from "axios";
+import TravelCardCharge from "./TravelCardCharge";
 
 function Charge() {
   const location = useLocation();
@@ -14,6 +14,9 @@ function Charge() {
   const [exchange, setExchange] = useState(0);
   const [OWN, setOWN] = useState(0);
   const [KRW, setKRW] = useState(0);
+
+  //그룹이면 true , 개인이면 false
+  const currentState = location.pathname.split("/")[1] === "travelCard";
 
   useEffect(() => {
     axios
@@ -57,6 +60,7 @@ function Charge() {
     <>
       <CardDefaultInfo />
       <Form className="m-auto" style={{ width: "400px" }}>
+        {currentState && <TravelCardCharge userCard={userCard} />}
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
             KRW
