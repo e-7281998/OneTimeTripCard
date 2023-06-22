@@ -1,10 +1,17 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import BenefitList from "components/Card/BenefitList";
-import { useLocation } from "react-router-dom";
+// import BenefitList from "components/Card/BenefitList";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function BenefitCustomPage(props) {
   return (
     <>
-      <BenefitList />
+      <DndProvider backend={HTML5Backend}>
+        <ChakraProvider>
+          <BenefitList />
+        </ChakraProvider>
+      </DndProvider>
     </>
   );
 }
