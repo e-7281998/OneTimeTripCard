@@ -35,7 +35,6 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { useState } from "react";
 import axios from "axios";
@@ -117,12 +116,15 @@ function Login(props) {
             <Row className="justify-content-center">
               <Col lg="5">
                 <Card>
-                  <CardHeader className="bg-white pb-5">
-                    <div className="btn-wrapper text-center">
-                      <p>로고삽입</p>
-                    </div>
-                  </CardHeader>
                   <CardBody className="px-lg-5 py-lg-5">
+                    <div style={{ textAlign: "center" }}>
+                      <img
+                        alt="..."
+                        className=""
+                        src={require("assets/img/brand/logo2.png")}
+                        style={{ width: "250px" }}
+                      />
+                    </div>
                     <Form role="form">
                       <FormGroup className="mb-3">
                         <InputGroup className="input-group-alternative">

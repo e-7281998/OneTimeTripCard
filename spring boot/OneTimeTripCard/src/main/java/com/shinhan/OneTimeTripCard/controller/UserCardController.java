@@ -33,7 +33,7 @@ public class UserCardController {
 	
 	@GetMapping("/history/{userId}")
 	public List<UserCard> getPurchasedHistory(@PathVariable Long userId) {
-		return userCardService.findByUser_Id(userId);
+		return userCardService.findByUser_IdAndIsGroup(userId);
 	}
 	
 	@PostMapping("/register")
@@ -48,14 +48,15 @@ public class UserCardController {
 	}
 
 	@DeleteMapping("/delete/{userCardId}")
-	public String deactivateUserCard(@PathVariable Long userCardId) {
+	public List<UserCard> deactivateUserCard(@PathVariable Long userCardId) {
 		return userCardService.deactivateUserCard(userCardId);
 	}
 
 	@PutMapping("/transfer/user-cards")
 	public int transferBetweenUserCards(@RequestBody Map<String, Object> userCards) {
-		Long from = (Long) userCards.get("from");
-		Long to = (Long) userCards.get("to");
+		Long from = Long.valueOf((String) userCards.get("from")).longValue();
+		Long to = Long.valueOf((String) userCards.get("to")).longValue();
+ 		
 		return userCardService.transferBetweenUserCards(from, to);
 	}
 

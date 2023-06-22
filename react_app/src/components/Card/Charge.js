@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CardDefaultInfo from "./CardDefaultInfo";
 import axios from "axios";
 
-function Charge(props) {
+function Charge() {
   const location = useLocation();
   const userCard = location.state.userCard;
   const [exchange, setExchange] = useState(0);
@@ -25,16 +25,32 @@ function Charge(props) {
       });
   }, []);
 
+  //충전 요청하기
+  const onCharge = () => {
+    axios
+      .post("/charge", {
+        userCard: userCard,
+        currency: userCard.user.preferredCurrency,
+        rate: exchange,
+        amount: OWN,
+        amountWon: KRW,
+      })
+      .then(() => {
+        navigate("/card");
+      });
+  };
+
   //환전계산
   const onExchange = (e) => {
     if (e.target.getAttribute("data") === "KRW") {
-      setOWN(Math.floor(e.target.value / exchange));
-      setKRW(Math.floor(e.target.value));
+      setOWN(() => (e.target.value / exchange).toFixed(2));
+      setKRW(() => Math.floor(e.target.value));
     } else {
-      setOWN(Math.floor(e.target.value));
-      setKRW(Math.floor(e.target.value * exchange));
+      setOWN(() => e.target.value);
+      setKRW(() => Math.floor(e.target.value * exchange));
     }
   };
+
   const navigate = useNavigate();
 
   return (
@@ -109,7 +125,7 @@ function Charge(props) {
         </Form.Group>
         <Form.Group className="mb-3 text-center btn-block">
           <Button onClick={() => navigate(-1)}>돌아가기</Button>
-          <Button type="submit">충전하기</Button>
+          <Button onClick={onCharge}>충전하기</Button>
         </Form.Group>
       </Form>
     </>

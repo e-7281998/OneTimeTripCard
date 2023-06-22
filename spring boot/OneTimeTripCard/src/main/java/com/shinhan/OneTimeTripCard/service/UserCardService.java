@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shinhan.OneTimeTripCard.repository.UserCardRepository;
 import com.shinhan.OneTimeTripCard.vo.Card;
+import com.shinhan.OneTimeTripCard.vo.User;
 import com.shinhan.OneTimeTripCard.vo.UserCard;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,8 @@ public class UserCardService {
 		return userCardRepository.save(userCard);
 	}
 	
-	public List<UserCard> findByUser_Id(Long userId) {
-		return userCardRepository.findByUser_Id(userId);
+	public List<UserCard> findByUser_IdAndIsGroup(Long userId) {
+		return userCardRepository.findByUser_IdAndIsGroup(userId, false);
 	}
 	
 	/**
@@ -82,17 +83,16 @@ public class UserCardService {
 	 * @return
 	 */
 	@Transactional
-	public String deactivateUserCard(Long userCardId) {
+	public List<UserCard> deactivateUserCard(Long userCardId) {
 		UserCard userCard = userCardRepository.findById(userCardId).orElse(null);
-		if (userCard == null) {
-			return "notValidId";
-		}
+		Long userId = userCard.getUser().getId();
+		List<UserCard> userCards = userCardRepository.findByUser_Id(userId);
 		if (!userCard.getStatus()) {
-			return "alreadyDeactivated";
+			return userCards;
 		}
 		userCard.setStatus(false);
-//		save(userCard);
-		return "succeed";
+		save(userCard);
+		return userCardRepository.findByUser_Id(userId);
 	}
 
 	/**
@@ -142,6 +142,15 @@ public class UserCardService {
 	
 	private UserCard findByCard(Card card) {
 		return userCardRepository.findByCard(card);
+	}
+	
+	/**
+	 * 유저들의 기본 카드를 찾아주는 메서드
+	 * @param users
+	 * @return
+	 */
+	public List<UserCard> findDefaultCards(List<User> users) {
+		return userCardRepository.findAllByUserInAndIsDefault(users, true);
 	}
 	
 	private String userCardToString(UserCard userCard) {

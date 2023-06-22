@@ -5,8 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { selectTravelCardsByUserId } from "js/travelCard";
 function CardList(props) {
+  const location = useLocation();
+  console.log("location");
+  console.log(location);
+
   const [userCards, setUserCards] = useState([]);
   const [userCard, setUserCard] = useState({});
   const [show, setShow] = useState(false);
@@ -16,6 +21,17 @@ function CardList(props) {
     isDefault: false,
   });
   const navigate = useNavigate();
+
+  const title = [
+    "별칭",
+    "카드 번호 ",
+    "상품명",
+    "구매일시",
+    "등급",
+    "기본카드",
+    "",
+    "",
+  ];
 
   // 모달 닫는 함수
   const handleClose = () => {
@@ -52,13 +68,26 @@ function CardList(props) {
 
   const userId = window.sessionStorage.getItem("id");
   useEffect(() => {
-    selectUserCardsByUserId(userId)
-      .then((userCards) => {
-        setUserCards(userCards);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //개인카드
+    if (location.pathname === "/card") {
+      selectUserCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    //여행카드
+    else if (location.pathname === "/travelCard") {
+      selectTravelCardsByUserId(userId)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   const getInput = (event) => {
@@ -75,9 +104,23 @@ function CardList(props) {
     });
   };
 
-  /**
-   *
-   */
+  const onDelete = (e) => {
+    e.stopPropagation();
+
+    if (
+      window.confirm(
+        `${e.target.getAttribute("nick")} 카드를 정말 삭제하시겠습니까?`
+      )
+    ) {
+      console.log("삭제할게요 : ", e.target.getAttribute("value"));
+      axios
+        .delete(`/user-card/delete/${e.target.getAttribute("value")}`)
+        .then((userCards) => {
+          setUserCards(cardList(userCards));
+        });
+    }
+  };
+
   const register = () => {
     if (registerInput.cardNo === "") {
       alert("카드 번호를 입력하세요");
@@ -118,26 +161,40 @@ function CardList(props) {
       <h1>Card List Area</h1>
       <Container fluid>
         <Row>
-          <Col>별칭</Col>
-          <Col>카드 번호</Col>
-          <Col>상품명</Col>
-          <Col>구매일시</Col>
-          <Col>등급</Col>
-          <Col>그룹카드</Col>
-          <Col>기본카드</Col>
-          <Col></Col>
+          {title.map((item, index) => (
+            <Col key={index}>{item}</Col>
+          ))}
         </Row>
         {userCards.map((userCard, index) => (
           <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
             <Col>{userCard.nickName}</Col>
             <Col>{userCard.card?.cardNo}</Col>
-            <Col>{userCard.card?.cardName}</Col>
+            <Col>{userCard.card?.cardDesign.cardName}</Col>
             <Col>{userCard.createdAt}</Col>
             <Col>{userCard.grade?.gradeName}</Col>
-            <Col>{userCard.isGroup ? "Yes" : "No"}</Col>
             <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
-            {/* 수정사항 : 선택한 카드 아이디 보내기 */}
-            <Col><Button onClick={() => navigate('/card/history/10')}>사용내역</Button></Col>
+            <Col>
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/card/history/${userCard.id}`, {
+                    state: { userCard: userCard },
+                  });
+                }}
+              >
+                사용내역
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                disabled={userCard.isDefault ? "disabled" : ""}
+                value={userCard.id}
+                nick={userCard.nickName}
+                onClick={onDelete}
+              >
+                삭제하기
+              </Button>
+            </Col>
           </Row>
         ))}
       </Container>
@@ -191,4 +248,15 @@ function CardList(props) {
   );
 }
 
-export default CardList;
+//카드 삭제, 비활성화 거르기
+function cardList(userCards) {
+  const card = [];
+  for (var i = 0; i < userCards.length; i++) {
+    console.log(userCards[i].status);
+    if (userCards[i].status) card.push(userCards[i]);
+    if (userCards[i].status === null) card.push(userCards[i]);
+  }
+  return card;
+}
+
+export { CardList as default, cardList };

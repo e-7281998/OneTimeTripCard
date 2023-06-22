@@ -18,6 +18,7 @@ public class ChargeService {
 
     private final UserCardService userCardService;
     private final GradeService gradeService;
+    private final TravelWithService travelWithService;
     private final ChargeRepository chargeRepository;
 
     /**
@@ -70,4 +71,22 @@ public class ChargeService {
         }
         userCard.setGrade(nextGrade);
     }
+
+    /**
+     * 여행카드 충전
+     * 1. 같은 멤버들의 카드들 조회
+     * 2. 모든 카드 잔액 추가
+     * 3. 충전 내역 저장
+     * @param charge
+     * @return
+     */
+    @Transactional
+	public Charge chargeTravelWithCard(Charge charge, Long travelWithId) {
+		List<UserCard> travelWithCards = travelWithService.findAllMemberCards(travelWithId);
+		int chargeAmount = charge.getAmountWon();
+		for (UserCard travelWithCard : travelWithCards) {
+			travelWithCard.setBalance(travelWithCard.getBalance() + chargeAmount);
+		}
+		return chargeRepository.save(charge);
+	}
 }
