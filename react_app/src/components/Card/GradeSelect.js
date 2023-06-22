@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "reactstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 /**
  * 작성자 : 손준범
@@ -19,61 +20,11 @@ import { useNavigate } from "react-router-dom";
 function GradeSelect(props) {
   const userId = window.sessionStorage.getItem("id");
 
-  const basicGrade = {
-    id: 27,
-    gradeName: "일반",
-    price: 0,
-    period: 0,
-    refundRate: 0,
-    benefitCount: 0,
-    imgSrc: "null",
-    maxRechargeCount: 0,
-    deliveryCount: 0,
-  };
-  const [gradeList, setGradeList] = useState([basicGrade]);
-  const [grade, setGrade] = useState(basicGrade);
-  const [gradeNames, setGradeNames] = useState([]);
+  const [gradeList, setGradeList] = useState([]);
+  const [grade, setGrade] = useState({});
   const navigate = useNavigate();
-  const benefits = [
-    {
-      id: 1,
-      category: "대형마트",
-      benefitName: "이마트",
-      discountRate: 0.05,
-      detail:
-        "(주말-온라인 결제 제외)건당 3만원-10만원 결제 시, 5% 할인(최대 5천원 할인) ",
-    },
-    {
-      id: 5,
-      category: "관광지",
-      benefitName: "롯데월드",
-      discountRate: 0.3,
-      detail:
-        "(온라인 결제 제외)건당 3만원-5만원 결제 시, 30% 입장료 할인(최대 5천원 할인)",
-    },
-    {
-      id: 7,
-      category: "뷰티",
-      benefitName: "올리브영",
-      discountRate: 0.1,
-      detail:
-        "(온라인 결제 제외)건당 3만원-5만원 결제 시, 10% 할인(최대 5천원 할인)",
-    },
-    {
-      id: 9,
-      category: "약국",
-      benefitName: "약국",
-      discountRate: 0.05,
-      detail: "건당 3만원-5만원 결제 시, 5% 할인(최대 2.5천원 할인)",
-    },
-    {
-      id: 11,
-      category: "편의점",
-      benefitName: "cu",
-      discountRate: 0.05,
-      detail: "건당 1만원-2만원 결제 시, 5% 할인(최대 1천원 할인)",
-    },
-  ];
+  const location = useLocation();
+  const [myBenefits, setMyBenefits] = useState([]);
   useEffect(() => {
     axios({
       method: "get",
@@ -83,14 +34,33 @@ function GradeSelect(props) {
         setGradeList(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         throw new Error(error);
       });
   }, []);
 
   useEffect(() => {
-    setGrade(gradeList[0]);
-    setGradeNames(gradeList.map((grade) => grade.gradeName));
+    let mode = sessionStorage.getItem("mode");
+
+    if (mode === "fromBenefit") {
+      setGrade(location.state.grade);
+
+      sessionStorage.setItem("mode", "1");
+    } else if (mode === "1") {
+      sessionStorage.setItem("mode", "");
+    } else {
+      location.state = null;
+      setGrade(() => {
+        return (
+          gradeList.length &&
+          gradeList.find((item) => {
+            console.log("item:", item);
+            return item.gradeName === "일반";
+          })
+        );
+      });
+    }
+    setMyBenefits(null);
   }, [gradeList]);
 
   function selectGrade(event) {
@@ -102,10 +72,8 @@ function GradeSelect(props) {
   }
 
   function purchase() {
-    let myBenefits = [];
-    for (let i = 0; i < grade.benefitCount; ++i) {
-      myBenefits.push(benefits[i]);
-    }
+    setMyBenefits(location.state.myBenefits);
+
     axios({
       method: "post",
       url: "/user-card/purchase",
@@ -113,7 +81,7 @@ function GradeSelect(props) {
         user: { id: userId },
         grade: grade,
         nickName: "testCard",
-        benefits: myBenefits,
+        benefits: location.state.myBenefits,
       },
     })
       .then((res) => {
@@ -135,11 +103,29 @@ function GradeSelect(props) {
    * 혜택 선택 페이지로 이동
    */
   const goToSelectBenefits = () => {
-    navigate("/card/benefit-custom", {
-      state: {
-        grade: grade,
-      },
-    });
+    if (grade.gradeName == null) {
+      Swal.fire({
+        title: "Warning!",
+        text: "등급을 먼저 선택해주시기 바랍니다. ",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    } else {
+      if (grade.gradeName === "일반") {
+        Swal.fire({
+          title: "Warning!",
+          html: `일반등급은 혜택을 추가할 수 없습니다. <br />다른 등급을 선택해주세요 `,
+          icon: "warning",
+          confirmButtonText: "OK",
+        });
+      } else {
+        navigate("/card/benefit-custom", {
+          state: {
+            grade: grade,
+          },
+        });
+      }
+    }
   };
 
   return (
@@ -153,9 +139,9 @@ function GradeSelect(props) {
                 {grade.gradeName}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {gradeNames.map((gradeName) => (
-                  <Dropdown.Item key={gradeName} onClick={selectGrade}>
-                    {gradeName}
+                {gradeList.map((grade1) => (
+                  <Dropdown.Item key={grade1.gradeName} onClick={selectGrade}>
+                    {grade1.gradeName}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
@@ -180,6 +166,11 @@ function GradeSelect(props) {
         </Row>
         <Row>
           <Col>혜택 커스텀</Col>
+          <Col>
+            선택한 커스텀 ----
+            {location.state &&
+              location.state.myBenefits.map((benefit) => benefit.benefitName)}
+          </Col>
           <Col>
             <Button onClick={goToSelectBenefits}>커스텀 하기</Button>
           </Col>
