@@ -7,6 +7,7 @@ import ChargePage from "views/Card/ChargePage";
 import CompletePurchasePage from "views/Card/CompletePurchasePage";
 import HistoryPage from "views/Card/HistoryPage";
 import TransferPage from "views/Card/TransferPage";
+import TravelCardPage from "views/Card/TravelCardPage";
 
 function CardHome(props) {
   return (
@@ -20,6 +21,7 @@ function CardHome(props) {
         <Route path="/charge/:userCardId" element={<ChargePage />} />
         <Route path="/history/:userCardId" element={<HistoryPage />} />
         <Route path="/transfer" element={<TransferPage />} />
+        <Route path="/travelcard" element={<TravelCardPage />} />
       </Routes>
     </div>
   );
