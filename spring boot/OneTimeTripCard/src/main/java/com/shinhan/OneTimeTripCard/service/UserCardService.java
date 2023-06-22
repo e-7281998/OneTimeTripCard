@@ -23,16 +23,8 @@ public class UserCardService {
 	private final CardService cardService;
 	private final UserCardRepository userCardRepository;
 	
-	/**
-	 * 카드 번호를 기준으로 끝자리가 1이면 그룹, 0이면 개인 카드로 설정
-	 * @param userCard
-	 * @return
-	 */
 	public UserCard save(UserCard userCard) {
-		String cardNo = userCard.getCard().getCardNo(); 
-		if (cardNo.charAt(cardNo.length() - 1) == '1') {
-			userCard.setIsGroup(true);
-		}
+		
 		return userCardRepository.save(userCard);
 	}
 	
