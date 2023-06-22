@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
+import Carousel from "./Carousel";
 
 function DecidedGrade(props) {
   const location = useLocation();
@@ -12,6 +13,7 @@ function DecidedGrade(props) {
 
   return (
     <div>
+      <Carousel />
       <Container>
         <Row>
           <Col>등급</Col>
