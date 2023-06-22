@@ -21,7 +21,6 @@ import React from "react";
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -62,11 +61,17 @@ function Login(props) {
     axios({
       method: "post",
       url: "/login",
-      data: { email: inputEmail, password: inputPassword },
+      data: {
+        email: inputEmail,
+        password: inputPassword,
+      },
     })
       .then((res) => {
         console.log("data", res.data);
         console.log("res.data.ID :: ", res.data.id);
+        console.log("res.data.firstname :: ", res.data.firstName);
+        console.log("res.data.lastname :: ", res.data.lastName);
+
         console.log("res.data.msg :: ", res.data.msg);
 
         //로그인 경우를 3가지 case로 나눔
@@ -85,6 +90,9 @@ function Login(props) {
           console.log("======================", "로그인 성공");
           // sessionStorage에 id를 email이라는 key 값으로 저장
           sessionStorage.setItem("id", res.data.id);
+          sessionStorage.setItem("firstName", res.data.firstName);
+          sessionStorage.setItem("lastName", res.data.lastName);
+
           //sessionStorage.setItem("id", inputEmail);
 
           // 작업 완료 되면 페이지 이동(새로고침)
@@ -96,7 +104,6 @@ function Login(props) {
 
   return (
     <>
-      {/* <DemoNavbar /> */}
       <main ref={props.ref}>
         {/* 스크롤 내려가게하는거임 */}
         <section className="section section-shaped section-lg">
