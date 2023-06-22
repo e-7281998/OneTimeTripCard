@@ -49,7 +49,7 @@ function FindPasswordPage(props) {
       .then((res) => {
         console.log("data", res.data);
 
-        var email = res.data.email;
+        var email = res.data;
 
         //이메일이 없을경우
         if (email === 0) {
@@ -58,14 +58,14 @@ function FindPasswordPage(props) {
             "가입되어있지 않은 email 입니다."
           );
           alert("가입되어있지 않은 email 입니다.");
-          return;
         } else if (email === 1) {
           console.log(
             "======================",
             "전화번호가 일치하지 않습니다."
           );
           alert("전화번호가 일치하지 않습니다.");
-          return;
+        } else if (email === 2) {
+          alert("정확한 email 과 password 를 입력해주세요.");
         } else {
           console.log(
             "======================",

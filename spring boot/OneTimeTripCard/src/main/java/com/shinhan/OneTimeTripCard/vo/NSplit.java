@@ -36,6 +36,7 @@ public class NSplit {
 	@JoinColumn(name = "user_card_id")
 	private UserCard userCard;
 	private Integer amount;
+	private Long travelWithId;
 	
 	@CreationTimestamp
 	private LocalDateTime splitDate;

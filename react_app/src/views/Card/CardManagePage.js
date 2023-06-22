@@ -2,7 +2,8 @@ import CardList from "components/Card/CardList";
 import CardPurchaseHistory from "components/Card/CardPurchaseHistory";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Button, Col, Container, Row } from "reactstrap";
 
 function CardManagePage(props) {
   const [show, setShow] = useState(false);
@@ -11,31 +12,36 @@ function CardManagePage(props) {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
-      <span>카드 관리</span>
-      <Button>
-        <a href="/card/purchase">카드 구매</a>
-      </Button>
-      <Button onClick={handleShow}>카드 구매 내역</Button>
-      <hr></hr>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>카드 구매 내역</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <CardPurchaseHistory />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <CardList />
-    </div>
+    <>
+      <Link to="/card/purchase">
+        <Button style={{ marginRight: 10, marginLeft: "75%" }}>
+          카드 구매
+        </Button>
+      </Link>
+      <Button onClick={handleShow}>카드 구매내역</Button>
+
+      <Container className="pt-lg-1">
+        <div>
+          <Modal show={show} onHide={handleClose} size="lg">
+            <Modal.Header closeButton>
+              <Modal.Title>카드 구매 내역</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CardPurchaseHistory />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <CardList />
+        </div>
+      </Container>
+    </>
   );
 }
 

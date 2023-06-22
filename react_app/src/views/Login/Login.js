@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Design System React - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -45,7 +28,6 @@ function Login(props) {
   //input 입력할때마다 이벤트 발생하여 값 받음
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handleInputPassword = (e) => {
     setInputPassword(e.target.value);
@@ -54,9 +36,6 @@ function Login(props) {
   const onClickLogin = (e) => {
     //기본기능을 수행하지 않음.
     e.preventDefault();
-    console.log("click login");
-    console.log("email : ", inputEmail);
-    console.log("password : ", inputPassword);
 
     axios({
       method: "post",
@@ -67,27 +46,17 @@ function Login(props) {
       },
     })
       .then((res) => {
-        console.log("data", res.data);
-        console.log("res.data.ID :: ", res.data.id);
-        console.log("res.data.firstname :: ", res.data.firstName);
-        console.log("res.data.lastname :: ", res.data.lastName);
-
-        console.log("res.data.msg :: ", res.data.msg);
-
         //로그인 경우를 3가지 case로 나눔
         var email = res.data.email;
 
         if (email === "0") {
           // 일치하는 email 없을 경우
-          console.log("======================", "email을 확인해주세요.");
           alert("email을 확인해주세요");
         } else if (email === "1") {
           // password가 틀린 경우
           alert("비밀번호를 확인해주세요");
           console.log("======================", "비밀번호를 확인해주세요");
         } else {
-          alert("로그인 성공");
-          console.log("======================", "로그인 성공");
           // sessionStorage에 id를 email이라는 key 값으로 저장
           sessionStorage.setItem("id", res.data.id);
           sessionStorage.setItem("firstName", res.data.firstName);

@@ -7,6 +7,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { selectTravelCardsByUserId } from "js/travelCard";
+import InfiniteCarousel from "react-leaf-carousel";
 function CardList(props) {
   const location = useLocation();
   console.log("location");
@@ -168,143 +169,170 @@ function CardList(props) {
 
   /**
    * 환불 메소드
-   * @param {} event 
+   * @param {} event
    */
   const refund = (event) => {
     event.stopPropagation();
-    const selecteduserCardId = event.target.getAttribute('value');
-    axios
-      .put(`/user-card/refund/${selecteduserCardId}`)
-      .then((response) => {
-        alert('환불 완료, 환불금:', response.data);
-      });
+    const selecteduserCardId = event.target.getAttribute("value");
+    axios.put(`/user-card/refund/${selecteduserCardId}`).then((response) => {
+      alert("환불 완료, 환불금:", response.data);
+    });
   };
 
   return (
-    <div>
-      <h1>Card List Area</h1>
-      <Container fluid>
-        <Row>
-          {title.map((item, index) => (
-            <Col key={index}>{item}</Col>
-          ))}
-          {currentState && <Col></Col>}
-        </Row>
-        {userCards.map((userCard, index) => (
-          <Row key={index} onClick={clickCard} value={JSON.stringify(userCard)}>
-            <Col>{userCard.nickName}</Col>
-            <Col>{userCard.card?.cardNo}</Col>
-            <Col>{userCard.card?.cardDesign.cardName}</Col>
-            <Col>{userCard.createdAt}</Col>
-            {!currentState && <Col>{userCard.grade?.gradeName}</Col>}
-            <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
-            <Col>
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (location.pathname === "/travelCard") {
-                    navigate(`/travelCard/history/${userCard.id}`, {
-                      state: { userCard: userCard },
-                    });
-                  } else {
-                    navigate(`/card/history/${userCard.id}`, {
-                      state: { userCard: userCard },
-                    });
-                  }
-                }}
+    <>
+      <main ref={props.ref}>
+        <section className="section section-shaped section-lg">
+          <h1>Card List Area</h1>
+          {/* 카드슬라이드 이미지 */}
+          <InfiniteCarousel
+            breakpoints={[
+              {
+                breakpoint: 500,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                },
+              },
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                },
+              },
+            ]}
+            dots={true}
+            showSides={true}
+            // 투명도
+            sidesOpacity={0.3}
+            // 그림 사이즈 (9가제일 작음)
+            sideSize={0.9}
+            slidesToScroll={1}
+            slidesToShow={1}
+            scrollOnDevice={true}
+          >
+            <div>
+              <img alt="" src={require("assets/img/card/cardImg1.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/1.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/2.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/3.png")} />
+            </div>
+          </InfiniteCarousel>
+          <Container fluid>
+            <Row className="justify-content-center">
+              {title.map((item, index) => (
+                <Col key={index}>{item}</Col>
+              ))}
+            </Row>
+            {userCards.map((userCard, index) => (
+              <Row
+                key={index}
+                onClick={clickCard}
+                value={JSON.stringify(userCard)}
               >
-                사용내역
-              </Button>
-            </Col>
-            {currentState && (
-              <Col>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (location.pathname === "/travelCard") {
-                      navigate(`/travelCard/history/${userCard.id}`, {
-                        state: { userCard: userCard },
-                      });
-                    } else {
-                      navigate(`/card/history/${userCard.id}`, {
-                        state: { userCard: userCard },
-                      });
-                    }
-                  }}
-                >
-                  정산하기
-                </Button>
-              </Col>
-            )}
-            <Col>
-              <Button
-                disabled={userCard.isDefault ? "disabled" : ""}
-                value={userCard.id}
-                nick={userCard.nickName}
-                onClick={onDelete}
-              >
-                삭제하기
-              </Button>
-            </Col>
-            <Col>
-                <Button
-                  disabled={userCard.balance === 0 ? "disabled" : ""}
-                  value={userCard.id}
-                  onClick={refund}
-                >
-                  환불하기
-                </Button>
-              </Col>
-          </Row>
-        ))}
-      </Container>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header>
-          <Modal.Title>카드 등록</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Container>
-            <Row>
-              <Col>카드 번호</Col>
-              <Col>
-                <Form.Control
-                  placeholder="카드 번호"
-                  onChange={getInput}
-                  name="cardNo"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>별칭</Col>
-              <Col>
-                <Form.Control
-                  placeholder="별칭"
-                  onChange={getInput}
-                  name="nickName"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Check
-                  checked={registerInput["isDefault"]}
-                  onChange={checkHandler}
-                />
-              </Col>
-              <Col>기본카드</Col>
-            </Row>
+                <Col>{userCard.nickName}</Col>
+                <Col>{userCard.card?.cardNo}</Col>
+                <Col>{userCard.card?.cardDesign.cardName}</Col>
+                <Col>{userCard.createdAt}</Col>
+                <Col>{userCard.grade?.gradeName}</Col>
+                <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
+
+                <Col>
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (location.pathname === "/travelCard") {
+                        navigate(`/travelCard/history/${userCard.id}`, {
+                          state: { userCard: userCard },
+                        });
+                      } else {
+                        navigate(`/card/history/${userCard.id}`, {
+                          state: { userCard: userCard },
+                        });
+                      }
+                    }}
+                  >
+                    사용내역
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    disabled={userCard.isDefault ? "disabled" : ""}
+                    value={userCard.id}
+                    nick={userCard.nickName}
+                    onClick={onDelete}
+                  >
+                    삭제하기
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    disabled={userCard.balance === 0 ? "disabled" : ""}
+                    value={userCard.id}
+                    onClick={refund}
+                  >
+                    환불하기
+                  </Button>
+                </Col>
+              </Row>
+            ))}
           </Container>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            취소
-          </Button>
-          <Button variant="primary" onClick={register}>
-            등록
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          <Modal show={show} onHide={handleClose} size="lg">
+            <Modal.Header>
+              <Modal.Title>카드 등록</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container>
+                <Row>
+                  <Col>카드 번호</Col>
+                  <Col>
+                    <Form.Control
+                      placeholder="카드 번호"
+                      onChange={getInput}
+                      name="cardNo"
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>별칭</Col>
+                  <Col>
+                    <Form.Control
+                      placeholder="별칭"
+                      onChange={getInput}
+                      name="nickName"
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Check
+                      checked={registerInput["isDefault"]}
+                      onChange={checkHandler}
+                    />
+                  </Col>
+                  <Col>기본카드</Col>
+                </Row>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                취소
+              </Button>
+              <Button variant="primary" onClick={register}>
+                등록
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </section>
+      </main>
+    </>
   );
 }
 

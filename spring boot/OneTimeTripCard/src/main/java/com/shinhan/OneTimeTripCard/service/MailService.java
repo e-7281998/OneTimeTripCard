@@ -25,11 +25,12 @@ public class MailService {
 		//이메일이 없으면 
 		if(userRepository.findByEmail(user.getEmail()) == null) {
 			flag = 0;
+			return flag;
 		} else if (userRepository.findByEmail(user.getPhone()) == null) {
 			flag = 1;
+			return flag;
 		} else 
-			flag =3;
-		
+			flag = 3;
 		
 		return flag;
 	}

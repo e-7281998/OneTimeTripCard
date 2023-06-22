@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	//[이솔]: 마이페이지_유저정보_Update
-	@PutMapping(value="/userInfoUpdate")
+	@PutMapping("userInfoUpdate")
 	public User userInUpdate(@RequestBody User user) {
 		return userService.updateUserInfo(user);
 	}

@@ -10,7 +10,7 @@ function CompletePurchasePage(props) {
     const userCard = location.state.userCard;
 
     const goToCardManagePage = () => {
-        navigate('/card/manage-card');
+        navigate('/card');
     }
     return (
         <div>
