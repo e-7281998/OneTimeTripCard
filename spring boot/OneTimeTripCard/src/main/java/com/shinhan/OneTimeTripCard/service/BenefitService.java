@@ -18,4 +18,10 @@ public class BenefitService {
 	public List<Benefit> findAll() {
 		return (List<Benefit>) benefitRepository.findAll();
 	}
+	
+	public void insertBenefits(List<Benefit> benefitList){
+		for (Benefit benefit: benefitList) {
+			benefitRepository.save(benefit);
+		}
+	}
 }
