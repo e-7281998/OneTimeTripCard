@@ -7,9 +7,13 @@ function CardDefaultInfo(props) {
   const userCard = location.state.userCard;
 
   return (
-    <Card className="mb-3 text-center btn-block">
+    <Card
+      className="mb-3 text-center btn-block"
+      style={{ background: "#e9ecef" }}
+    >
       <Card.Body>
-        잔액 <span> {userCard.balance}</span>
+        <h4 style={{ fontSize: 30, fontWeight: 500 }}>카드 잔액</h4>
+        <h1 style={{ fontSize: 60, fontWeight: 800 }}>₩ {userCard.balance}</h1>
       </Card.Body>
       <Card.Img
         className="m-auto"
@@ -17,8 +21,12 @@ function CardDefaultInfo(props) {
         style={{ width: "13rem" }}
       />
       <Card.Body>
-        <span>{userCard.nickName} </span>
-        <span>{userCard.grade.gradeName}</span>
+        <div style={{ fontSize: 20, fontWeight: 800 }}>
+          {userCard.nickName}{" "}
+        </div>
+        <div style={{ fontSize: 20, fontWeight: 500 }}>
+          {userCard.grade.gradeName}
+        </div>
       </Card.Body>
     </Card>
   );

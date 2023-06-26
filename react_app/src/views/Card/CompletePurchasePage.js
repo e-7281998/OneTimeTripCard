@@ -1,13 +1,12 @@
-import DecidedGrade from 'components/Card/DecidedGrade';
-import UnRegisteredCard from 'components/Card/UnRegisteredCard';
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import DecidedGrade from "components/Card/DecidedGrade";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
 
 function CompletePurchasePage(props) {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const userCard = location.state.userCard;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const userCard = location.state.userCard;
 
     const goToCardManagePage = () => {
         navigate('/card');

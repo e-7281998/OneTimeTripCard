@@ -6,7 +6,7 @@ import { Button, Col, Container, Row } from "reactstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import Carousel from "./Carousel";
 /**
  * 작성자 : 손준범
  *
@@ -128,59 +128,71 @@ function GradeSelect(props) {
   };
 
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col>등급</Col>
-          <Col>
-            <Dropdown>
-              <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                {grade.gradeName}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {gradeList.map((grade1) => (
-                  <Dropdown.Item key={grade1.gradeName} onClick={selectGrade}>
-                    {grade1.gradeName}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-        </Row>
-        <Row>
-          <Col>금액</Col>
-          <Col>{grade.price}</Col>
-        </Row>
-        <Row>
-          <Col>기간</Col>
-          <Col>{grade.period}</Col>
-        </Row>
-        <Row>
-          <Col>혜택 수</Col>
-          <Col>{grade.benefitCount}</Col>
-        </Row>
-        <Row>
-          <Col>즉시 환급률</Col>
-          <Col>{grade.refundRate * 100}%</Col>
-        </Row>
-        <Row>
-          <Col>혜택 커스텀</Col>
-          <Col>
-            선택한 커스텀 ----
-            {location.state &&
-              location.state.myBenefits.map((benefit) => benefit.benefitName)}
-          </Col>
-          <Col>
-            <Button onClick={goToSelectBenefits}>커스텀 하기</Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col>재 충전 동일 혜택 수</Col>
-          <Col>{grade.maxRechargeCount}</Col>
-        </Row>
-      </Container>
-      <Button onClick={purchase}>구입하기</Button>
-    </div>
+    <>
+      <div className="d-flex justify-content-between">
+        <Carousel />
+        <Container>
+          <Row className="my-2">
+            <Col>등급</Col>
+            <Col>
+              <Dropdown className=" d-flex justify-content-end">
+                <Dropdown.Toggle variant="dark" id="dropdown-basic" size="sm">
+                  {grade.gradeName}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {gradeList.map((grade1) => (
+                    <Dropdown.Item key={grade1.gradeName} onClick={selectGrade}>
+                      {grade1.gradeName}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Col>
+          </Row>
+          <Row className="my-2">
+            <Col>금액</Col>
+            <Col className="text-right">{grade.price}</Col>
+          </Row>
+          <Row className="my-2">
+            <Col>기간</Col>
+            <Col className="text-right"> {grade.period}</Col>
+          </Row>
+          <Row className="my-2">
+            <Col>혜택 수</Col>
+            <Col className="text-right">{grade.benefitCount}</Col>
+          </Row>
+          <Row className="my-2">
+            <Col>즉시 환급률</Col>
+            <Col className="text-right">{grade.refundRate * 100}%</Col>
+          </Row>
+          <Row className="my-2">
+            <Col>혜택 커스텀</Col>
+
+            <Col className="d-flex justify-content-end">
+              <Button onClick={goToSelectBenefits} size="sm">
+                커스텀 하기
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              선택한 커스텀 ----
+              {location.state &&
+                location.state.myBenefits.map((benefit) => benefit.benefitName)}
+            </Col>
+          </Row>
+          <Row className="my-2">
+            <Col>재 충전 동일 혜택 수</Col>
+            <Col className="text-right">{grade.maxRechargeCount}</Col>
+          </Row>
+          <Row className="d-flex justify-content-end my-3">
+            <Button onClick={purchase} size="sm" type="button">
+              구입하기
+            </Button>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
 }
 
