@@ -19,6 +19,7 @@ import {
 // core components
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function FindPasswordPage(props) {
   const [inputEmail, setInputEmail] = useState("");
@@ -47,16 +48,16 @@ function FindPasswordPage(props) {
       },
     })
       .then((res) => {
-        console.log("data", res.data);
-
         var email = res.data;
 
         //이메일이 없을경우
         if (email === 0) {
-          console.log(
-            "======================",
-            "가입되어있지 않은 email 입니다."
-          );
+          Swal.fire({
+            title: "Error!",
+            text: "가입되어있지 않은 email 입니다.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
           alert("가입되어있지 않은 email 입니다.");
         } else if (email === 1) {
           console.log(
