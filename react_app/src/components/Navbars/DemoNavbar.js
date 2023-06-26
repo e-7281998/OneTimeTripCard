@@ -106,6 +106,7 @@ function DemoNavbar(props) {
                 <NavbarBrand href="/card/travelcard">
                   여행 카드 서비스
                 </NavbarBrand>
+                <NavbarBrand href="/travelCard">여행 카드 서비스</NavbarBrand>
 
                 <NavbarBrand href="/trip">여행 추천 서비스</NavbarBrand>
                 <NavbarBrand href="#pablo">배송서비스</NavbarBrand>
