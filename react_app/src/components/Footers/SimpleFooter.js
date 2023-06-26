@@ -101,7 +101,7 @@ class SimpleFooter extends React.Component {
                 <Nav className=" nav-footer justify-content-end">
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com?ref=adsr-footer"
+                      href="https://www.shinhancard.com/"
                       target="_blank"
                     >
                       ShinhanCard

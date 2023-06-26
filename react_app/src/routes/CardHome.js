@@ -21,7 +21,7 @@ function CardHome(props) {
         <Route path="/charge/:userCardId" element={<ChargePage />} />
         <Route path="/history/:userCardId" element={<HistoryPage />} />
         <Route path="/transfer" element={<TransferPage />} />
-        <Route path="/travelcard" element={<TravelCardPage />} />
+        <Route path="/travelCard" element={<TravelCardPage />} />
       </Routes>
     </div>
   );

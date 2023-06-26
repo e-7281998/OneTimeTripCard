@@ -14,11 +14,13 @@ function CardManagePage(props) {
   return (
     <>
       <Link to="/card/purchase">
-        <Button style={{ marginRight: 10, marginLeft: "75%" }}>
+        <Button color="default" style={{ marginRight: 10, marginLeft: "75%" }}>
           카드 구매
         </Button>
       </Link>
-      <Button onClick={handleShow}>카드 구매내역</Button>
+      <Button color="primary" onClick={handleShow}>
+        카드 구매내역
+      </Button>
 
       <Container className="pt-lg-1">
         <div>
