@@ -21,12 +21,12 @@ public class MailService {
 	//인증번호 발송 유효성 check
 	public int updatePwd(User user) {
 		int flag = 0;
-		
+		User targetUser = userRepository.findByEmail(user.getEmail());
 		//이메일이 없으면 
-		if(userRepository.findByEmail(user.getEmail()) == null) {
+		if(targetUser == null) {
 			flag = 0;
 			return flag;
-		} else if (userRepository.findByEmail(user.getPhone()) == null) {
+		} else if (!targetUser.getPhone().equals(user.getPhone())) {
 			flag = 1;
 			return flag;
 		} else 
