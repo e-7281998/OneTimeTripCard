@@ -40,7 +40,6 @@ function OttcMain(props) {
   return (
     <div>
       <>
-        {/* <DemoNavbar /> */}
         <main ref={props.ref}>
           {/* 카드슬라이드 이미지 */}
           <InfiniteCarousel
@@ -69,10 +68,12 @@ function OttcMain(props) {
             slidesToScroll={1}
             slidesToShow={1}
             scrollOnDevice={true}
+            animationDuration={100}
+            autoCycle={true}
           >
-            <div>
+            {/* <div>
               <img alt="" src={require("assets/img/card/cardImg1.png")} />
-            </div>
+            </div> */}
             <div>
               <img alt="" src={require("assets/img/card/1.png")} />
             </div>

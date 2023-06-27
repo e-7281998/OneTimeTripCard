@@ -186,24 +186,21 @@ function CardList(props) {
   return (
     <>
       <main ref={props.ref}>
-        <section className="section section-shaped section-lg">
-          <h1>Card List Area</h1>
-          {/* 카드슬라이드 이미지 */}
-          <InfiniteCarousel
-            breakpoints={[
-              {
-                breakpoint: 500,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 2,
-                },
+        {/* 카드슬라이드 이미지 */}
+        <InfiniteCarousel
+          breakpoints={[
+            {
+              breakpoint: 500,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
               },
-              {
-                breakpoint: 768,
-                settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 3,
-                },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
               },
             ]}
             dots={true}
@@ -251,23 +248,60 @@ function CardList(props) {
                   <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
                 )}
 
+              <Col>
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (location.pathname === "/travelCard") {
+                      navigate(`/travelCard/history/${userCard.id}`, {
+                        state: { userCard: userCard },
+                      });
+                    } else {
+                      navigate(`/card/history/${userCard.id}`, {
+                        state: { userCard: userCard },
+                      });
+                    }
+                  }}
+                >
+                  사용내역
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  disabled={userCard.isDefault ? "disabled" : ""}
+                  value={userCard.id}
+                  nick={userCard.nickName}
+                  onClick={onDelete}
+                >
+                  삭제하기
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  disabled={userCard.balance === 0 ? "disabled" : ""}
+                  value={userCard.id}
+                  onClick={refund}
+                >
+                  환불하기
+                </Button>
+              </Col>
+            </Row>
+          ))}
+        </Container>
+        <Modal show={show} onHide={handleClose} size="lg">
+          <Modal.Header>
+            <Modal.Title>카드 등록</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Container>
+              <Row>
+                <Col>카드 번호</Col>
                 <Col>
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (location.pathname === "/travelCard") {
-                        navigate(`/travelCard/history/${userCard.id}`, {
-                          state: { userCard: userCard },
-                        });
-                      } else {
-                        navigate(`/card/history/${userCard.id}`, {
-                          state: { userCard: userCard },
-                        });
-                      }
-                    }}
-                  >
-                    사용내역
-                  </Button>
+                  <Form.Control
+                    placeholder="카드 번호"
+                    onChange={getInput}
+                    name="cardNo"
+                  />
                 </Col>
                 {currentState && (
                   <Col>
@@ -285,74 +319,33 @@ function CardList(props) {
                 )}
 
                 <Col>
-                  <Button
-                    disabled={userCard.isDefault ? "disabled" : ""}
-                    value={userCard.id}
-                    nick={userCard.nickName}
-                    onClick={onDelete}
-                  >
-                    삭제하기
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    disabled={userCard.balance === 0 ? "disabled" : ""}
-                    value={userCard.id}
-                    onClick={refund}
-                  >
-                    환불하기
-                  </Button>
+                  <Form.Control
+                    placeholder="별칭"
+                    onChange={getInput}
+                    name="nickName"
+                  />
                 </Col>
               </Row>
-            ))}
-          </Container>
-          <Modal show={show} onHide={handleClose} size="lg">
-            <Modal.Header>
-              <Modal.Title>카드 등록</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Container>
-                <Row>
-                  <Col>카드 번호</Col>
-                  <Col>
-                    <Form.Control
-                      placeholder="카드 번호"
-                      onChange={getInput}
-                      name="cardNo"
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>별칭</Col>
-                  <Col>
-                    <Form.Control
-                      placeholder="별칭"
-                      onChange={getInput}
-                      name="nickName"
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      checked={registerInput["isDefault"]}
-                      onChange={checkHandler}
-                    />
-                  </Col>
-                  <Col>기본카드</Col>
-                </Row>
-              </Container>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                취소
-              </Button>
-              <Button variant="primary" onClick={register}>
-                등록
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </section>
+              <Row>
+                <Col>
+                  <Form.Check
+                    checked={registerInput["isDefault"]}
+                    onChange={checkHandler}
+                  />
+                </Col>
+                <Col>기본카드</Col>
+              </Row>
+            </Container>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              취소
+            </Button>
+            <Button variant="primary" onClick={register}>
+              등록
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </main>
     </>
   );
