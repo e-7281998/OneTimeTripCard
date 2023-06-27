@@ -2,7 +2,7 @@ import CardList from "components/Card/CardList";
 import CardPurchaseHistory from "components/Card/CardPurchaseHistory";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 
 function CardManagePage(props) {
@@ -10,6 +10,8 @@ function CardManagePage(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const location = useLocation();
+  const currentState = location.pathname.split("/")[1] === "travelCard";
 
   return (
     <>

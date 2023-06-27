@@ -22,8 +22,9 @@ function CardList(props) {
     isDefault: false,
   });
   const navigate = useNavigate();
+  const currentState = location.pathname.split("/")[1] === "travelCard";
 
-  const title = [
+  var title = [
     "별칭",
     "카드 번호 ",
     "상품명",
@@ -32,7 +33,11 @@ function CardList(props) {
     "기본카드",
     "",
     "",
+    "",
   ];
+  if (currentState) {
+    delete title[5];
+  }
 
   // 모달 닫는 함수
   const handleClose = () => {
@@ -75,6 +80,8 @@ function CardList(props) {
 
   const userId = window.sessionStorage.getItem("id");
   useEffect(() => {
+    console.log("location.pathname");
+    console.log(location.pathname);
     //개인카드
     if (location.pathname === "/card") {
       selectUserCardsByUserId(userId)
@@ -89,6 +96,7 @@ function CardList(props) {
     else if (location.pathname === "/travelCard") {
       selectTravelCardsByUserId(userId)
         .then((userCards) => {
+          console.log("여기");
           setUserCards(cardList(userCards));
         })
         .catch((error) => {
@@ -194,46 +202,51 @@ function CardList(props) {
                 slidesToShow: 3,
                 slidesToScroll: 3,
               },
-            },
-          ]}
-          dots={true}
-          showSides={true}
-          // 투명도
-          sidesOpacity={0.3}
-          // 그림 사이즈 (9가제일 작음)
-          sideSize={0.9}
-          slidesToScroll={1}
-          slidesToShow={1}
-          scrollOnDevice={true}
-        >
-          <div>
-            <img alt="" src={require("assets/img/card/1.png")} />
-          </div>
-          <div>
-            <img alt="" src={require("assets/img/card/2.png")} />
-          </div>
-          <div>
-            <img alt="" src={require("assets/img/card/3.png")} />
-          </div>
-        </InfiniteCarousel>
-        <Container fluid>
-          <Row className="justify-content-center">
-            {title.map((item, index) => (
-              <Col key={index}>{item}</Col>
-            ))}
-          </Row>
-          {userCards.map((userCard, index) => (
-            <Row
-              key={index}
-              onClick={clickCard}
-              value={JSON.stringify(userCard)}
-            >
-              <Col>{userCard.nickName}</Col>
-              <Col>{userCard.card?.cardNo}</Col>
-              <Col>{userCard.card?.cardDesign.cardName}</Col>
-              <Col>{userCard.createdAt}</Col>
-              <Col>{userCard.grade?.gradeName}</Col>
-              <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
+            ]}
+            dots={true}
+            showSides={true}
+            // 투명도
+            sidesOpacity={0.3}
+            // 그림 사이즈 (9가제일 작음)
+            sideSize={0.9}
+            slidesToScroll={1}
+            slidesToShow={1}
+            scrollOnDevice={true}
+          >
+            <div>
+              <img alt="" src={require("assets/img/card/cardImg1.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/1.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/2.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/3.png")} />
+            </div>
+          </InfiniteCarousel>
+          <Container fluid>
+            <Row className="justify-content-center">
+              {title.map((item, index) => (
+                <Col key={index}>{item}</Col>
+              ))}
+              {currentState && <Col></Col>}
+            </Row>
+            {userCards.map((userCard, index) => (
+              <Row
+                key={index}
+                onClick={clickCard}
+                value={JSON.stringify(userCard)}
+              >
+                <Col>{userCard.nickName}</Col>
+                <Col>{userCard.card?.cardNo}</Col>
+                <Col>{userCard.card?.cardDesign.cardName}</Col>
+                <Col>{userCard.createdAt}</Col>
+                <Col>{userCard.grade?.gradeName}</Col>
+                {!currentState && (
+                  <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
+                )}
 
               <Col>
                 <Button
@@ -290,9 +303,21 @@ function CardList(props) {
                     name="cardNo"
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col>별칭</Col>
+                {currentState && (
+                  <Col>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/travelCard/split`, {
+                          state: { userCard: userCard },
+                        });
+                      }}
+                    >
+                      멤버 보기
+                    </Button>
+                  </Col>
+                )}
+
                 <Col>
                   <Form.Control
                     placeholder="별칭"
