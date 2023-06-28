@@ -48,7 +48,7 @@ root.render(
           <Row className="justify-content-center">
             <Col lg="12">
               <Routes>
-                <Route path="/" exact element={<OttcMain />} />
+                <Route path="/" element={<OttcMain />} />
                 <Route path="/landing-page" exact element={<Landing />} />
                 <Route path="/login/*" element={<LoginHome />} />
                 <Route path="/register-page" exact element={<Register />} />
@@ -60,7 +60,6 @@ root.render(
                 <Route path="/aboutottc" element={<AboutOttc />} />
                 <Route path="/aboutbenefit" element={<AboutBenefit />} />
                 <Route path="/aboutgrade" element={<AboutGrade />} />
-
               </Routes>
             </Col>
           </Row>
