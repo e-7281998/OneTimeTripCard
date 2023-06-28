@@ -202,51 +202,47 @@ function CardList(props) {
                 slidesToShow: 3,
                 slidesToScroll: 3,
               },
-            ]}
-            dots={true}
-            showSides={true}
-            // 투명도
-            sidesOpacity={0.3}
-            // 그림 사이즈 (9가제일 작음)
-            sideSize={0.9}
-            slidesToScroll={1}
-            slidesToShow={1}
-            scrollOnDevice={true}
-          >
-            <div>
-              <img alt="" src={require("assets/img/card/cardImg1.png")} />
-            </div>
-            <div>
-              <img alt="" src={require("assets/img/card/1.png")} />
-            </div>
-            <div>
-              <img alt="" src={require("assets/img/card/2.png")} />
-            </div>
-            <div>
-              <img alt="" src={require("assets/img/card/3.png")} />
-            </div>
-          </InfiniteCarousel>
-          <Container fluid>
-            <Row className="justify-content-center">
-              {title.map((item, index) => (
-                <Col key={index}>{item}</Col>
-              ))}
-              {currentState && <Col></Col>}
-            </Row>
-            {userCards.map((userCard, index) => (
-              <Row
-                key={index}
-                onClick={clickCard}
-                value={JSON.stringify(userCard)}
-              >
-                <Col>{userCard.nickName}</Col>
-                <Col>{userCard.card?.cardNo}</Col>
-                <Col>{userCard.card?.cardDesign.cardName}</Col>
-                <Col>{userCard.createdAt}</Col>
-                <Col>{userCard.grade?.gradeName}</Col>
-                {!currentState && (
-                  <Col>{userCard.isDefault ? "Yes" : "No"}</Col>
-                )}
+            },
+          ]}
+          dots={true}
+          showSides={true}
+          // 투명도
+          sidesOpacity={0.3}
+          // 그림 사이즈 (9가제일 작음)
+          sideSize={0.9}
+          slidesToScroll={1}
+          slidesToShow={1}
+          scrollOnDevice={true}
+        >
+          <div>
+            <img alt="" src={require("assets/img/card/1.png")} />
+          </div>
+          <div>
+            <img alt="" src={require("assets/img/card/2.png")} />
+          </div>
+          <div>
+            <img alt="" src={require("assets/img/card/3.png")} />
+          </div>
+        </InfiniteCarousel>
+        <Container fluid>
+          <Row className="justify-content-center">
+            {title.map((item, index) => (
+              <Col key={index}>{item}</Col>
+            ))}
+            {currentState && <Col></Col>}
+          </Row>
+          {userCards.map((userCard, index) => (
+            <Row
+              key={index}
+              onClick={clickCard}
+              value={JSON.stringify(userCard)}
+            >
+              <Col>{userCard.nickName}</Col>
+              <Col>{userCard.card?.cardNo}</Col>
+              <Col>{userCard.card?.cardDesign.cardName}</Col>
+              <Col>{userCard.createdAt}</Col>
+              <Col>{userCard.grade?.gradeName}</Col>
+              {!currentState && <Col>{userCard.isDefault ? "Yes" : "No"}</Col>}
 
               <Col>
                 <Button
