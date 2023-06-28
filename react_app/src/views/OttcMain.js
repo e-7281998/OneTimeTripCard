@@ -68,7 +68,7 @@ function OttcMain(props) {
             slidesToScroll={1}
             slidesToShow={1}
             scrollOnDevice={true}
-            animationDuration={100}
+            animationDuration={50}
             autoCycle={true}
           >
             {/* <div>
