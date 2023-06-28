@@ -28,7 +28,7 @@ public class UserCardController {
 	
 	@PostMapping("/purchase")
 	public UserCard purchase(@RequestBody UserCard userCard) {
-		return userCardService.save(userCard);
+		return userCardService.purchase(userCard);
 	}
 	
 	@GetMapping("/history/{userId}")
