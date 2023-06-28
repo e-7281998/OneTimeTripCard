@@ -1,4 +1,4 @@
-import { ListItem } from "@chakra-ui/react";
+import { Center, ListItem } from "@chakra-ui/react";
 import React from "react";
 import { useDrag } from "react-dnd";
 import { Button, UncontrolledTooltip } from "reactstrap";
@@ -25,7 +25,7 @@ const Benefit = ({ item, benefitType, onDropPlayer, index }) => {
       borderRadius="md"
       boxShadow="md"
       mb="2"
-      textAlign="center"
+      textAlign="auto"
       ref={dragRef}
       bg={
         isDragging
@@ -52,8 +52,7 @@ const Benefit = ({ item, benefitType, onDropPlayer, index }) => {
       >
         {item.detail}
       </UncontrolledTooltip>
-
-      {item.benefitName}
+      <span style={{ marginLeft: 50 }}>{item.benefitName}</span>
     </ListItem>
   );
 };
