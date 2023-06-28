@@ -20,6 +20,7 @@ import {
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Login(props) {
   const [inputEmail, setInputEmail] = useState("");
@@ -51,11 +52,21 @@ function Login(props) {
 
         if (email === "0") {
           // 일치하는 email 없을 경우
+          Swal.fire({
+            title: "Error!",
+            text: "email을 확인해주세요.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
           alert("email을 확인해주세요");
         } else if (email === "1") {
           // password가 틀린 경우
-          alert("비밀번호를 확인해주세요");
-          console.log("======================", "비밀번호를 확인해주세요");
+          Swal.fire({
+            title: "Error!",
+            text: "비밀번호를 확인해주세요.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         } else {
           // sessionStorage에 id를 email이라는 key 값으로 저장
           sessionStorage.setItem("id", res.data.id);
