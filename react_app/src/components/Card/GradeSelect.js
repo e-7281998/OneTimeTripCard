@@ -72,13 +72,18 @@ function GradeSelect(props) {
   }
 
   function purchase() {
+    //일반 등급이 아니고, 혜택 선택 안했으면 구매 못함.
+    if (grade.gradeName !== "일반" && !location.state?.myBenefits) {
+      alert("커스텀을 선택하세요");
+      return;
+    }
+
     axios({
       method: "post",
       url: "/user-card/purchase",
       data: {
         user: { id: userId },
         grade: grade,
-        nickName: "testCard",
         benefits: location.state == null ? null : location.state.myBenefits,
       },
     })
