@@ -3,6 +3,15 @@ import React from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 function TravelCardPage(props) {
+  const onClickStart = (e) => {
+    e.preventDefault();
+
+    const userId = sessionStorage.getItem("id");
+
+    if (userId == null) {
+      document.location.href = "/login";
+    } else document.location.href = "/travelCard";
+  };
   return (
     <>
       <main className="profile-page" ref={props.main}>
@@ -79,7 +88,7 @@ function TravelCardPage(props) {
                     친구들과 함께 여행카드 서비스를 시작하세요!
                   </div>
 
-                  <Button className="mr-4" color="info" href="#pablo">
+                  <Button className="mr-4" color="info" onClick={onClickStart}>
                     여행 카드 서비스 시작하기
                   </Button>
                 </div>
