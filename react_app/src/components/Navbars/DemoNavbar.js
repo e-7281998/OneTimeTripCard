@@ -54,6 +54,22 @@ function DemoNavbar(props) {
     document.location.href = "/";
   };
 
+  const onClickCardManage = (e) => {
+    e.preventDefault();
+
+    if (userId == null) {
+      document.location.href = "/login";
+    } else document.location.href = "/card";
+  };
+
+  const onClicktransfer = (e) => {
+    e.preventDefault();
+
+    if (userId == null) {
+      document.location.href = "/login";
+    } else document.location.href = "/card/transfer";
+  };
+
   return (
     <>
       <header className="header-global">
@@ -97,8 +113,20 @@ function DemoNavbar(props) {
                     <DropdownItem to="/aboutgrade" tag={Link}>
                       등급제
                     </DropdownItem>
-                    <DropdownItem to="/register-page" tag={Link}>
-                      카드컬렉션
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+
+                <UncontrolledDropdown nav>
+                  <DropdownToggle nav>
+                    <i className="ni ni-collection d-lg-none mr-1" />
+                    <span className="nav-link-inner--text">카드관리</span>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={onClickCardManage}>
+                      My Card List
+                    </DropdownItem>
+                    <DropdownItem onClick={onClicktransfer}>
+                      카드 잔액 이동
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -109,7 +137,7 @@ function DemoNavbar(props) {
                 {/* <NavbarBrand href="/travelCard">여행 카드 서비스</NavbarBrand> */}
 
                 <NavbarBrand href="/trip">여행 추천 서비스</NavbarBrand>
-                <NavbarBrand href="#pablo">배송서비스</NavbarBrand>
+
                 <NavbarBrand href="#pablo">이벤트</NavbarBrand>
                 {/* <NavbarBrand href="#pablo">공지사항</NavbarBrand> */}
               </Nav>
@@ -125,7 +153,7 @@ function DemoNavbar(props) {
               </Button>
             </Link>
 
-            <Link to="/user">
+            <Link to="/user/user-info-update">
               <Button
                 color="secondary"
                 type="button"

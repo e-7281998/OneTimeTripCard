@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 
 //import DemoNavbar from "components/Navbars/DemoNavbar.js";
-
+//지금은 없는 페이지임
 function MyPageComponent(props) {
   const userId = window.sessionStorage.getItem("id");
   const firstName = window.sessionStorage.getItem("firstName");
@@ -23,7 +23,7 @@ function MyPageComponent(props) {
 
   return (
     <>
-      <main ref={props.ref}>
+      {/* <main ref={props.ref}>
         <section className="section section-shaped section-lg">
           <Container className="pt-lg-7">
             <Row className="justify-content-center">
@@ -55,27 +55,12 @@ function MyPageComponent(props) {
                       카드 잔액이동
                     </Button>
                   </Link>
-
-                  <Link to="/card/benefit-custom">
-                    <Button
-                      color="info"
-                      style={{ height: 100, marginRight: 50 }}
-                    >
-                      사용내역 조회
-                    </Button>
-                  </Link>
-
-                  <Link to="/card/benefit-custom">
-                    <Button color="danger" style={{ height: 100 }}>
-                      혜택 커스텀
-                    </Button>
-                  </Link>
                 </Col>
               </div>
             </Row>
           </Container>
         </section>
-      </main>
+      </main> */}
     </>
   );
 }
