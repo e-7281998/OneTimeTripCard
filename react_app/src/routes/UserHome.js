@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import MyPage from "views/User/MyPage";
 import InfoUpdatePage from "views/User/InfoUpdatePage";
-import ChargePage from "views/Card/ChargePage";
 
 function UserHome(props) {
   return (

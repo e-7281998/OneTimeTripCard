@@ -17,7 +17,7 @@
 */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/font-awesome/css/font-awesome.min.css";
@@ -48,7 +48,7 @@ root.render(
           <Row className="justify-content-center">
             <Col lg="12">
               <Routes>
-                <Route path="/" element={<OttcMain />} />
+                <Route path="/*" element={<OttcMain />} />
                 <Route path="/landing-page" exact element={<Landing />} />
                 <Route path="/login/*" element={<LoginHome />} />
                 <Route path="/register-page" exact element={<Register />} />
