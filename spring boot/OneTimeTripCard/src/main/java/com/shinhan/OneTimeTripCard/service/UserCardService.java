@@ -1,5 +1,6 @@
 package com.shinhan.OneTimeTripCard.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +26,17 @@ public class UserCardService {
 	
 	public UserCard save(UserCard userCard) {
 		
+		return userCardRepository.save(userCard);
+	}
+	
+	/**
+	 * 카드 구매 메서드
+	 * @param userCard
+	 * @return
+	 */
+	public UserCard purchase(UserCard userCard) {
+		userCard.setBalance(userCard.getGrade().getPrice());
+		userCard.setExpiredAt(LocalDateTime.now().plusDays(userCard.getGrade().getPeriod()));
 		return userCardRepository.save(userCard);
 	}
 	
