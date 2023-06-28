@@ -8,10 +8,11 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { selectTravelCardsByUserId } from "js/travelCard";
 import InfiniteCarousel from "react-leaf-carousel";
+
+var arr = [];
+
 function CardList(props) {
   const location = useLocation();
-  console.log("location");
-  console.log(location);
 
   const [userCards, setUserCards] = useState([]);
   const [userCard, setUserCard] = useState({});
@@ -38,6 +39,15 @@ function CardList(props) {
   if (currentState) {
     delete title[5];
   }
+  const [cardArr, setCardArr] = useState(false);
+
+  useEffect(() => {
+    if (arr.length !== 0 && arr.length === userCards.length) {
+      setCardArr(true);
+    } else {
+      setCardArr(false);
+    }
+  }, [userCards]);
 
   // 모달 닫는 함수
   const handleClose = () => {
@@ -60,7 +70,6 @@ function CardList(props) {
     const selectedUserCard = JSON.parse(
       event.target.parentNode.getAttribute("value")
     );
-    console.log("selectedUserCard: ", selectedUserCard);
     if (selectedUserCard.card) {
       //카드 계좌 있는 경우
       if (location.pathname === "/travelCard") {
@@ -77,11 +86,8 @@ function CardList(props) {
       showRegisterModal(selectedUserCard);
     }
   };
-
   const userId = window.sessionStorage.getItem("id");
   useEffect(() => {
-    console.log("location.pathname");
-    console.log(location.pathname);
     //개인카드
     if (location.pathname === "/card") {
       selectUserCardsByUserId(userId)
@@ -96,7 +102,6 @@ function CardList(props) {
     else if (location.pathname === "/travelCard") {
       selectTravelCardsByUserId(userId)
         .then((userCards) => {
-          console.log("여기");
           setUserCards(cardList(userCards));
         })
         .catch((error) => {
@@ -117,23 +122,6 @@ function CardList(props) {
       ...registerInput,
       isDefault: !registerInput["isDefault"],
     });
-  };
-
-  const onDelete = (e) => {
-    e.stopPropagation();
-
-    if (
-      window.confirm(
-        `${e.target.getAttribute("nick")} 카드를 정말 삭제하시겠습니까?`
-      )
-    ) {
-      console.log("삭제할게요 : ", e.target.getAttribute("value"));
-      axios
-        .delete(`/user-card/delete/${e.target.getAttribute("value")}`)
-        .then((userCards) => {
-          setUserCards(cardList(userCards));
-        });
-    }
   };
 
   const register = () => {
@@ -187,44 +175,85 @@ function CardList(props) {
     <>
       <main ref={props.ref}>
         {/* 카드슬라이드 이미지 */}
-        <InfiniteCarousel
-          breakpoints={[
-            {
-              breakpoint: 500,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
+        {cardArr && (
+          <InfiniteCarousel
+            breakpoints={[
+              {
+                breakpoint: 500,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 2,
+                },
               },
-            },
-            {
-              breakpoint: 768,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 3,
+                },
               },
-            },
-          ]}
-          dots={true}
-          showSides={true}
-          // 투명도
-          sidesOpacity={0.3}
-          // 그림 사이즈 (9가제일 작음)
-          sideSize={0.9}
-          slidesToScroll={1}
-          slidesToShow={1}
-          scrollOnDevice={true}
-        >
-          <div>
-            <img alt="" src={require("assets/img/card/1.png")} />
-          </div>
-          <div>
-            <img alt="" src={require("assets/img/card/2.png")} />
-          </div>
-          <div>
-            <img alt="" src={require("assets/img/card/3.png")} />
-          </div>
-        </InfiniteCarousel>
-        <Container fluid>
+            ]}
+            dots={true}
+            showSides={true}
+            // 투명도
+            sidesOpacity={0.3}
+            // 그림 사이즈 (9가제일 작음)
+            sideSize={0.9}
+            slidesToScroll={1}
+            slidesToShow={1}
+            scrollOnDevice={true}
+          >
+            {userCards.map((item, index) => (
+              <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
+                <img alt="" src={require("assets/img/card/1.png")} />
+                <div>{item.nickName}</div>
+                <div>{item.card?.cardNo}</div>
+                <div>{item.card?.cardDesign.cardName}</div>
+                <div>{item.createdAt}</div>
+                {/* <div>{item.createdAt.slice(0, 10)}</div> */}
+                <div>{item.grade?.gradeName}</div>
+                {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
+                <div>
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (location.pathname === "/travelCard") {
+                        navigate(`/travelCard/history/${item.id}`, {
+                          state: { userCard: item },
+                        });
+                      } else {
+                        navigate(`/card/history/${item.id}`, {
+                          state: { userCard: item },
+                        });
+                      }
+                    }}
+                  >
+                    사용내역
+                  </Button>
+                </div>
+                <div></div>
+                <div>
+                  <Button
+                    disabled={item.balance === 0 ? "disabled" : ""}
+                    value={item.id}
+                    onClick={refund}
+                  >
+                    환불하기
+                  </Button>
+                </div>
+              </div>
+            ))}
+            {/* <div></div> */}
+            {/* <div>
+              <img alt="" src={require("assets/img/card/2.png")} />
+            </div>
+            <div>
+              <img alt="" src={require("assets/img/card/3.png")} />
+            </div> */}
+          </InfiniteCarousel>
+        )}
+
+        {/* <Container fluid>
           <Row className="justify-content-center">
             {title.map((item, index) => (
               <Col key={index}>{item}</Col>
@@ -283,7 +312,7 @@ function CardList(props) {
               </Col>
             </Row>
           ))}
-        </Container>
+        </Container> */}
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header>
             <Modal.Title>카드 등록</Modal.Title>
@@ -350,11 +379,12 @@ function CardList(props) {
 //카드 삭제, 비활성화 거르기
 function cardList(userCards) {
   const card = [];
+  arr = [];
   for (var i = 0; i < userCards.length; i++) {
-    console.log(userCards[i].status);
     if (userCards[i].status) card.push(userCards[i]);
     if (userCards[i].status === null) card.push(userCards[i]);
   }
+  card.forEach((item) => arr.push(item));
   return card;
 }
 
