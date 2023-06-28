@@ -56,6 +56,14 @@ function Charge() {
 
   const navigate = useNavigate();
 
+  const deleteCard = () => {
+    if (window.confirm(`${userCard.nickName} 카드를 정말 삭제하겠습니까?`)) {
+      axios.delete(`/user-card/delete/${userCard.id}`).then((userCards) => {
+        navigate("/card");
+      });
+    }
+  };
+
   return (
     <>
       <CardDefaultInfo />
@@ -130,6 +138,7 @@ function Charge() {
         <Form.Group className="mb-3 text-center btn-block">
           <Button onClick={() => navigate(-1)}>돌아가기</Button>
           <Button onClick={onCharge}>충전하기</Button>
+          <Button onClick={deleteCard}>삭제하기</Button>
         </Form.Group>
       </Form>
     </>
