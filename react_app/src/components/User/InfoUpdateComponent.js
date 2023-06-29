@@ -4,13 +4,27 @@ import AccordionContext from "react-bootstrap/AccordionContext";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
-import { Button, Container, Row } from "reactstrap";
+import {
+  Button,
+  Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  FormGroup,
+  Row,
+  UncontrolledDropdown,
+} from "reactstrap";
 import AccountComponent from "./AccountComponent";
 
 function InfoUpdateComponent(props) {
   const [userInfo, setUserInfo] = useState([]);
   const { userid } = { userid: 1 };
   //const { userid } = useParams(); //파라미터 전달할 때
+
+  //여기 추가
+  const [currency, setCurrency] = useState(userInfo.preferredCurrency);
+  const [currencyList, setCurrencyList] = useState([]);
+  const [currnecyName, setCurrencyName] = useState([]);
 
   useEffect(() => {
     console.log();
@@ -19,7 +33,6 @@ function InfoUpdateComponent(props) {
       method: "get",
     })
       .then((r) => {
-        console.log(r.data);
         setUserInfo(r.data);
       })
       .catch((err) => {
@@ -31,20 +44,50 @@ function InfoUpdateComponent(props) {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const handleInsert = () => {
+  const handleInsert = (e) => {
     axios({
       url: "/user/userInfoUpdate",
       method: "put",
       data: userInfo,
     })
       .then((r) => {
-        console.log(r.data);
         window.location.href = "/user/user-info-update";
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  //선호통화 List로 불러오기
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "/exchange-rate/getAllCurrency",
+    })
+      .then((res) => {
+        setCurrencyList(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error(error);
+      });
+  }, []);
+
+  //선호통화
+  useEffect(() => {
+    setCurrency(currencyList[0]);
+    setCurrencyName(currencyList.map((currency) => currency.currnecyName));
+  }, [currencyList]);
+
+  //통화선택
+  function selectCurrency(e) {
+    currencyList.forEach((c) => {
+      if (c === e.target.innerHTML) {
+        setCurrency(c);
+        setUserInfo({ ...userInfo, preferredCurrency: c });
+      }
+    });
+  }
 
   return (
     <main ref={props.ref}>
@@ -57,7 +100,6 @@ function InfoUpdateComponent(props) {
                   <div>이메일</div>
                   <div>{userInfo.email}</div>
                 </div>
-                <ContextAwareToggle eventKey="0">수정</ContextAwareToggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
                 <Card.Body className="d-flex">
@@ -78,7 +120,6 @@ function InfoUpdateComponent(props) {
               <Card.Header className="d-flex justify-content-between">
                 <div>
                   <div>비밀번호</div>
-                  <div>{userInfo.password}</div>
                 </div>
                 <ContextAwareToggle eventKey="1">수정</ContextAwareToggle>
               </Card.Header>
@@ -90,7 +131,6 @@ function InfoUpdateComponent(props) {
                     placeholder="UserPassword"
                     aria-label="UserPassword"
                     name="password"
-                    defaultValue={userInfo.password}
                     onChange={handleChange}
                   ></input>
                   <Button onClick={handleInsert}>저장</Button>
@@ -161,13 +201,40 @@ function InfoUpdateComponent(props) {
               <Card.Header className="d-flex justify-content-between">
                 <div>
                   <div>통화</div>
-                  <div>{userInfo.preferredCurrency}</div>
+                  <div>{currency}</div>
+                  {/* <div>{userInfo.preferredCurrency}</div> */}
                 </div>
                 <ContextAwareToggle eventKey="4">수정</ContextAwareToggle>
               </Card.Header>
               <Accordion.Collapse eventKey="4">
                 <Card.Body className="d-flex">
-                  <input
+                  {/* 여기부터 추가 */}
+
+                  <FormGroup>
+                    <UncontrolledDropdown>
+                      <DropdownToggle
+                        caret
+                        id="navbarDropdownMenuLink2"
+                        color="default"
+                      >
+                        {currency}
+                      </DropdownToggle>
+
+                      <DropdownMenu aria-labelledby="navbarDropdownMenuLink2">
+                        {currencyList.map((currnecyName) => (
+                          <DropdownItem
+                            key={currnecyName}
+                            onClick={selectCurrency}
+                          >
+                            {currnecyName}
+                          </DropdownItem>
+                        ))}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </FormGroup>
+
+                  {/* 여기까지 */}
+                  {/* <input
                     type="text"
                     className="form-control"
                     placeholder="UserPreferredCurrency"
@@ -175,7 +242,7 @@ function InfoUpdateComponent(props) {
                     name="preferredCurrency"
                     defaultValue={userInfo.preferredCurrency}
                     onChange={handleChange}
-                  ></input>
+                  ></input> */}
                   <Button onClick={handleInsert}>저장</Button>
                 </Card.Body>
               </Accordion.Collapse>
@@ -183,7 +250,7 @@ function InfoUpdateComponent(props) {
             <Card>
               <Card.Header className="d-flex justify-content-between">
                 <div>
-                  <div>계좌 등록</div>
+                  <div>계좌</div>
                   <div>{userInfo.accountNo}</div>
                 </div>
                 <ContextAwareToggle eventKey="5">수정</ContextAwareToggle>
@@ -194,21 +261,8 @@ function InfoUpdateComponent(props) {
                     userInfo={userInfo}
                     handleChange={handleChange}
                   />
-
                   <Button onClick={handleInsert}>저장</Button>
                 </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header className="d-flex justify-content-between">
-                <div>
-                  <div>프로필 이미지 등록</div>
-                  <div>----------</div>
-                </div>
-                <ContextAwareToggle eventKey="6">수정</ContextAwareToggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="6">
-                <Card.Body className="d-flex">---</Card.Body>
               </Accordion.Collapse>
             </Card>
           </Accordion>
