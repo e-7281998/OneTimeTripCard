@@ -1,5 +1,6 @@
 package com.shinhan.OneTimeTripCard.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +81,7 @@ public class TravelWithService {
 				.nickName(nickName)
 				.grade(basicGrade)
 				.isGroup(true)
+				.expiredAt(LocalDateTime.now())
 				.travelWithId(travelWithId)
 				.isDefault(isDefault)
 				.build();

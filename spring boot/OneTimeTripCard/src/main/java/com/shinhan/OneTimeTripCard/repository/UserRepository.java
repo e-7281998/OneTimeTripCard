@@ -18,4 +18,6 @@ public interface UserRepository extends CrudRepository<User, Long>{
 	
 	//비밀번호찾기(인증번호 구현해야함)
 	public User findByEmailAndPassword(String email, String password);
+	
+	public Boolean existsByEmail(String email);
 }
