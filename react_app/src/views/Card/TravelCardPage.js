@@ -47,13 +47,11 @@ function TravelCardPage(props) {
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
-                      <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                        <img
-                          alt="..."
-                          className="rounded-circle"
-                          src={require("assets/img/brand/person2.png")}
-                        />
-                      </a>
+                      <img
+                        alt="..."
+                        className="rounded-circle"
+                        src={require("assets/img/brand/person2.png")}
+                      />
                     </div>
                   </Col>
                   <Col
