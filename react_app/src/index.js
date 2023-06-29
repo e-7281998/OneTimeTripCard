@@ -49,10 +49,7 @@ root.render(
             <Col lg="12">
               <Routes>
                 <Route path="/*" element={<OttcMain />} />
-                <Route path="/landing-page" exact element={<Landing />} />
                 <Route path="/login/*" element={<LoginHome />} />
-                <Route path="/register-page" exact element={<Register />} />
-                <Route path="/profile-page" exact element={<Profile />} />
                 <Route path="/user/*" element={<UserHome />} />
                 <Route path="/card/*" element={<CardHome />} />
                 <Route path="/travelCard/*" element={<TravelHome />} />

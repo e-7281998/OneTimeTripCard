@@ -76,4 +76,16 @@ public class UserService {
 		return 0;
 	}
 	
+	/**
+	 * 입력된 email이 있는지 확인
+	 * @param email
+	 * @return 존재하면 email, 존재하지 않으면 null
+	 */
+	public String findEmail(String email) {
+		if (userRepository.existsByEmail(email)) {
+			return email;
+		} else {
+			return null;
+		}
+	}
 }
