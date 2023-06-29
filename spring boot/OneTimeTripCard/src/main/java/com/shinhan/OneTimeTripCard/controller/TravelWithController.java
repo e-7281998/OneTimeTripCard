@@ -26,7 +26,7 @@ public class TravelWithController {
 	
 	@PostMapping("/register")
 	public UserCard register(@RequestBody Map<String, Object> map) {
-		Long managerId = (Long) map.get("userId");
+		Long managerId = Long.parseLong((String) map.get("userId"));
 		String nickName = (String) map.get("nickName");
 		List<String> invitedEmails = (List<String>) map.get("emails");
 		Boolean isDefault = (Boolean) map.get("isDefault");
@@ -51,15 +51,15 @@ public class TravelWithController {
 	@DeleteMapping("/expel")
 	public UserCard expelMember(@RequestBody Map<String, Object> map) {
 		String email = String.valueOf(map.get("email"));
-		Long travelWithId = (Long) map.get("travelWithId");
+		Long travelWithId = Long.parseLong((String) map.get("travelWithId"));
 		return travelWithService.expelMember(email, travelWithId);
 	}
 	
 	@PostMapping("/register-card")
 	public String registerCard(@RequestBody Map<String, Object> map) {
-		Long travelWithId = (Long) map.get("travelWithId");
-		Long memberId = (Long) map.get("memberId");
-		Long managerId = (Long) map.get("managerId");
+		Long travelWithId = Long.parseLong((String) map.get("travelWithId"));
+		Long memberId = Long.parseLong((String) map.get("memberId"));
+		Long managerId = Long.parseLong((String) map.get("managerId"));
 		String cardNo = (String) map.get("cardNo");
 		return travelWithService.registerCard(travelWithId, memberId, managerId, cardNo);
 	}
