@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shinhan.OneTimeTripCard.service.UserService;
@@ -38,5 +39,15 @@ public class UserController {
 	@PutMapping("userInfoUpdate")
 	public User userInUpdate(@RequestBody User user) {
 		return userService.updateUserInfo(user);
+	}
+	
+	@GetMapping("/find-email")
+	public String getUserEmail(@RequestParam String email) {
+		return userService.findEmail(email);
+	}
+	
+	@GetMapping("/find/{id}")
+	public User findById(@PathVariable Long id) {
+		return userService.findById(id);
 	}
 }
