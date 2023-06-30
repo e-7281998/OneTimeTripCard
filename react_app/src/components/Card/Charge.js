@@ -17,6 +17,7 @@ function Charge() {
 
   //그룹이면 true , 개인이면 false
   const currentState = location.pathname.split("/")[1] === "travelCard";
+  console.log(currentState);
 
   useEffect(() => {
     axios
@@ -30,8 +31,18 @@ function Charge() {
 
   //충전 요청하기
   const onCharge = () => {
+    let requestUrl ='';
+    let nextUrl = '';
+    // 개인 카드인 경우
+    if (!currentState) {
+      requestUrl = '/charge';
+      nextUrl = '/card';
+    } else { // travelWith 카드인 경우
+      requestUrl = '/charge/travelWith';
+      nextUrl = '/travelCard';
+    }
     axios
-      .post("/charge", {
+      .post(requestUrl, {
         userCard: userCard,
         currency: userCard.user.preferredCurrency,
         rate: exchange,
@@ -39,7 +50,7 @@ function Charge() {
         amountWon: KRW,
       })
       .then(() => {
-        navigate("/card");
+        navigate(nextUrl);
       });
   };
 

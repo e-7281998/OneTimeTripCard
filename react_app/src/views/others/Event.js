@@ -30,7 +30,7 @@ function Event(props) {
     },
   ];
   return (
-    <div>
+    <div style={{ margin: 25 }}>
       <InfiniteCarousel
         breakpoints={[
           {

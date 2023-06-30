@@ -42,7 +42,7 @@ public class TravelWithChargeTest {
         Long travelWithId = userCard.getTravelWithId();
         int beforeBalance = userCard.getBalance();
 
-        Charge savedCharge = chargeService.chargeTravelWithCard(charge, travelWithId);
+        List<Charge> savedCharge = chargeService.chargeTravelWithCard(charge, travelWithId);
         
         
         List<UserCard> travelWithCards = travelWithService.findAllMemberCards(travelWithId);

@@ -20,7 +20,7 @@ public enum ExchangeRateName {
 
 	public static ExchangeRateName getExchangeRateName(String currencyName) {
 		for (ExchangeRateName exchangeRateName : ExchangeRateName.values()) {
-			if (exchangeRateName.engName.equals(currencyName)) {
+			if (exchangeRateName.engName.toUpperCase().equals(currencyName.toUpperCase())) {
 				return exchangeRateName;
 			}
 		}

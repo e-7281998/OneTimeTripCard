@@ -1,0 +1,13 @@
+.frame {
+  border: 5px solid #333;
+  border-radius: 5px;
+  margin: 20px;
+}
+.notice {
+  margin: 25px;
+  font-weight: bold;
+  font-size: large;
+}
+.flex {
+  display: flex;
+}

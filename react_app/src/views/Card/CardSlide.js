@@ -66,7 +66,7 @@ function CardSlide(props) {
   ];
 
   return (
-    <div>
+    <div style={{ margin: 25 }}>
       <InfiniteCarousel
         breakpoints={[
           {
@@ -91,7 +91,7 @@ function CardSlide(props) {
         // 그림 사이즈 (9가제일 작음)
         sideSize={0.1}
         slidesToScroll={3}
-        slidesToShow={3}
+        slidesToShow={4}
         scrollOnDevice={true}
         animationDuration={50}
         autoCycle={true}
