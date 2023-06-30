@@ -38,7 +38,7 @@ public class UserCardService {
 	 */
 	@Transactional
 	public UserCard purchase(UserCard userCard) {
-		UserCard defaultCard = userCardRepository.findByUser_IdAndIsDefault(userCard.getUser().getId(), true);
+		UserCard defaultCard = findDefaultCard(userCard.getUser().getId());
 		if (userCard.getIsDefault() == null || !userCard.getIsDefault()) {
 			userCard.setIsDefault(false);
 		} else { // 기본카드 설정이 true인 경우
@@ -190,5 +190,9 @@ public class UserCardService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	private UserCard findDefaultCard(Long userId) {
+		return userCardRepository.findByUser_IdAndIsDefault(userId, true);
 	}
 }
