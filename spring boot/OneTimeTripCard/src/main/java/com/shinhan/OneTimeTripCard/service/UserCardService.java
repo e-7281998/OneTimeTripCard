@@ -31,10 +31,24 @@ public class UserCardService {
 	
 	/**
 	 * 카드 구매 메서드
+	 * 1. 기본카드가 없으면, 기본카드로 설정해줘야 함.
+	 * 2. 기본카드로 설정 시, 원 기본카드는 기본카드 해제 해야함.
 	 * @param userCard
 	 * @return
 	 */
+	@Transactional
 	public UserCard purchase(UserCard userCard) {
+		UserCard defaultCard = userCardRepository.findByUser_IdAndIsDefault(userCard.getUser().getId(), true);
+		if (userCard.getIsDefault() == null || !userCard.getIsDefault()) {
+			userCard.setIsDefault(false);
+		} else { // 기본카드 설정이 true인 경우
+			if (defaultCard != null) { // 이미 기본카드인 카드가 있다면, 기본카드로 설정
+				defaultCard.setIsDefault(false);
+			}
+		}
+		if (defaultCard == null) {
+			userCard.setIsDefault(true);
+		}
 		userCard.setBalance(userCard.getGrade().getPrice());
 		userCard.setExpiredAt(LocalDateTime.now().plusDays(userCard.getGrade().getPeriod()));
 		return userCardRepository.save(userCard);
