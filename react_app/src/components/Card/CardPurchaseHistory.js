@@ -26,7 +26,7 @@ function CardPurchaseHistory(props) {
         </Row>
         {userCards.map((userCard, index) => (
           <Row key={index}>
-            <Col>{userCard.createdAt}</Col>
+            <Col>{userCard.createdAt.slice(0, 10)}</Col>
             <Col>{userCard.card?.cardDesign?.cardName}</Col>
             <Col>{userCard.grade.price}</Col>
           </Row>
