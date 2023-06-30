@@ -23,9 +23,6 @@ import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
 
-import Landing from "views/examples/Landing.js";
-import Profile from "views/examples/Profile.js";
-import Register from "views/examples/Register.js";
 import UserHome from "routes/UserHome";
 import CardHome from "routes/CardHome";
 import TripHome from "routes/TripHome";
