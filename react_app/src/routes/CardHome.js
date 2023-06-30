@@ -1,3 +1,4 @@
+import CardInfo from "components/Card/CardInfo";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import BenefitCustomPage from "views/Card/BenefitCustomPage";
@@ -22,6 +23,7 @@ function CardHome(props) {
         <Route path="/history/:userCardId" element={<HistoryPage />} />
         <Route path="/transfer" element={<TransferPage />} />
         <Route path="/travelCard" element={<TravelCardPage />} />
+        <Route path="/info" element={<CardInfo />} />
       </Routes>
     </div>
   );

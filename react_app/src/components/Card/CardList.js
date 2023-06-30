@@ -231,7 +231,14 @@ function CardList(props) {
             key={render}
           >
             {userCards.map((item, index) => (
-              <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
+              //다음이 원본 : 충전하기로 넘어감
+              //카드 정보보기로 바꿔놓음
+              // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
+              <div key={index} onClick={() => {
+                navigate(`/card/info`, {
+                  state: {userCard : item}
+                })
+              }} value={JSON.stringify(item)}>
                 <img alt="" src={require("assets/img/card/1.png")} />
                 <div>{item.nickName}</div>
                 <div>{item.card?.cardNo}</div>
