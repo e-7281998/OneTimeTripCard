@@ -3,11 +3,56 @@
   border-radius: 5px;
   margin: 20px;
 }
+
 .notice {
   margin: 25px;
   font-weight: bold;
   font-size: large;
 }
+
 .flex {
   display: flex;
+}
+
+.satellites {
+  margin: 30px;
+  animation: rotate-axis 4s linear infinite;
+  transform-style: preserve-3d;
+  justify-content: center;
+  display: flex;
+
+}
+
+/* 그림사이의 거리 */
+.satellite {
+  position: absolute;
+  transform: translateZ(50px);
+  margin-left: 13px;
+}
+
+.satellite2 {
+  position: absolute;
+  transform: translateZ(47px);
+  margin-left: 13px;
+}
+
+.satellite3 {
+  position: absolute;
+  transform: translateZ(45px);
+  margin-left: 13px;
+}
+
+.satellite4 {
+  transform: translateZ(43px);
+
+}
+
+@keyframes rotate-axis {
+  from {
+    transform: perspective(1200px) rotateY(0deg);
+  }
+
+  to {
+    transform: perspective(1200px) rotateY(360deg);
+  }
 }
