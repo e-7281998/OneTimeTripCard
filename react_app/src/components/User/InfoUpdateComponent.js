@@ -18,11 +18,10 @@ import AccountComponent from "./AccountComponent";
 
 function InfoUpdateComponent(props) {
   const [userInfo, setUserInfo] = useState([]);
-  const { userid } = { userid: 1 };
-  //const { userid } = useParams(); //파라미터 전달할 때
+  const userid = sessionStorage.getItem("id");
 
   //여기 추가
-  const [currency, setCurrency] = useState(userInfo.preferredCurrency);
+  const [currency, setCurrency] = useState("");
   const [currencyList, setCurrencyList] = useState([]);
   const [currnecyName, setCurrencyName] = useState([]);
 
@@ -51,7 +50,13 @@ function InfoUpdateComponent(props) {
       data: userInfo,
     })
       .then((r) => {
-        window.location.href = "/user/user-info-update";
+        setUserInfo(r.data);
+        //저장 클릭시 input창 닫히고, 수정버튼 라벤더로
+        //통화는 구조가 달라서 적용 안됨..
+        // var parent1 = e.target.parentNode.parentNode;
+        // var btn = parent1.parentNode.querySelector("button");
+        // btn.style.backgroundColor = "lavender"
+        // parent1.remove("show");
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +80,7 @@ function InfoUpdateComponent(props) {
 
   //선호통화
   useEffect(() => {
-    setCurrency(currencyList[0]);
+    setCurrency(userInfo.preferredCurrency);
     setCurrencyName(currencyList.map((currency) => currency.currnecyName));
   }, [currencyList]);
 
