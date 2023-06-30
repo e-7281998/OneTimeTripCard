@@ -22,6 +22,7 @@ function CardList(props) {
     nickName: "",
     isDefault: false,
   });
+  const [render, setRender] = useState(0);
   const navigate = useNavigate();
   const currentState = location.pathname.split("/")[1] === "travelCard";
 
@@ -127,8 +128,11 @@ function CardList(props) {
   const register = () => {
     if (registerInput.cardNo === "") {
       alert("카드 번호를 입력하세요");
+      return;
     }
-    axios
+    // 개인 카드인 경우
+    if (!currentState) {
+      axios
       .post("/user-card/register", {
         userCard: userCard,
         cardNo: registerInput.cardNo,
@@ -157,6 +161,28 @@ function CardList(props) {
         console.log(error);
         throw new Error(error);
       });
+    } else { // travelWith인 경우
+      axios.post("/travel-with/register-card", {
+        travelWithId: userCard.travelWithId,
+        memberId: userId,
+        managerId: userCard.manager,
+        cardNo: registerInput.cardNo
+      }).then(response => {
+        if (response.data === 'NotAllowed') {
+          alert("card number is not valid");
+        } else if (response.data === 'NotTravelWithCard') {
+          alert("this card is not for travel with card");
+        } else if (response.data === 'InvalidCardNo') {
+          alert("card number is not valid");
+        } else if (response.data === 'AlreadyRegistered') {
+          alert("this card is already registered");
+        } else {
+          setRender(render + 1);
+          handleClose();
+        }
+      }).catch(error => console.log(error));
+    }
+    
   };
 
   /**
@@ -202,6 +228,7 @@ function CardList(props) {
             slidesToScroll={1}
             slidesToShow={1}
             scrollOnDevice={true}
+            key={render}
           >
             {userCards.map((item, index) => (
               <div key={index} onClick={clickCard} value={JSON.stringify(item)}>

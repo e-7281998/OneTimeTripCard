@@ -33,7 +33,7 @@ public class ChargeController {
     }
     
     @PostMapping("/travelWith")
-    public Charge chargeTravelWith(@RequestBody Charge charge) {
+    public List<Charge> chargeTravelWith(@RequestBody Charge charge) {
     	Long travelWithId = charge.getUserCard().getTravelWithId();
     	return chargeService.chargeTravelWithCard(charge, travelWithId);
     }

@@ -7,6 +7,7 @@ import com.shinhan.OneTimeTripCard.vo.UserCard;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -81,12 +82,24 @@ public class ChargeService {
      * @return
      */
     @Transactional
-	public Charge chargeTravelWithCard(Charge charge, Long travelWithId) {
+	public List<Charge> chargeTravelWithCard(Charge charge, Long travelWithId) {
 		List<UserCard> travelWithCards = travelWithService.findAllMemberCards(travelWithId);
+        List<Charge> charges = new ArrayList<>();
 		int chargeAmount = charge.getAmountWon();
 		for (UserCard travelWithCard : travelWithCards) {
+            charges.add(changeUserCard(charge, travelWithCard));
 			travelWithCard.setBalance(travelWithCard.getBalance() + chargeAmount);
 		}
-		return chargeRepository.save(charge);
+		return (List<Charge>) chargeRepository.saveAll(charges);
 	}
+
+    private Charge changeUserCard(Charge charge, UserCard travelWithCard) {
+        return charge.builder()
+                .amount(charge.getAmount())
+                .amountWon(charge.getAmountWon())
+                .userCard(travelWithCard)
+                .currency(charge.getCurrency())
+                .rate(charge.getRate())
+                .build();
+    }
 }

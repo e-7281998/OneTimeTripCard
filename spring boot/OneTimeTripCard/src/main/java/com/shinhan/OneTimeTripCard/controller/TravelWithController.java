@@ -57,9 +57,9 @@ public class TravelWithController {
 	
 	@PostMapping("/register-card")
 	public String registerCard(@RequestBody Map<String, Object> map) {
-		Long travelWithId = Long.parseLong((String) map.get("travelWithId"));
-		Long memberId = Long.parseLong((String) map.get("memberId"));
-		Long managerId = Long.parseLong((String) map.get("managerId"));
+		Long travelWithId = Long.parseLong(String.valueOf(map.get("travelWithId")));
+		Long memberId = Long.parseLong(String.valueOf(map.get("memberId")));
+		Long managerId = Long.parseLong(String.valueOf(map.get("managerId")));
 		String cardNo = (String) map.get("cardNo");
 		return travelWithService.registerCard(travelWithId, memberId, managerId, cardNo);
 	}
