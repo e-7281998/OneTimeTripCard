@@ -3,7 +3,8 @@ import "assets/css/main.css";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import CardSlide from "./Card/CardSlide.js";
 import Event from "./others/Event.js";
-import { Badge, Container, Row } from "reactstrap";
+import { Badge, Col, Container, Row } from "reactstrap";
+import { AbsoluteCenter } from "@chakra-ui/react";
 
 function OttcMain(props) {
   // const listOfData = [
@@ -22,6 +23,21 @@ function OttcMain(props) {
   return (
     <>
       <main ref={props.ref}>
+        <div className="frame">
+          <h1>WellCome OTTC!</h1>
+          <div className="satellites"  >
+
+            <img className="satellite" src={require("assets/img/card/homecard.png")}>
+            </img>
+            <img className="satellite2" src={require("assets/img/card/homecard.png")}>
+            </img>
+            <img className="satellite3" src={require("assets/img/card/homecard2.png")}>
+            </img>
+            <img className="satellite4" src={require("assets/img/card/homecard2.png")}>
+            </img>
+          </div>
+
+        </div>
         <Badge
           className="secondary badgetype"
           pill
@@ -29,6 +45,7 @@ function OttcMain(props) {
             fontSize: 20,
             position: "absolute",
             left: 50,
+            top: 520,
             border: "3px solid",
           }}
         >
@@ -39,13 +56,14 @@ function OttcMain(props) {
         </div>
 
         <section>
+
           <Badge
             className="secondary badgetype"
             pill
             style={{
               fontSize: 20,
               position: "absolute",
-              top: 410,
+              top: 925,
               left: 50,
               border: "3px solid",
             }}
@@ -53,7 +71,7 @@ function OttcMain(props) {
             Card design
           </Badge>
           <article className="frame">
-            <div>
+            <div >
               <CardSlide />
             </div>
           </article>
@@ -63,7 +81,7 @@ function OttcMain(props) {
             style={{
               fontSize: 20,
               position: "absolute",
-              top: 635,
+              top: 1150,
               left: 50,
               border: "3px solid",
             }}
@@ -91,7 +109,7 @@ function OttcMain(props) {
               style={{
                 fontSize: 20,
                 position: "absolute",
-                top: 635,
+                top: 1150,
                 left: 750,
                 border: "3px solid",
               }}
