@@ -72,6 +72,7 @@ public class UserCardService {
 	 * @param user
 	 * @return 등록 -> succeed
 	 */
+	@Transactional
 	public String register(UserCard userCard, String cardNo, String nickName, Boolean isDefault) {
 		Card savedCard = cardService.findByCardNo(cardNo);
 		if (savedCard == null) {
@@ -81,6 +82,13 @@ public class UserCardService {
 		if (savedUserCard == null) {
 			userCard.setCard(savedCard);
 			userCard.setNickName(nickName);
+			if (isDefault != null && isDefault) {
+				UserCard defaultCard = findDefaultCard(userCard.getUser().getId());
+				System.out.println(defaultCard == null ? "null" : defaultCard.getIsDefault());
+				if (defaultCard.getIsDefault() != null && defaultCard.getIsDefault()) {
+					defaultCard.setIsDefault(false);
+				}
+			}
 			userCard.setIsDefault(isDefault);
 			return userCardToString(save(userCard));
 		}
