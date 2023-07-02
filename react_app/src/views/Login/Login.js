@@ -72,8 +72,6 @@ function Login(props) {
           sessionStorage.setItem("firstName", res.data.firstName);
           sessionStorage.setItem("lastName", res.data.lastName);
 
-          //sessionStorage.setItem("id", inputEmail);
-
           // 작업 완료 되면 페이지 이동(새로고침)
           document.location.href = "/";
         }
