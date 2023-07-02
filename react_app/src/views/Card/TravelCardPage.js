@@ -83,11 +83,12 @@ function TravelCardPage(props) {
                   </div>
                   <div className="h6 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
-                    친구들과 함께 여행카드 서비스를 시작하세요!
+                    Start a travel card service with your friends!
                   </div>
 
                   <Button className="mr-4" color="info" onClick={onClickStart}>
-                    여행 카드 서비스 시작하기
+
+                    Start Travelcard Service
                   </Button>
                 </div>
 

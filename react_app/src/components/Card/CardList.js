@@ -25,7 +25,7 @@ function CardList(props) {
   const [render, setRender] = useState(0);
   const navigate = useNavigate();
   const currentState = location.pathname.split("/")[1] === "travelCard";
-
+  const [nick, setNick] = useState("별칭")
   var title = [
     "별칭",
     "카드 번호 ",
@@ -57,9 +57,28 @@ function CardList(props) {
   };
   // 모달 여는 함수
   const showRegisterModal = (selectedUserCard) => {
+    if(currentState)
+      setNick(selectedUserCard.nickName)
     setUserCard(selectedUserCard);
     setShow(true);
   };
+
+
+  //카드 정보 보기
+  const showInfo = (event) => {
+    const selectedUserCard = JSON.parse(
+      event.target.parentNode.getAttribute("value")
+    );
+    if (selectedUserCard.card) {
+      navigate(`/card/info`, {
+        state: {userCard : selectedUserCard}
+      })
+    } else {
+      //카드 계좌 없는 경우
+      showRegisterModal(selectedUserCard);
+    }
+  };
+
 
   /**
    * 카드 클릭시 행동
@@ -68,8 +87,11 @@ function CardList(props) {
    * @param {*} event
    */
   const clickCard = (event) => {
+    event.stopPropagation();
+    console.log("userCard를 확인하겠다")
+    console.log(event)
     const selectedUserCard = JSON.parse(
-      event.target.parentNode.getAttribute("value")
+      event.target.getAttribute("value")
     );
     if (selectedUserCard.card) {
       //카드 계좌 있는 경우
@@ -234,18 +256,9 @@ function CardList(props) {
               //다음이 원본 : 충전하기로 넘어감
               //카드 정보보기로 바꿔놓음
               // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
-              <div key={index} onClick={() => {
-                navigate(`/card/info`, {
-                  state: {userCard : item}
-                })
-              }} value={JSON.stringify(item)}>
+              <div key={index} onClick={showInfo} value={JSON.stringify(item)}>
                 <img alt="" src={require("assets/img/card/1.png")} />
                 <div>{item.nickName}</div>
-                <div>{item.card?.cardNo}</div>
-                <div>{item.card?.cardDesign.cardName}</div>
-                <div>{item.createdAt}</div>
-                {/* <div>{item.createdAt.slice(0, 10)}</div> */}
-                <div>{item.grade?.gradeName}</div>
                 {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
                 <div>
                   <Button
@@ -265,8 +278,28 @@ function CardList(props) {
                     사용내역
                   </Button>
                 </div>
-                <div></div>
                 <div>
+                <Button
+                    onClick={clickCard} value={JSON.stringify(item)}
+                  >
+                    충전하기
+                  </Button>
+                </div>
+                <div>
+                {currentState && (
+                     <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/travelCard/split`, {
+                          state: { userCard: item },
+                        });
+                      }}
+                    >
+                      멤버 보기
+                    </Button>
+                 )}
+                </div>
+                {!currentState && <div>
                   <Button
                     disabled={item.balance === 0 ? "disabled" : ""}
                     value={item.id}
@@ -274,7 +307,8 @@ function CardList(props) {
                   >
                     환불하기
                   </Button>
-                </div>
+                </div>}
+                
               </div>
             ))}
             {/* <div></div> */}
@@ -362,30 +396,15 @@ function CardList(props) {
                     name="cardNo"
                   />
                 </Col>
-                {currentState && (
-                  <Col>
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/travelCard/split`, {
-                          state: { userCard: userCard },
-                        });
-                      }}
-                    >
-                      멤버 보기
-                    </Button>
-                  </Col>
-                )}
-
                 <Col>
                   <Form.Control
-                    placeholder="별칭"
+                    placeholder={currentState ? nick : "별칭"}
                     onChange={getInput}
                     name="nickName"
                   />
                 </Col>
               </Row>
-              <Row>
+              {!currentState && <Row>
                 <Col>
                   <Form.Check
                     checked={registerInput["isDefault"]}
@@ -393,7 +412,8 @@ function CardList(props) {
                   />
                 </Col>
                 <Col>기본카드</Col>
-              </Row>
+              </Row> }
+              
             </Container>
           </Modal.Body>
           <Modal.Footer>

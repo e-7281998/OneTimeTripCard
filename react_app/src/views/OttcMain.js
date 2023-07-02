@@ -4,7 +4,8 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import CardSlide from "./Card/CardSlide.js";
 import Event from "./others/Event.js";
 import { Badge, Col, Container, Row } from "reactstrap";
-import { AbsoluteCenter } from "@chakra-ui/react";
+import { AbsoluteCenter, Center } from "@chakra-ui/react";
+import { Tab } from "react-bootstrap";
 
 function OttcMain(props) {
   // const listOfData = [
@@ -20,13 +21,17 @@ function OttcMain(props) {
   //   // render the item
   // }
 
+
   return (
     <>
       <main ref={props.ref}>
-        <div className="frame">
-          <h1>WellCome OTTC!</h1>
-          <div className="satellites"  >
+        <div id="body" className="frame" style={{ display: "flex", textAlign: "center", height: "auto" }}>
 
+          <div className="welcome"><h2>Welcome to</h2> <h1> <b>O</b>ne <b>T</b>ime <b>T</b>rip <b>C</b>ard</h1></div>
+
+
+
+          <div className="satellites"  >
             <img className="satellite" src={require("assets/img/card/homecard.png")}>
             </img>
             <img className="satellite2" src={require("assets/img/card/homecard.png")}>
@@ -38,15 +43,12 @@ function OttcMain(props) {
           </div>
 
         </div>
-        <Badge
+        <Badge id="bdgstyle"
           className="secondary badgetype"
           pill
           style={{
-            fontSize: 20,
-            position: "absolute",
             left: 50,
-            top: 520,
-            border: "3px solid",
+            top: 455,
           }}
         >
           Event
@@ -57,15 +59,12 @@ function OttcMain(props) {
 
         <section>
 
-          <Badge
+          <Badge id="bdgstyle"
             className="secondary badgetype"
             pill
             style={{
-              fontSize: 20,
-              position: "absolute",
-              top: 925,
+              top: 860,
               left: 50,
-              border: "3px solid",
             }}
           >
             Card design
@@ -75,15 +74,12 @@ function OttcMain(props) {
               <CardSlide />
             </div>
           </article>
-          <Badge
+          <Badge id="bdgstyle"
             className="secondary badgetype"
             pill
             style={{
-              fontSize: 20,
-              position: "absolute",
-              top: 1150,
+              top: 1080,
               left: 50,
-              border: "3px solid",
             }}
           >
             Notice
@@ -103,15 +99,12 @@ function OttcMain(props) {
                 Benefits
               </div>
             </article>
-            <Badge
+            <Badge id="bdgstyle"
               className="secondary badgetype"
               pill
               style={{
-                fontSize: 20,
-                position: "absolute",
-                top: 1150,
+                top: 1080,
                 left: 750,
-                border: "3px solid",
               }}
             >
               Customer Support

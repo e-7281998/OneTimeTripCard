@@ -55,7 +55,7 @@ function GradeSelect(props) {
           gradeList.length &&
           gradeList.find((item) => {
             console.log("item:", item);
-            return item.gradeName === "일반";
+            return item.gradeName === "normal";
           })
         );
       });
@@ -73,7 +73,7 @@ function GradeSelect(props) {
 
   function purchase() {
     //일반 등급이 아니고, 혜택 선택 안했으면 구매 못함.
-    if (grade.gradeName !== "일반" && !location.state?.myBenefits) {
+    if (grade.gradeName !== "normal" && !location.state?.myBenefits) {
       alert("커스텀을 선택하세요");
       return;
     }
@@ -115,7 +115,7 @@ function GradeSelect(props) {
         confirmButtonText: "OK",
       });
     } else {
-      if (grade.gradeName === "일반") {
+      if (grade.gradeName === "normal") {
         Swal.fire({
           title: "Warning!",
           html: `일반등급은 혜택을 추가할 수 없습니다. <br />다른 등급을 선택해주세요 `,
