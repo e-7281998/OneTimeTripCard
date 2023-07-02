@@ -35,12 +35,15 @@ function MemberSplit(props) {
 
     axios
       .delete(`/travel-with/expel`, {
-        email: e.target.getAttribute("email"),
-        travelWithId: userCard.travelWithId,
+        data : {
+          email: e.target.getAttribute("email"),
+          travelWithId: userCard.travelWithId,
+        }
+        
       })
       .then((res) => {
-        console.log("내보내기");
-        console.log(res.data);
+       const arr = member.filter((item, index) => item.id !== res.data.id);
+        setMember(arr);
       });
   };
 

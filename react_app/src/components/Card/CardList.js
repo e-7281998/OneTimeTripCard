@@ -295,7 +295,7 @@ function CardList(props) {
                     </Button>
                  )}
                 </div>
-                <div>
+                {!currentState && <div>
                   <Button
                     disabled={item.balance === 0 ? "disabled" : ""}
                     value={item.id}
@@ -303,7 +303,8 @@ function CardList(props) {
                   >
                     환불하기
                   </Button>
-                </div>
+                </div>}
+                
               </div>
             ))}
             {/* <div></div> */}
@@ -399,7 +400,7 @@ function CardList(props) {
                   />
                 </Col>
               </Row>
-              <Row>
+              {!currentState && <Row>
                 <Col>
                   <Form.Check
                     checked={registerInput["isDefault"]}
@@ -407,7 +408,8 @@ function CardList(props) {
                   />
                 </Col>
                 <Col>기본카드</Col>
-              </Row>
+              </Row> }
+              
             </Container>
           </Modal.Body>
           <Modal.Footer>
