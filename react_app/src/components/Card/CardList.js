@@ -400,7 +400,7 @@ function CardList(props) {
                   />
                 </Col>
               </Row>
-              <Row>
+              {!currentState && <Row>
                 <Col>
                   <Form.Check
                     checked={registerInput["isDefault"]}
@@ -408,7 +408,8 @@ function CardList(props) {
                   />
                 </Col>
                 <Col>기본카드</Col>
-              </Row>
+              </Row> }
+              
             </Container>
           </Modal.Body>
           <Modal.Footer>
