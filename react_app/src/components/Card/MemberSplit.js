@@ -16,6 +16,25 @@ function MemberSplit(props) {
   console.log(userCard.manager);
   console.log(userId);
 
+  const onDelete = () => {
+    console.log("userCard입니다ㅏㅏ아아아")
+    console.log(userCard.balance)
+    if(userCard.balance !== 0){
+      alert("정산을 먼저 진행해주세요.")
+      return
+    }
+    
+    axios.delete(` /travel-with/delete`, {
+      data: {
+        UserCard : userCard
+      }
+    }).then((res) => {
+      console.log("해지합니다.")
+      console.log(res.data)
+      navigate('/travelCard')
+    })
+  }
+
   const onSplit = () => {
     console.log("userCard.travelWithId");
     console.log(userCard.travelWithId);
@@ -101,6 +120,9 @@ function MemberSplit(props) {
         <Button onClick={() => navigate('/travelCard')}>돌아가기</Button>
         {userCard.manager === Number(userId) && (
           <Button onClick={onSplit}>정산하기</Button>
+        )}
+         {userCard.manager === Number(userId) && (
+          <Button onClick={onDelete}>해지하기</Button>
         )}
       </Form.Group>
     </div>
