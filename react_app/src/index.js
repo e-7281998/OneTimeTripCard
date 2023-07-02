@@ -32,7 +32,6 @@ import { Container, Row, Col } from "reactstrap";
 import OttcMain from "views/OttcMain";
 import TravelHome from "routes/TravelHome";
 import AboutOttc from "views/others/AboutOttc";
-import AboutBenefit from "views/others/AboutBenefit";
 import AboutGrade from "views/others/AboutGrade";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -52,7 +51,6 @@ root.render(
                 <Route path="/travelCard/*" element={<TravelHome />} />
                 <Route path="/trip/*" element={<TripHome />} />
                 <Route path="/aboutottc" element={<AboutOttc />} />
-                <Route path="/aboutbenefit" element={<AboutBenefit />} />
                 <Route path="/aboutgrade" element={<AboutGrade />} />
               </Routes>
             </Col>
