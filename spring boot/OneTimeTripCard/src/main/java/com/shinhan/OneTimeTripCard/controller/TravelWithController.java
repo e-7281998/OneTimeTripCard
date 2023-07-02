@@ -51,7 +51,7 @@ public class TravelWithController {
 	@DeleteMapping("/expel")
 	public UserCard expelMember(@RequestBody Map<String, Object> map) {
 		String email = String.valueOf(map.get("email"));
-		Long travelWithId = Long.parseLong((String) map.get("travelWithId"));
+		Long travelWithId = Long.parseLong(String.valueOf(map.get("travelWithId")));
 		return travelWithService.expelMember(email, travelWithId);
 	}
 	

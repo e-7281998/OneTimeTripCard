@@ -19,8 +19,8 @@ public interface UserCardRepository extends CrudRepository<UserCard, Long>{
 	
 	public List<UserCard> findByUser_IdAndIsGroup(Long userId, Boolean isGroup);
 	
-	@Query ("select uc.user from UserCard uc where uc.travelWithId = :travelWithId")
-	public List<User> getUsersByTravelWithId(@Param(value = "travelWithId") Long travelWithId);
+	@Query ("select uc.user from UserCard uc where uc.travelWithId = :travelWithId and uc.status = :status")
+	public List<User> getUsersByTravelWithId(@Param(value = "travelWithId") Long travelWithId, @Param(value = "status") Boolean status);
 	
 	public List<UserCard> findAllByTravelWithId(Long travelWithId);
 	

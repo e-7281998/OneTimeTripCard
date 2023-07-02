@@ -93,7 +93,7 @@ public class TravelWithService {
 	}
 	
 	public List<User> getAllUsersInTravelWithGroup(Long travelWithId) {
-		return userCardRepository.getUsersByTravelWithId(travelWithId);
+		return userCardRepository.getUsersByTravelWithId(travelWithId, true);
 	}
 	
 	/**
