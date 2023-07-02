@@ -46,7 +46,8 @@ function MemberSplit(props) {
       })
       .then((res) => {
        const arr = member.filter((item, index) => item.id !== res.data.id);
-        setMember(arr);
+       setMember(arr);
+       window.location.reload();
       });
   };
 
@@ -97,7 +98,7 @@ function MemberSplit(props) {
         </tbody>
       </Table>
       <Form.Group className="mb-3 text-center btn-block">
-        <Button onClick={() => navigate(-1)}>돌아가기</Button>
+        <Button onClick={() => navigate('/travelCard')}>돌아가기</Button>
         {userCard.manager === Number(userId) && (
           <Button onClick={onSplit}>정산하기</Button>
         )}
