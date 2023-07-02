@@ -145,7 +145,7 @@ function FindEmailPage(props) {
                       </FormGroup>
 
                       <small className="text-muted">
-                        회원 email :
+                        Member email :
                         {userEmail.map((item, index) => (
                           <div key={index}> {item} </div>
                         ))}

@@ -193,12 +193,12 @@ function SignUpPage(props) {
         preferredCurrency: currency,
       },
     })
-      .then((res) => {})
+      .then((res) => { })
       .catch();
 
     Swal.fire({
       title: "Success!",
-      text: "회원가입에 성공하였습니다. 로그인해주세요.",
+      text: "You have successfully registered as a member Please login.",
       icon: "success",
       confirmButtonText: "OK",
     }).then((result) => {
