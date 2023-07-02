@@ -62,7 +62,7 @@ function CardHistory(props) {
     console.log(e.target.innerHTML);
     if (e.target.innerHTML === activeData[0]) {
       setTitle(() => purchaseTitle);
-      setActive(() => `/charge/getHistory/${userCard.id}`);
+      setActive(() => `/purchase/getHistory/${userCard.id}`);
     } else {
       setTitle(() => chargeTitle);
       //다음은 결제 내역 호출하는 api임. 바꿔주면 됨
