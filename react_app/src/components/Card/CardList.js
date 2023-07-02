@@ -255,11 +255,6 @@ function CardList(props) {
               <div key={index} onClick={showInfo} value={JSON.stringify(item)}>
                 <img alt="" src={require("assets/img/card/1.png")} />
                 <div>{item.nickName}</div>
-                <div>{item.card?.cardNo}</div>
-                <div>{item.card?.cardDesign.cardName}</div>
-                <div>{item.createdAt}</div>
-                {/* <div>{item.createdAt.slice(0, 10)}</div> */}
-                <div>{item.grade?.gradeName}</div>
                 {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
                 <div>
                   <Button
@@ -285,6 +280,20 @@ function CardList(props) {
                   >
                     충전하기
                   </Button>
+                </div>
+                <div>
+                {currentState && (
+                     <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/travelCard/split`, {
+                          state: { userCard: item },
+                        });
+                      }}
+                    >
+                      멤버 보기
+                    </Button>
+                 )}
                 </div>
                 <div>
                   <Button
@@ -382,21 +391,6 @@ function CardList(props) {
                     name="cardNo"
                   />
                 </Col>
-                {currentState && (
-                  <Col>
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/travelCard/split`, {
-                          state: { userCard: userCard },
-                        });
-                      }}
-                    >
-                      멤버 보기
-                    </Button>
-                  </Col>
-                )}
-
                 <Col>
                   <Form.Control
                     placeholder="별칭"
