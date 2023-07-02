@@ -177,6 +177,7 @@ function CardList(props) {
             })
           );
           handleClose();
+          window.location.reload();
         }
       })
       .catch((error) => {
@@ -201,6 +202,7 @@ function CardList(props) {
         } else {
           setRender(render + 1);
           handleClose();
+          window.location.reload();
         }
       }).catch(error => console.log(error));
     }
@@ -215,7 +217,8 @@ function CardList(props) {
     event.stopPropagation();
     const selecteduserCardId = event.target.getAttribute("value");
     axios.put(`/user-card/refund/${selecteduserCardId}`).then((response) => {
-      alert("환불 완료, 환불금:", response.data);
+      alert("refund complete");
+      window.location.reload();
     });
   };
 

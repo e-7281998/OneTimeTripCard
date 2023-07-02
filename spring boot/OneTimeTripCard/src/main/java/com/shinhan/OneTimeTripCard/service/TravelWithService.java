@@ -44,7 +44,7 @@ public class TravelWithService {
 	public UserCard register(Long managerId, String nickName, List<String> invitedEmails, Boolean isDefault) {
 		List<UserCard> userCards = new ArrayList<>();
 		User manager = userService.findById(managerId);
-		Grade basicGrade = gradeService.getGradeByName("일반");
+		Grade basicGrade = gradeService.getGradeByName("normal");
 		Long travelWithId = userCardRepository.getNextGroupSequence();
 		UserCard managerCard = createTravelWithCard(manager, manager, nickName, basicGrade, travelWithId, isDefault);
 		userCards.add(managerCard);
