@@ -108,10 +108,10 @@ function DemoNavbar(props) {
                       about OTT Card
                     </DropdownItem>
                     <DropdownItem to="/aboutbenefit" tag={Link}>
-                      카드혜택
+                      Card Benefits
                     </DropdownItem>
                     <DropdownItem to="/aboutgrade" tag={Link}>
-                      등급제
+                      Membership Grade
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -119,27 +119,27 @@ function DemoNavbar(props) {
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <i className="ni ni-collection d-lg-none mr-1" />
-                    <span className="nav-link-inner--text">카드관리</span>
+                    <span className="nav-link-inner--text">Card Management</span>
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={onClickCardManage}>
                       My Card List
                     </DropdownItem>
                     <DropdownItem onClick={onClicktransfer}>
-                      카드 잔액 이동
+                      Card balance Transfer
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
 
                 <NavbarBrand href="/card/travelCard">
-                  여행 카드 서비스
+                  TravelCard service
                 </NavbarBrand>
                 {/* <NavbarBrand href="/travelCard">여행 카드 서비스</NavbarBrand> */}
 
-                <NavbarBrand href="/trip">여행 추천 서비스</NavbarBrand>
+                <NavbarBrand href="/trip">
+                  Travel Recommendation</NavbarBrand>
 
-                <NavbarBrand href="#pablo">이벤트</NavbarBrand>
-                {/* <NavbarBrand href="#pablo">공지사항</NavbarBrand> */}
+
               </Nav>
             </UncontrolledCollapse>
             <Link to="/login/sign-up">
@@ -149,7 +149,7 @@ function DemoNavbar(props) {
                 type="button"
                 style={{ margin: 10 }}
               >
-                회원가입
+                Sign in
               </Button>
             </Link>
 
@@ -169,12 +169,12 @@ function DemoNavbar(props) {
             </Link>
 
             <Button hidden={!userId} onClick={onClickLogOut}>
-              로그아웃
+              Log out
             </Button>
 
             <Link to="/login">
               <Button hidden={userId} color="secondary" type="button">
-                로그인
+                Log in
               </Button>
             </Link>
           </Container>
