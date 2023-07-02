@@ -4,7 +4,7 @@ import { UncontrolledCarousel } from "reactstrap";
 
 const items = [
   {
-    src: require("assets/img/card/4.png"),
+    src: require("assets/img/card/unregisteredCard.gif"),
     altText: "",
     caption: "",
     header: "",
