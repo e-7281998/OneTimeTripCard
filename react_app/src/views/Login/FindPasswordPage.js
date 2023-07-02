@@ -27,17 +27,14 @@ function FindPasswordPage(props) {
 
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
-    console.log(e.target.value);
   };
   const handleInputPhone = (e) => {
     setInputPhone(e.target.value);
-    console.log(e.target.value);
   };
 
   const onClickOK = (e) => {
     //기본기능을 수행하지 않음.
     e.preventDefault();
-    console.log("phone : ", inputPhone);
 
     axios({
       method: "post",
@@ -54,25 +51,31 @@ function FindPasswordPage(props) {
         if (email === 0) {
           Swal.fire({
             title: "Error!",
-            text: "가입되어있지 않은 email 입니다.",
+            text: "This is an unregistered email.",
             icon: "error",
             confirmButtonText: "OK",
           });
-          alert("가입되어있지 않은 email 입니다.");
         } else if (email === 1) {
-          console.log(
-            "======================",
-            "전화번호가 일치하지 않습니다."
-          );
-          alert("전화번호가 일치하지 않습니다.");
+          Swal.fire({
+            title: "Error!",
+            text: "Phone number does not match.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         } else if (email === 2) {
-          alert("정확한 email 과 password 를 입력해주세요.");
+          Swal.fire({
+            title: "Error!",
+            text: "Please enter correct email and password.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         } else {
-          console.log(
-            "======================",
-            "임시비밀번호를 전송하였습니다."
-          );
-          alert("임시 비밀번호를 전송하였습니다.");
+          Swal.fire({
+            title: "Success!",
+            text: "A temporary password has been sent.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
         }
       })
       .catch();
@@ -156,7 +159,7 @@ function FindPasswordPage(props) {
                           type="submit"
                           onClick={onClickOK}
                         >
-                          인증번호 발송
+                          OK
                         </Button>
                       </div>
                     </Form>
