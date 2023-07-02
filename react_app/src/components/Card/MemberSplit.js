@@ -23,6 +23,9 @@ function MemberSplit(props) {
     axios.post(`/travel-with/split/${userCard.travelWithId}`).then((res) => {
       console.log("정산하기");
       console.log(res);
+      navigate('/travelCard/split', {
+        state: {userCard : res.data}
+      })
     });
   };
 
@@ -49,11 +52,11 @@ function MemberSplit(props) {
 
   useEffect(() => {
     axios.get(`/travel-with/users/${userCard.travelWithId}`).then((res) => {
-      setMember(() => res.data.filter((item) => Number(userId) != item.id));
+      setMember(() => res.data.filter((item) => Number(userId) !== item.id));
     });
   }, []);
 
-  const purchaseTitle = ["", "이름", "정산 예정 금액", "초대일", ""];
+  const purchaseTitle = ["이름", "정산 예정 금액", "초대일", ""];
 
   if (!(userCard.manager === Number(userId))) {
     delete purchaseTitle[4];
@@ -73,9 +76,8 @@ function MemberSplit(props) {
         <tbody>
           {member.map((item, index) => (
             <tr key={index}>
-              <td>이미지넣기</td>
               <td>{item.firstName + " " + item.lastName}</td>
-              <td>{userCard.balance / member.length}</td>
+              <td>{userCard.balance / (member.length + 1)}</td>
               <td>{userCard?.expiredAt?.slice(0, 10)}</td>
               {userCard.manager === Number(userId) && (
                 <td>
