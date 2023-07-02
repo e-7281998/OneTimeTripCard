@@ -61,6 +61,23 @@ function CardList(props) {
     setShow(true);
   };
 
+
+  //카드 정보 보기
+  const showInfo = (event) => {
+    const selectedUserCard = JSON.parse(
+      event.target.parentNode.getAttribute("value")
+    );
+    if (selectedUserCard.card) {
+      navigate(`/card/info`, {
+        state: {userCard : selectedUserCard}
+      })
+    } else {
+      //카드 계좌 없는 경우
+      showRegisterModal(selectedUserCard);
+    }
+  };
+
+
   /**
    * 카드 클릭시 행동
    * 1. 등록카드 -> 카드 충전 페이지로 이동
@@ -68,8 +85,9 @@ function CardList(props) {
    * @param {*} event
    */
   const clickCard = (event) => {
+    event.stopPropagation();
     const selectedUserCard = JSON.parse(
-      event.target.parentNode.getAttribute("value")
+      event.target.getAttribute("value")
     );
     if (selectedUserCard.card) {
       //카드 계좌 있는 경우
@@ -234,11 +252,7 @@ function CardList(props) {
               //다음이 원본 : 충전하기로 넘어감
               //카드 정보보기로 바꿔놓음
               // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
-              <div key={index} onClick={() => {
-                navigate(`/card/info`, {
-                  state: {userCard : item}
-                })
-              }} value={JSON.stringify(item)}>
+              <div key={index} onClick={showInfo} value={JSON.stringify(item)}>
                 <img alt="" src={require("assets/img/card/1.png")} />
                 <div>{item.nickName}</div>
                 <div>{item.card?.cardNo}</div>
@@ -265,7 +279,13 @@ function CardList(props) {
                     사용내역
                   </Button>
                 </div>
-                <div></div>
+                <div>
+                <Button
+                    onClick={clickCard} value={JSON.stringify(item)}
+                  >
+                    충전하기
+                  </Button>
+                </div>
                 <div>
                   <Button
                     disabled={item.balance === 0 ? "disabled" : ""}
