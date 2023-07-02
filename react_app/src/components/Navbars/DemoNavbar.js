@@ -132,7 +132,7 @@ function DemoNavbar(props) {
                 </UncontrolledDropdown>
 
                 <NavbarBrand href="/card/travelCard">
-                  TravelCard service
+                  Travelwith service
                 </NavbarBrand>
                 {/* <NavbarBrand href="/travelCard">여행 카드 서비스</NavbarBrand> */}
 
