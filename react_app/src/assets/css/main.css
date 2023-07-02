@@ -1,7 +1,38 @@
 .frame {
-  border: 5px solid #333;
+  border: 3px solid #333;
   border-radius: 5px;
   margin: 20px;
+}
+
+#body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+#bdgstyle {
+  font-size: 20px;
+  position: absolute;
+  border: 3px solid;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.welcome {
+  margin: auto;
+  font-family: fantasy;
 }
 
 .notice {
@@ -49,10 +80,10 @@
 
 @keyframes rotate-axis {
   from {
-    transform: perspective(1200px) rotateY(0deg);
+    transform: rotateZ(350deg) perspective(1200px) rotateY(0deg);
   }
 
   to {
-    transform: perspective(1200px) rotateY(360deg);
+    transform: rotateZ(350deg) perspective(1200px) rotateY(360deg);
   }
 }
