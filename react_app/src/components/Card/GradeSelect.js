@@ -134,11 +134,13 @@ function GradeSelect(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-between">
-        <Carousel />
-        <Container>
+      <div className="d-flex justify-content-between border"  >
+      <img className="d-block mx-5 my-4" src={require("assets/img/card/unregisteredCard.gif")} alt="" style={{width:"350px"}}/>
+        {/* <Carousel /> */}
+        <Container className="border-left ms-3 me-5 my-4">
+          <div>
           <Row className="my-2">
-            <Col>등급</Col>
+            <Col><h5>등급</h5></Col>
             <Col>
               <Dropdown className=" d-flex justify-content-end">
                 <Dropdown.Toggle variant="dark" id="dropdown-basic" size="sm">
@@ -154,6 +156,8 @@ function GradeSelect(props) {
               </Dropdown>
             </Col>
           </Row>
+          </div>
+          <div className="border my-4 px-3 py-3">
           <Row className="my-2">
             <Col>금액</Col>
             <Col className="text-right">{grade.price}</Col>
@@ -190,13 +194,25 @@ function GradeSelect(props) {
             <Col>재 충전 동일 혜택 수</Col>
             <Col className="text-right">{grade.maxRechargeCount}</Col>
           </Row>
-          <Row className="d-flex justify-content-end my-3">
+          {/* <Row className="d-flex justify-content-end my-3">
             <Button onClick={purchase} size="sm" type="button">
               구입하기
             </Button>
-          </Row>
+          </Row> */}
+          </div>
+          <Button onClick={purchase} size="sm" type="button">
+              구입하기
+            </Button>
         </Container>
       </div>
+      <div className="text-center">
+        <br />
+        <br />
+        <br />
+        <br />
+      <img  src={require("assets/img/card/serviceDetail.png")}/>
+      </div>
+     
     </>
   );
 }
