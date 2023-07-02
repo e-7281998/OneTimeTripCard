@@ -182,20 +182,23 @@ public class TravelWithService {
 	@Transactional
 	public UserCard splitBalance(Long travelWithId) {
 		List<UserCard> travelWithCards = userCardRepository.findAllByTravelWithId(travelWithId);
-		List<User> users = travelWithCards.stream().map(travelWithCard -> travelWithCard.getUser()).collect(Collectors.toList());
+		List<User> users = travelWithCards.stream().filter(travelWithCard -> travelWithCard.getStatus())
+				.map(travelWithCard -> travelWithCard.getUser()).collect(Collectors.toList());
 		List<UserCard> defaultCards = userCardService.findDefaultCards(users);
 		Map<Long, UserCard> defaultCardMap = createDefaultCardMap(defaultCards);
 		int splitAmount = travelWithCards.get(0).getBalance() / travelWithCards.size();
 		List<NSplit> splits = new ArrayList<>();
 		for (UserCard travelWithCard : travelWithCards) {
-			travelWithCard.setBalance(travelWithCard.getBalance() - (splitAmount * travelWithCards.size()));
+			travelWithCard.setBalance(0);
 			NSplit split = NSplit.builder()
 					.userCard(travelWithCard)
 					.amount(splitAmount)
 					.build();
-			UserCard defaultCard = defaultCardMap.get(travelWithCard.getUser().getId()); 
-			defaultCard.setBalance(defaultCard.getBalance() + splitAmount);
-			splits.add(split);
+			if (travelWithCard.getStatus()) {
+				UserCard defaultCard = defaultCardMap.get(travelWithCard.getUser().getId());
+				defaultCard.setBalance(defaultCard.getBalance() + splitAmount);
+				splits.add(split);
+			}
 		}
 		nSplitService.saveAll(splits);
 		return travelWithCards.stream()
