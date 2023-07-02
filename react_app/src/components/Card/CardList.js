@@ -25,7 +25,7 @@ function CardList(props) {
   const [render, setRender] = useState(0);
   const navigate = useNavigate();
   const currentState = location.pathname.split("/")[1] === "travelCard";
-
+  const [nick, setNick] = useState("")
   var title = [
     "별칭",
     "카드 번호 ",
@@ -57,6 +57,9 @@ function CardList(props) {
   };
   // 모달 여는 함수
   const showRegisterModal = (selectedUserCard) => {
+    console.log("selectedUserCard")
+    console.log(selectedUserCard.nickName)
+    setNick(selectedUserCard.nickName)
     setUserCard(selectedUserCard);
     setShow(true);
   };
@@ -86,6 +89,8 @@ function CardList(props) {
    */
   const clickCard = (event) => {
     event.stopPropagation();
+    console.log("userCard를 확인하겠다")
+    console.log(event)
     const selectedUserCard = JSON.parse(
       event.target.getAttribute("value")
     );
@@ -394,7 +399,7 @@ function CardList(props) {
                 </Col>
                 <Col>
                   <Form.Control
-                    placeholder="별칭"
+                    placeholder={nick}
                     onChange={getInput}
                     name="nickName"
                   />

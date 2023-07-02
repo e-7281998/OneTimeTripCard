@@ -118,7 +118,8 @@ function CardHistory(props) {
           {used.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{item.createdAt.slice(0, 10)}</td>
+              {/* <td>{item.createdAt.slice(0, 10)}</td> */}
+              <td>{item.createdAt.slice(0, 10) + " " + item.createdAt.slice(11, 16)}</td>
               <td>{item.amountWon}</td>
               {/* purchaseTitle일 때는 항목이 더 많이 출력되므로  */}
               {title.length === purchaseTitle.length && (
