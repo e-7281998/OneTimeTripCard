@@ -3,9 +3,7 @@ import "assets/css/main.css";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import CardSlide from "./Card/CardSlide.js";
 import Event from "./others/Event.js";
-import { Badge, Col, Container, Row } from "reactstrap";
-import { AbsoluteCenter, Center } from "@chakra-ui/react";
-import { Tab } from "react-bootstrap";
+import { Badge } from "reactstrap";
 
 function OttcMain(props) {
   // const listOfData = [
@@ -28,8 +26,6 @@ function OttcMain(props) {
         <div id="body" className="frame" style={{ display: "flex", textAlign: "center", height: "auto" }}>
 
           <div className="welcome"><h2>Welcome to</h2> <h1> <b>O</b>ne <b>T</b>ime <b>T</b>rip <b>C</b>ard</h1></div>
-
-
 
           <div className="satellites"  >
             <img className="satellite" src={require("assets/img/card/homecard.png")}>
