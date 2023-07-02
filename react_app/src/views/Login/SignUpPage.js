@@ -59,12 +59,12 @@ function SignUpPage(props) {
 
     if (inputEmail.match(emailRegEx) === null) {
       //형식에 맞지 않을 경우 아래 콘솔 출력
-      setEmailMessage("형식에 맞게 입력해주세요.(example@gmail.com)");
+      setEmailMessage("Example@gmail.com");
       setIsEmail(false);
       setIsEmailCheck(false);
     } else {
       // 맞을 경우 출력
-      setEmailMessage("올바른 형식입니다.");
+      setEmailMessage("Correct");
       setIsEmail(true);
       setIsEmailCheck(false);
     }
@@ -77,12 +77,12 @@ function SignUpPage(props) {
 
     if (e.target.value.match(passwordRegEx) === null) {
       //형식에 맞지 않을 경우 아래 콘솔 출력
-      setPasswordMessage("영문+숫자 조합 8~15 자리로 입력해주세요.");
+      setPasswordMessage("Please enter 8 to 15 digits of English+number.");
       setIsPassword(false);
       return;
     } else {
       // 맞을 경우 출력
-      setPasswordMessage("comfirm");
+      setPasswordMessage("Comfirm");
       setIsPassword(true);
     }
   };
@@ -91,10 +91,10 @@ function SignUpPage(props) {
     setInputPasswordConfirm(e.target.value);
 
     if (inputPassword === e.target.value) {
-      setPasswordChkMessage("confirm");
+      setPasswordChkMessage("Confirm");
       setIsPasswordConfirm(true);
     } else {
-      setPasswordChkMessage("비밀번호를 다시 확인해주세요.");
+      setPasswordChkMessage("Please check your password again.");
       setIsPasswordConfirm(false);
     }
   };
@@ -122,7 +122,7 @@ function SignUpPage(props) {
         if (res.data === 1) {
           Swal.fire({
             title: "Error!",
-            text: "이미 사용중인 이메일 입니다.",
+            text: "This email is already in use.",
             icon: "error",
             confirmButtonText: "OK",
           });
@@ -130,7 +130,7 @@ function SignUpPage(props) {
         } else {
           Swal.fire({
             title: "Success!",
-            text: "사용가능한 이메일 입니다.",
+            text: "This email is usable.",
             icon: "success",
             confirmButtonText: "OK",
           });
@@ -265,7 +265,7 @@ function SignUpPage(props) {
                                 padding: 5,
                               }}
                             >
-                              중복확인
+                              Check
                             </Button>
                           </div>
                         </InputGroup>
@@ -377,10 +377,7 @@ function SignUpPage(props) {
                                 key={currnecyName}
                                 onClick={selectCurrency}
                               >
-                                {/* <img
-                                  alt="..."
-                                  src="https://demos.creative-tim.com/argon-dashboard-pro-bs4/assets/img/icons/flags/US.png"
-                                ></img> */}
+
                                 {currnecyName}
                               </DropdownItem>
                             ))}
