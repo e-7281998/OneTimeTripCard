@@ -83,12 +83,12 @@ function TravelCardPage(props) {
                   </div>
                   <div className="h6 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
-                    Start a travel card service with your friends!
+                    Start a travel with service with your friends!
                   </div>
 
                   <Button className="mr-4" color="info" onClick={onClickStart}>
 
-                    Start Travelcard Service
+                    Start Travelwith Service
                   </Button>
                 </div>
 
