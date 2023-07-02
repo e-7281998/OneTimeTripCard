@@ -295,7 +295,7 @@ function CardList(props) {
                     </Button>
                  )}
                 </div>
-                <div>
+                {!currentState && <div>
                   <Button
                     disabled={item.balance === 0 ? "disabled" : ""}
                     value={item.id}
@@ -303,7 +303,8 @@ function CardList(props) {
                   >
                     환불하기
                   </Button>
-                </div>
+                </div>}
+                
               </div>
             ))}
             {/* <div></div> */}
