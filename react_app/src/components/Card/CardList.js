@@ -217,7 +217,8 @@ function CardList(props) {
     event.stopPropagation();
     const selecteduserCardId = event.target.getAttribute("value");
     axios.put(`/user-card/refund/${selecteduserCardId}`).then((response) => {
-      alert("환불 완료, 환불금:", response.data);
+      alert("refund complete");
+      window.location.reload();
     });
   };
 
