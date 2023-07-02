@@ -177,6 +177,7 @@ function CardList(props) {
             })
           );
           handleClose();
+          window.location.reload();
         }
       })
       .catch((error) => {
@@ -201,6 +202,7 @@ function CardList(props) {
         } else {
           setRender(render + 1);
           handleClose();
+          window.location.reload();
         }
       }).catch(error => console.log(error));
     }
