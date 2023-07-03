@@ -22,7 +22,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "userCard")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

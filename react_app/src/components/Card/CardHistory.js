@@ -18,10 +18,9 @@ function CardHistory(props) {
   const purchaseTitle = [
     "",
     "일자",
-    "상태",
     "금액",
+    "할인금액",
     "최종 결제 금액",
-    "할인혜택",
     "가맹점명",
   ];
 
@@ -59,7 +58,7 @@ function CardHistory(props) {
 
   //결제 내역 버튼 , 충전 내역 버튼 클릭시 api 변경
   const getActive = (e) => {
-    console.log(e.target.innerHTML);
+    setUsed([]);
     if (e.target.innerHTML === activeData[0]) {
       setTitle(() => purchaseTitle);
       setActive(() => `/purchase/getHistory/${userCard.id}`);
@@ -80,7 +79,9 @@ function CardHistory(props) {
         },
       })
       .then((res) => {
-        setUsed(() => res.data.reverse());
+        setUsed(() => {     
+          setUsed(res.data.reverse());
+        });
       });
   }, [month, title]);
 
@@ -115,19 +116,23 @@ function CardHistory(props) {
           </tr>
         </thead>
         <tbody>
-          {used.map((item, index) => (
+          {used && used.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               {/* <td>{item.createdAt.slice(0, 10)}</td> */}
               <td>{item.createdAt.slice(0, 10) + " " + item.createdAt.slice(11, 16)}</td>
-              <td>{item.amountWon}</td>
+              {title.length === purchaseTitle.length && (
+                <td>{item.amount}</td>
+              )}
+              {title.length !== purchaseTitle.length && (
+                <td>{item.amountWon}</td>
+              )}
               {/* purchaseTitle일 때는 항목이 더 많이 출력되므로  */}
               {title.length === purchaseTitle.length && (
                 <>
-                  <td>{item.amountWon}</td>
-                  <td>"dkdkdk"</td>
-                  <td>"dkdkdk"</td>
-                  <td>"dkdkdk"</td>
+                  <td>{item.discount}</td>
+                  <td>{item.amount - item.discount}</td>
+                  <td>{item.store}</td>
                 </>
               )}
             </tr>

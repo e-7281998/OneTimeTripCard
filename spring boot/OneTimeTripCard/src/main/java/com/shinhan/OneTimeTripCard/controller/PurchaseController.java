@@ -1,5 +1,6 @@
 package com.shinhan.OneTimeTripCard.controller;
 
+import com.shinhan.OneTimeTripCard.dto.PurchaseHistoryDTO;
 import com.shinhan.OneTimeTripCard.service.PurchaseService;
 import com.shinhan.OneTimeTripCard.vo.Purchase;
 import java.util.List;
@@ -18,7 +19,7 @@ public class PurchaseController {
     private final PurchaseService purchaseService;
 
     @GetMapping("/getHistory/{userCardId}")
-    public List<Purchase> getHistory(@PathVariable Long userCardId, @RequestParam int year, @RequestParam int month) {
+    public List<PurchaseHistoryDTO> getHistory(@PathVariable Long userCardId, @RequestParam int year, @RequestParam int month) {
         return purchaseService.getChargeHistoryByMonth(userCardId, year, month);
     }
 }
