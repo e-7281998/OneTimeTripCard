@@ -6,6 +6,9 @@ function CardDefaultInfo(props) {
   const location = useLocation();
   const userCard = location.state.userCard;
 
+  var imgSrc = userCard.card.cardDesign.imgSrc;
+  imgSrc = imgSrc.split("/");
+
   return (
     <Card
       className="mb-3 text-center btn-block"
@@ -17,7 +20,7 @@ function CardDefaultInfo(props) {
       </Card.Body>
       <Card.Img
         className="m-auto"
-        src={require("assets/img/card/cardImg1.png")}
+        src={require(`assets/img/card/${imgSrc[3]}`)}
         style={{ width: "13rem" }}
       />
       <Card.Body>
