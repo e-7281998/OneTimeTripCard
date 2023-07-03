@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(exclude = "courseNode")
+@ToString(exclude = { "courseNode", "purchases"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
