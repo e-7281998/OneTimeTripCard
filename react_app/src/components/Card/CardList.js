@@ -25,7 +25,7 @@ function CardList(props) {
   const [render, setRender] = useState(0);
   const navigate = useNavigate();
   const currentState = location.pathname.split("/")[1] === "travelCard";
-  const [nick, setNick] = useState("별칭")
+  const [nick, setNick] = useState("별칭");
   var title = [
     "별칭",
     "카드 번호 ",
@@ -57,12 +57,10 @@ function CardList(props) {
   };
   // 모달 여는 함수
   const showRegisterModal = (selectedUserCard) => {
-    if(currentState)
-      setNick(selectedUserCard.nickName)
+    if (currentState) setNick(selectedUserCard.nickName);
     setUserCard(selectedUserCard);
     setShow(true);
   };
-
 
   //카드 정보 보기
   const showInfo = (event) => {
@@ -71,14 +69,13 @@ function CardList(props) {
     );
     if (selectedUserCard.card) {
       navigate(`/card/info`, {
-        state: {userCard : selectedUserCard}
-      })
+        state: { userCard: selectedUserCard },
+      });
     } else {
       //카드 계좌 없는 경우
       showRegisterModal(selectedUserCard);
     }
   };
-
 
   /**
    * 카드 클릭시 행동
@@ -88,11 +85,9 @@ function CardList(props) {
    */
   const clickCard = (event) => {
     event.stopPropagation();
-    console.log("userCard를 확인하겠다")
-    console.log(event)
-    const selectedUserCard = JSON.parse(
-      event.target.getAttribute("value")
-    );
+    console.log("userCard를 확인하겠다");
+    console.log(event);
+    const selectedUserCard = JSON.parse(event.target.getAttribute("value"));
     if (selectedUserCard.card) {
       //카드 계좌 있는 경우
       if (location.pathname === "/travelCard") {
@@ -155,58 +150,61 @@ function CardList(props) {
     // 개인 카드인 경우
     if (!currentState) {
       axios
-      .post("/user-card/register", {
-        userCard: userCard,
-        cardNo: registerInput.cardNo,
-        nickName: registerInput.nickName,
-        isDefault: registerInput.isDefault,
-      })
-      .then((response) => {
-        if (response.data === "notExist") {
-          alert("card number is not valid");
-        } else if (response.data === "alreadyRegistered") {
-          alert("this card is already registered");
-        } else {
-          const newUserCard = response.data;
-          setUserCards(
-            userCards.map((userCard) => {
-              if (newUserCard.id === userCard.id) {
-                return newUserCard;
-              }
-              return userCard;
-            })
-          );
-          handleClose();
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        throw new Error(error);
-      });
-    } else { // travelWith인 경우
-      axios.post("/travel-with/register-card", {
-        travelWithId: userCard.travelWithId,
-        memberId: userId,
-        managerId: userCard.manager,
-        cardNo: registerInput.cardNo
-      }).then(response => {
-        if (response.data === 'NotAllowed') {
-          alert("card number is not valid");
-        } else if (response.data === 'NotTravelWithCard') {
-          alert("this card is not for travel with card");
-        } else if (response.data === 'InvalidCardNo') {
-          alert("card number is not valid");
-        } else if (response.data === 'AlreadyRegistered') {
-          alert("this card is already registered");
-        } else {
-          setRender(render + 1);
-          handleClose();
-          window.location.reload();
-        }
-      }).catch(error => console.log(error));
+        .post("/user-card/register", {
+          userCard: userCard,
+          cardNo: registerInput.cardNo,
+          nickName: registerInput.nickName,
+          isDefault: registerInput.isDefault,
+        })
+        .then((response) => {
+          if (response.data === "notExist") {
+            alert("card number is not valid");
+          } else if (response.data === "alreadyRegistered") {
+            alert("this card is already registered");
+          } else {
+            const newUserCard = response.data;
+            setUserCards(
+              userCards.map((userCard) => {
+                if (newUserCard.id === userCard.id) {
+                  return newUserCard;
+                }
+                return userCard;
+              })
+            );
+            handleClose();
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          throw new Error(error);
+        });
+    } else {
+      // travelWith인 경우
+      axios
+        .post("/travel-with/register-card", {
+          travelWithId: userCard.travelWithId,
+          memberId: userId,
+          managerId: userCard.manager,
+          cardNo: registerInput.cardNo,
+        })
+        .then((response) => {
+          if (response.data === "NotAllowed") {
+            alert("card number is not valid");
+          } else if (response.data === "NotTravelWithCard") {
+            alert("this card is not for travel with card");
+          } else if (response.data === "InvalidCardNo") {
+            alert("card number is not valid");
+          } else if (response.data === "AlreadyRegistered") {
+            alert("this card is already registered");
+          } else {
+            setRender(render + 1);
+            handleClose();
+            window.location.reload();
+          }
+        })
+        .catch((error) => console.log(error));
     }
-    
   };
 
   /**
@@ -255,65 +253,76 @@ function CardList(props) {
             scrollOnDevice={true}
             key={render}
           >
-            {userCards.map((item, index) => (
-              //다음이 원본 : 충전하기로 넘어감
-              //카드 정보보기로 바꿔놓음
-              // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
-              <div key={index} onClick={showInfo} value={JSON.stringify(item)}>
-                <img alt="" src={require("assets/img/card/1.png")} />
-                <div>{item.nickName}</div>
-                {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
-                <div>
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (location.pathname === "/travelCard") {
-                        navigate(`/travelCard/history/${item.id}`, {
-                          state: { userCard: item },
-                        });
-                      } else {
-                        navigate(`/card/history/${item.id}`, {
-                          state: { userCard: item },
-                        });
-                      }
-                    }}
-                  >
-                    사용내역
-                  </Button>
-                </div>
-                <div>
-                <Button
-                    onClick={clickCard} value={JSON.stringify(item)}
-                  >
-                    충전하기
-                  </Button>
-                </div>
-                <div>
-                {currentState && (
-                     <Button
+            {userCards.map((item, index) => {
+              var imgsrc = "assets/img/card/card0.png";
+              if (item.card !== null) {
+                imgsrc = item.card.cardDesign.imgSrc;
+              }
+              imgsrc = imgsrc.split("/");
+              return (
+                //다음이 원본 : 충전하기로 넘어감
+                //카드 정보보기로 바꿔놓음
+                // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
+
+                <div
+                  key={index}
+                  onClick={showInfo}
+                  value={JSON.stringify(item)}
+                >
+                  <img alt="" src={require(`assets/img/card/${imgsrc[3]}`)} />
+                  <div>{item.nickName}</div>
+                  {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
+                  <div>
+                    <Button
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate(`/travelCard/split`, {
-                          state: { userCard: item },
-                        });
+                        if (location.pathname === "/travelCard") {
+                          navigate(`/travelCard/history/${item.id}`, {
+                            state: { userCard: item },
+                          });
+                        } else {
+                          navigate(`/card/history/${item.id}`, {
+                            state: { userCard: item },
+                          });
+                        }
                       }}
                     >
-                      멤버 보기
+                      transaction
                     </Button>
-                 )}
+                  </div>
+                  <div>
+                    <Button onClick={clickCard} value={JSON.stringify(item)}>
+                      Charge
+                    </Button>
+                  </div>
+                  <div>
+                    {currentState && (
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/travelCard/split`, {
+                            state: { userCard: item },
+                          });
+                        }}
+                      >
+                        View member
+                      </Button>
+                    )}
+                  </div>
+                  {!currentState && (
+                    <div>
+                      <Button
+                        disabled={item.balance === 0 ? "disabled" : ""}
+                        value={item.id}
+                        onClick={refund}
+                      >
+                        Refund
+                      </Button>
+                    </div>
+                  )}
                 </div>
-                {!currentState && <div>
-                  <Button
-                    disabled={item.balance === 0 ? "disabled" : ""}
-                    value={item.id}
-                    onClick={refund}
-                  >
-                    환불하기
-                  </Button>
-                </div>}
-                
-              </div>
-            ))}
+              );
+            })}
             {/* <div></div> */}
             {/* <div>
               <img alt="" src={require("assets/img/card/2.png")} />
@@ -407,16 +416,17 @@ function CardList(props) {
                   />
                 </Col>
               </Row>
-              {!currentState && <Row>
-                <Col>
-                  <Form.Check
-                    checked={registerInput["isDefault"]}
-                    onChange={checkHandler}
-                  />
-                </Col>
-                <Col>기본카드</Col>
-              </Row> }
-              
+              {!currentState && (
+                <Row>
+                  <Col>
+                    <Form.Check
+                      checked={registerInput["isDefault"]}
+                      onChange={checkHandler}
+                    />
+                  </Col>
+                  <Col>기본카드</Col>
+                </Row>
+              )}
             </Container>
           </Modal.Body>
           <Modal.Footer>
