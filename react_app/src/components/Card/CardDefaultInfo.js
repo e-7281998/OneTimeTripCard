@@ -15,7 +15,7 @@ function CardDefaultInfo(props) {
       style={{ background: "#e9ecef" }}
     >
       <Card.Body>
-        <h4 style={{ fontSize: 30, fontWeight: 500 }}>카드 잔액</h4>
+        <h4 style={{ fontSize: 30, fontWeight: 500 }}>BALANCE</h4>
         <h1 style={{ fontSize: 60, fontWeight: 800 }}>₩ {userCard.balance}</h1>
       </Card.Body>
       <Card.Img
