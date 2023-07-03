@@ -134,75 +134,113 @@ function GradeSelect(props) {
 
   return (
     <>
-      <div className="d-flex justify-content-between border"  >
-      <img className="d-block mx-5 my-4" src={require("assets/img/card/unregisteredCard.gif")} alt="" style={{width:"350px"}}/>
+      <div className="d-flex justify-content-between border">
+        <img
+          className="d-block mx-5 my-4"
+          src={require("assets/img/card/unregisteredCard.gif")}
+          alt=""
+          style={{ width: "350px" }}
+        />
         {/* <Carousel /> */}
         <Container className="border-left ms-3 me-5 my-4">
           <div>
-          <Row className="my-2">
-            <Col><h5>등급</h5></Col>
-            <Col>
-              <Dropdown className=" d-flex justify-content-end">
-                <Dropdown.Toggle variant="dark" id="dropdown-basic" size="sm">
-                  {grade.gradeName}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {gradeList.map((grade1) => (
-                    <Dropdown.Item key={grade1.gradeName} onClick={selectGrade}>
-                      {grade1.gradeName}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-          </Row>
+            <Row className="my-2">
+              <Col>
+                <h5>Card Level</h5>
+              </Col>
+              <Col>
+                <Dropdown className=" d-flex justify-content-end">
+                  <Dropdown.Toggle variant="dark" id="dropdown-basic" size="sm">
+                    {grade.gradeName}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {gradeList.map((grade1) => (
+                      <Dropdown.Item
+                        key={grade1.gradeName}
+                        onClick={selectGrade}
+                      >
+                        {grade1.gradeName}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            </Row>
           </div>
           <div className="border my-4 px-3 py-3">
-          <Row className="my-2">
-            <Col>금액</Col>
-            <Col className="text-right">{grade.price}</Col>
-          </Row>
-          <Row className="my-2">
-            <Col>기간</Col>
-            <Col className="text-right"> {grade.period}</Col>
-          </Row>
-          <Row className="my-2">
-            <Col>혜택 수</Col>
-            <Col className="text-right">{grade.benefitCount}</Col>
-          </Row>
-          <Row className="my-2">
-            <Col>즉시 환급률</Col>
-            <Col className="text-right">{grade.refundRate * 100}%</Col>
-          </Row>
-          <Row className="my-2">
-            <Col>혜택 커스텀</Col>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Price</strong>
+                </small>
+              </Col>
+              <Col className="text-right">{grade.price}</Col>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Expiration Date</strong>
+                </small>
+              </Col>
+              <Col className="text-right"> {grade.period}</Col>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Benefit Count</strong>
+                </small>
+              </Col>
+              <Col className="text-right">{grade.benefitCount}</Col>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Payback Rate</strong>
+                </small>
+              </Col>
+              <Col className="text-right">{grade.refundRate * 100}%</Col>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Select Benefit</strong>
+                </small>
+              </Col>
 
-            <Col className="d-flex justify-content-end">
-              <Button onClick={goToSelectBenefits} size="sm">
-                커스텀 하기
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              선택한 커스텀 ----
-              {location.state &&
-                location.state.myBenefits.map((benefit) => benefit.benefitName)}
-            </Col>
-          </Row>
-          <Row className="my-2">
-            <Col>재 충전 동일 혜택 수</Col>
-            <Col className="text-right">{grade.maxRechargeCount}</Col>
-          </Row>
-          {/* <Row className="d-flex justify-content-end my-3">
+              <Col className="d-flex justify-content-end">
+                <Button onClick={goToSelectBenefits} size="sm">
+                  Go Select
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <small>
+                  <strong>Selected Benefit</strong>
+                </small>
+                {location.state &&
+                  location.state.myBenefits.map(
+                    (benefit) => benefit.benefitName
+                  )}
+              </Col>
+            </Row>
+            <Row className="my-2">
+              <Col>
+                <small>
+                  <strong>Recharge Count</strong>
+                </small>
+              </Col>
+              <Col className="text-right">{grade.maxRechargeCount}</Col>
+            </Row>
+            {/* <Row className="d-flex justify-content-end my-3">
             <Button onClick={purchase} size="sm" type="button">
               구입하기
             </Button>
           </Row> */}
           </div>
           <Button onClick={purchase} size="sm" type="button">
-              구입하기
-            </Button>
+            Buy Now
+          </Button>
         </Container>
       </div>
       <div className="text-center">
@@ -210,9 +248,8 @@ function GradeSelect(props) {
         <br />
         <br />
         <br />
-      <img  src={require("assets/img/card/serviceDetail.png")}/>
+        <img src={require("assets/img/card/serviceDetail.png")} />
       </div>
-     
     </>
   );
 }
