@@ -111,7 +111,9 @@ function DemoNavbar(props) {
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav>
                     <i className="ni ni-collection d-lg-none mr-1" />
-                    <span className="nav-link-inner--text">Card Management</span>
+                    <span className="nav-link-inner--text">
+                      Card Management
+                    </span>
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={onClickCardManage}>
@@ -123,15 +125,10 @@ function DemoNavbar(props) {
                   </DropdownMenu>
                 </UncontrolledDropdown>
 
-                <NavbarBrand href="/card/travelCard">
-                  Travelwith service
-                </NavbarBrand>
+                <NavbarBrand href="/card/travelCard">Travelwith</NavbarBrand>
                 {/* <NavbarBrand href="/travelCard">여행 카드 서비스</NavbarBrand> */}
 
-                <NavbarBrand href="/trip">
-                  Travel Recommendation</NavbarBrand>
-
-
+                <NavbarBrand href="/trip">K-adventure</NavbarBrand>
               </Nav>
             </UncontrolledCollapse>
             <Link to="/login/sign-up">
