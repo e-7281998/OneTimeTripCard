@@ -55,7 +55,7 @@ function CardManagePage(props) {
       {!currentState && (
         <Link to="/card/purchase">
           <Button color="default" style={{ left: 770 }}>
-            카드 구매
+            New Card
           </Button>
         </Link>
       )}
@@ -65,19 +65,19 @@ function CardManagePage(props) {
           onClick={openRegisterTravelWith}
           style={{ marginRight: 10, left: 780 }}
         >
-          카드 등록
+          New Card
         </Button>
       )}
 
       <Button color="primary" onClick={handleShow} style={{ left: 780 }}>
-        카드 구매내역
+        Card History
       </Button>
 
       <Container className="pt-lg-1">
         <div>
           <Modal show={show} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
-              <Modal.Title>카드 구매 내역</Modal.Title>
+              <Modal.Title>Card History</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <CardPurchaseHistory />
