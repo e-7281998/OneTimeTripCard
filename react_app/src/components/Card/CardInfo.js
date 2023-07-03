@@ -31,7 +31,7 @@ function CardInfo(props) {
         {userCard.isDefault && (
           <Row className="my-2">
             <Col></Col>
-            <Col className="text-right">기본카드</Col>
+            <Col className="text-right">Default Card</Col>
           </Row>
         )}
         <Row className="my-2">
@@ -39,28 +39,28 @@ function CardInfo(props) {
           <Col className="text-right">{userCard.card.cardNo}</Col>
         </Row>
         <Row className="my-2">
-          <Col>별칭</Col>
+          <Col>NickName</Col>
           <Col className="text-right">{userCard.nickName}</Col>
         </Row>
         <Row className="my-2">
-          <Col>금액</Col>
+          <Col>Balance</Col>
           <Col className="text-right">{userCard.balance}</Col>
         </Row>
         <Row className="my-2">
-          <Col>등급</Col>
+          <Col>Grade</Col>
           <Col className="text-right">{userCard.grade.gradeName}</Col>
         </Row>
         <Row className="my-2">
-          <Col>에디션</Col>
+          <Col>Edition</Col>
           <Col className="text-right">{userCard.card.cardDesign.cardName}</Col>
         </Row>
         <Row className="my-2">
-          <Col>구매일</Col>
+          <Col>CreatedAt</Col>
           <Col className="text-right"> {userCard.createdAt.slice(0, 10)}</Col>
         </Row>
 
         <Button style={{ margin: "auto" }} onClick={() => navigate(-1)}>
-          돌아가기
+          BACK
         </Button>
       </Container>
     </div>
