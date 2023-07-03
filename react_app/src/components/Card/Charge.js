@@ -31,15 +31,16 @@ function Charge() {
 
   //충전 요청하기
   const onCharge = () => {
-    let requestUrl ='';
-    let nextUrl = '';
+    let requestUrl = "";
+    let nextUrl = "";
     // 개인 카드인 경우
     if (!currentState) {
-      requestUrl = '/charge';
-      nextUrl = '/card';
-    } else { // travelWith 카드인 경우
-      requestUrl = '/charge/travelWith';
-      nextUrl = '/travelCard';
+      requestUrl = "/charge";
+      nextUrl = "/card";
+    } else {
+      // travelWith 카드인 경우
+      requestUrl = "/charge/travelWith";
+      nextUrl = "/travelCard";
     }
     axios
       .post(requestUrl, {
@@ -78,7 +79,7 @@ function Charge() {
   return (
     <>
       <CardDefaultInfo />
-      <Form className="m-auto" style={{ width: "400px" }}>
+      <Form className="m-auto" style={{ width: "500px" }}>
         {currentState && <TravelCardCharge userCard={userCard} />}
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2} style={{ fontWeight: 800 }}>
@@ -118,7 +119,7 @@ function Charge() {
           controlId="formHorizontalPassword"
         >
           <Form.Label column sm={2} style={{ fontWeight: 800 }}>
-            출금계좌
+            withdraw
           </Form.Label>
           <Col sm={10}>
             <Form.Control
@@ -134,7 +135,7 @@ function Charge() {
           controlId="formHorizontalPassword"
         >
           <Form.Label column sm={2} style={{ fontWeight: 800 }}>
-            남은 충전 횟수
+            Recharge Count
           </Form.Label>
           <Col sm={10}>
             <Form.Control
@@ -147,9 +148,9 @@ function Charge() {
           </Col>
         </Form.Group>
         <Form.Group className="mb-3 text-center btn-block">
-          <Button onClick={() => navigate(-1)}>돌아가기</Button>
-          <Button onClick={onCharge}>충전하기</Button>
-          <Button onClick={deleteCard}>삭제하기</Button>
+          <Button onClick={() => navigate(-1)}>BACK</Button>
+          <Button onClick={onCharge}>CHARGE</Button>
+          <Button onClick={deleteCard}>DELETE</Button>
         </Form.Group>
       </Form>
     </>
