@@ -11,10 +11,11 @@ function CardTransfer(props) {
   const [userCards, setUserCards] = useState([]);
   //다시 선택하기 버튼 눌렀을 때를 위한 카드 리스트 백업
   const [saveUserCards, setSaveUserCards] = useState([]);
-  const title = ["별칭", "카드 번호 ", "잔액", ""];
+  const title = ["Nickname", "Card No", "Balance", ""];
   const navigate = useNavigate();
-  const [selectMsg, setSelectMsg] =
-    useState("잔액 이동할 카드를 선택해주세요.");
+  const [selectMsg, setSelectMsg] = useState(
+    "Please select the card to transfer the balance to."
+  );
   //잔액 이동할 카드 정보
   const [selectCard, setSelectCard] = useState({
     from: "",
@@ -24,7 +25,7 @@ function CardTransfer(props) {
   //다시 선택하기 클릭시 작동
   function onReset(e) {
     setSelectCard({ from: "", to: "" });
-    setSelectMsg("잔액 이동할 카드를 선택해주세요.");
+    setSelectMsg("Please select the card to transfer the balance to.");
     setUserCards(saveUserCards);
   }
 
@@ -32,7 +33,9 @@ function CardTransfer(props) {
   const onSendCard = (e) => {
     //잔액 이동 할 카드
     if (selectCard.from === "") {
-      setSelectMsg(`잔액 이동할 카드 : ${e.target.getAttribute("nick")} => `);
+      setSelectMsg(
+        `Card to move balance : ${e.target.getAttribute("nick")} => `
+      );
       setSelectCard({ ...selectCard, from: e.target.getAttribute("value") });
     }
     //잔액 이동 될 카드
@@ -60,7 +63,7 @@ function CardTransfer(props) {
         to: selectCard.to,
       })
       .then((res) => {
-        alert(`이동한 잔액 : ${res.data}`);
+        alert(`balance transferred : ${res.data}`);
         navigate("/card");
       });
   };
@@ -100,7 +103,7 @@ function CardTransfer(props) {
                   onClick={onSendCard}
                   disabled={selectCard.to !== "" ? true : false}
                 >
-                  선택
+                  select
                 </Button>
               </td>
             </tr>
@@ -108,13 +111,13 @@ function CardTransfer(props) {
         </tbody>
       </Table>
 
-      <Form className="m-auto" style={{ width: "400px" }}>
+      <Form className="m-auto">
         <Form.Group className="mb-3 text-center btn-block">
-          <Button onClick={() => navigate(-1)}>돌아가기</Button>
+          <Button onClick={() => navigate(-1)}>back</Button>
           {selectCard.from !== "" && (
-            <Button onClick={onReset}>다시 선택하기</Button>
+            <Button onClick={onReset}>choose again</Button>
           )}
-          <Button onClick={onTransfer}>잔액 이동하기</Button>
+          <Button onClick={onTransfer}>balance transfer</Button>
         </Form.Group>
       </Form>
     </div>
