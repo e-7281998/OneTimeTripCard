@@ -19,45 +19,59 @@ function CardManagePage(props) {
   const location = useLocation();
   const openRegisterTravelWith = () => {
     setTravelWithModal(true);
-  }
+  };
 
   const closeTravelWithModal = () => {
     setTravelWithModal(false);
-  }
+  };
 
   const registerTravelWith = (userEmails, nickName) => {
-    axios.post("/travel-with/register", {
-      userId: userId,
-      nickName: nickName,
-      emails: userEmails,
-      isDefault: false
-    }).then(response => {
-      setTravelWithModal(false);
-      setRender(render + 1);
-    })
-  }
+    axios
+      .post("/travel-with/register", {
+        userId: userId,
+        nickName: nickName,
+        emails: userEmails,
+        isDefault: false,
+      })
+      .then((response) => {
+        setTravelWithModal(false);
+        setRender(render + 1);
+      });
+  };
 
   useEffect(() => {
-    axios.get(`/user/find/${userId}`)
-      .then(response => {
+    axios
+      .get(`/user/find/${userId}`)
+      .then((response) => {
         setUser(response.data);
-      }).catch(error => console.log(error));
-  }, [])
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const currentState = location.pathname.split("/")[1] === "travelCard";
 
   return (
     <>
-      {!currentState && <Link to="/card/purchase">
-        <Button color="default" style={{ marginRight: 10, marginLeft: "75%" }}>
-          카드 구매
-        </Button>
-      </Link>}
-      {currentState &&
-        <Button color="default" onClick={openRegisterTravelWith} style={{ marginRight: 10, marginLeft: "75%" }}>
+      {!currentState && (
+        <Link to="/card/purchase">
+          <Button
+            color="default"
+            style={{ marginRight: 10, marginLeft: "70%" }}
+          >
+            카드 구매
+          </Button>
+        </Link>
+      )}
+      {currentState && (
+        <Button
+          color="default"
+          onClick={openRegisterTravelWith}
+          style={{ marginRight: 10, marginLeft: "75%" }}
+        >
           카드 등록
-        </Button>}
-      
+        </Button>
+      )}
+
       <Button color="primary" onClick={handleShow}>
         카드 구매내역
       </Button>
@@ -78,7 +92,12 @@ function CardManagePage(props) {
             </Modal.Footer>
           </Modal>
           <CardList key={render} />
-          <TravelCardRegister open={travelWithModal} close={closeTravelWithModal} userEmail={user.email} register={registerTravelWith}/>
+          <TravelCardRegister
+            open={travelWithModal}
+            close={closeTravelWithModal}
+            userEmail={user.email}
+            register={registerTravelWith}
+          />
         </div>
       </Container>
     </>
