@@ -25,7 +25,7 @@ function CardInfo(props) {
           <img
             className="m-auto"
             src={require(`assets/img/card/${imgSrc[3]}`)}
-            style={{ width: "13rem" }}
+            style={{ width: "100%" }}
           />
         </Card>
         {userCard.isDefault && (

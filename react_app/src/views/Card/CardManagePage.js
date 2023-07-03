@@ -54,10 +54,7 @@ function CardManagePage(props) {
     <>
       {!currentState && (
         <Link to="/card/purchase">
-          <Button
-            color="default"
-            style={{ marginRight: 10, marginLeft: "70%" }}
-          >
+          <Button color="default" style={{ left: 770 }}>
             카드 구매
           </Button>
         </Link>
@@ -72,7 +69,7 @@ function CardManagePage(props) {
         </Button>
       )}
 
-      <Button color="primary" onClick={handleShow}>
+      <Button color="primary" onClick={handleShow} style={{ left: 780 }}>
         카드 구매내역
       </Button>
 
