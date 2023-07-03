@@ -42,7 +42,7 @@ const Benefit = ({ item, benefitType, onDropPlayer, index }) => {
         id={"tooltip" + item.id}
         size="sm"
       >
-        상세설명
+        DETAIL
       </Button>
       <UncontrolledTooltip
         delay={0}

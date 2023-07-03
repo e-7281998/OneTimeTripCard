@@ -4,8 +4,8 @@ import React from "react";
 function CardPurchasePage(props) {
   return (
     <>
-      <h1>카드 구매 페이지</h1>
-      <span>신규 구입</span>
+      <h1>Get A New Card!</h1>
+      {/* <span>신규 구입</span> */}
       <hr></hr>
 
       <GradeSelect />

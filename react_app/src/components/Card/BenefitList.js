@@ -129,7 +129,7 @@ function BenefitList(props) {
 
         <div className="progress-info">
           <div className="progress-label">
-            <div>Select Benefit</div>
+            <div>Left Count</div>
           </div>
           <div className="progress-percentage"></div>
         </div>
@@ -139,8 +139,8 @@ function BenefitList(props) {
           color="primary"
         />
 
-        <h4 style={{ marginLeft: 680 }} className="text-white">
-          선택 가능 혜택 수 :
+        <h4 style={{ marginLeft: 640 }} className="text-white">
+          Available Benefit Count :
           <Badge
             style={{ fontSize: 25, marginLeft: 10 }}
             color="secondary"
@@ -219,7 +219,7 @@ function BenefitList(props) {
           {/* <Link to="/card/purchase" state={{ myBenefits: team }}>
                 수정
               </Link> */}
-          설정완료
+          CONFIRM BENEFITS
         </Button>
       </Container>
     </>
