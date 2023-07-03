@@ -11,16 +11,10 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
   NavbarBrand,
   Navbar,
-  NavItem,
-  NavLink,
   Nav,
   Container,
-  Row,
-  Col,
-  UncontrolledTooltip,
 } from "reactstrap";
 
 function DemoNavbar(props) {
@@ -107,9 +101,7 @@ function DemoNavbar(props) {
                     <DropdownItem to="/aboutottc" tag={Link}>
                       about OTT Card
                     </DropdownItem>
-                    <DropdownItem to="/aboutbenefit" tag={Link}>
-                      Card Benefits
-                    </DropdownItem>
+
                     <DropdownItem to="/aboutgrade" tag={Link}>
                       Membership Grade
                     </DropdownItem>
