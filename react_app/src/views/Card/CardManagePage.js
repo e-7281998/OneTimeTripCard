@@ -63,7 +63,7 @@ function CardManagePage(props) {
         <Button
           color="default"
           onClick={openRegisterTravelWith}
-          style={{ marginRight: 10, marginLeft: "75%" }}
+          style={{ marginRight: 10, left: 780 }}
         >
           카드 등록
         </Button>
