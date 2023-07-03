@@ -265,6 +265,7 @@ function CardList(props) {
                 // <div key={index} onClick={clickCard} value={JSON.stringify(item)}>
 
                 <div
+                  style={{ textAlign: "center" }}
                   key={index}
                   onClick={showInfo}
                   value={JSON.stringify(item)}
@@ -276,7 +277,7 @@ function CardList(props) {
                   />
                   <div>{item.nickName}</div>
                   {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
-                  <div>
+                  <div style={{ textAlign: "center", margin: "5px" }}>
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -294,12 +295,16 @@ function CardList(props) {
                       transaction
                     </Button>
                   </div>
-                  <div>
-                    <Button onClick={clickCard} value={JSON.stringify(item)}>
+                  <div style={{ textAlign: "center", margin: "5px" }}>
+                    <Button
+                      style={{ backgroundColor: "green" }}
+                      onClick={clickCard}
+                      value={JSON.stringify(item)}
+                    >
                       Charge
                     </Button>
                   </div>
-                  <div>
+                  <div style={{ textAlign: "center", margin: "5px" }}>
                     {currentState && (
                       <Button
                         onClick={(e) => {
@@ -314,8 +319,9 @@ function CardList(props) {
                     )}
                   </div>
                   {!currentState && (
-                    <div>
+                    <div style={{ textAlign: "center", margin: "5px" }}>
                       <Button
+                        style={{ backgroundColor: "red" }}
                         disabled={item.balance === 0 ? "disabled" : ""}
                         value={item.id}
                         onClick={refund}
@@ -399,12 +405,12 @@ function CardList(props) {
         </Container> */}
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header>
-            <Modal.Title>카드 등록</Modal.Title>
+            <Modal.Title>CARD REGISTER</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Container>
               <Row>
-                <Col>카드 번호</Col>
+                <Col>Card No</Col>
                 <Col>
                   <Form.Control
                     placeholder="카드 번호"
