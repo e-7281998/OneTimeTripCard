@@ -269,7 +269,11 @@ function CardList(props) {
                   onClick={showInfo}
                   value={JSON.stringify(item)}
                 >
-                  <img alt="" src={require(`assets/img/card/${imgsrc[3]}`)} />
+                  <img
+                    alt=""
+                    src={require(`assets/img/card/${imgsrc[3]}`)}
+                    style={{ width: "100%" }}
+                  />
                   <div>{item.nickName}</div>
                   {!currentState && <div>{item.isDefault ? "Yes" : "No"}</div>}
                   <div>
