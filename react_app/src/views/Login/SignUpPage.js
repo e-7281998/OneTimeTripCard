@@ -192,7 +192,7 @@ function SignUpPage(props) {
         preferredCurrency: currency,
       },
     })
-      .then((res) => { })
+      .then((res) => {})
       .catch();
 
     Swal.fire({
@@ -377,7 +377,6 @@ function SignUpPage(props) {
                                 key={currnecyName}
                                 onClick={selectCurrency}
                               >
-
                                 {currnecyName}
                               </DropdownItem>
                             ))}

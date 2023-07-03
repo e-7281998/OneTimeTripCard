@@ -5,6 +5,7 @@ import axios from "axios";
 import Course from "./Course";
 import Node from "./Node";
 import Store from "./Store";
+import { Button } from "reactstrap";
 const { kakao } = window;
 
 const MapContext = createContext();
@@ -71,7 +72,7 @@ function Map(props) {
         changeValue,
       }}
     >
-      <Container>
+      <Container id="mapContainer">
         <div>
           {value === 0
             ? "지역을 선택해주세요."
@@ -81,7 +82,11 @@ function Map(props) {
         {value === 1 && <Node />}
         {value === 2 && <Store />}
       </Container>
-      {value !== 0 && <button onClick={changeValue}>이전</button>}
+      {value !== 0 && (
+        <Button id="mapBtn" onClick={changeValue}>
+          이전
+        </Button>
+      )}
     </MapContext.Provider>
   );
 }

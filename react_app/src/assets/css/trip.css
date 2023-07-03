@@ -1,4 +1,20 @@
 #map {
   width: 500px;
   height: 400px;
+  margin: auto;
+  border-radius: 15px;
+  border: 3px solid #172b4d;
+  margin-top: 30px;
+}
+
+#mapContainer {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 30px;
+}
+
+#mapBtn {
+  display: block;
+  margin: auto;
 }
