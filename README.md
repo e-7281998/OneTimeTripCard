@@ -1,8 +1,12 @@
-"# OneTimeTripCard" 
-"# OneTimeTripCard" 
+# OneTimeTripCard
+![Argon Design System React by Creative Tim - Chrome 2023-08-05 17-11-33](https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/c9c9787e-8cab-4915-b801-1258709028c9)
+
+# 팀 소개
+|[박성진](https://github.com/ehopaak)|[손준범](https://github.com/junbeom-Son)|[이솔](https://github.com/leessol)|[전은정](https://github.com/e-7281998)|
+|---|---|---|---|
+|사진|사진|사진|사진|
 
 # Spring Boot API
-
 ## User
 ### 회원가입
 * url : /user/signUp
