@@ -15,7 +15,7 @@
 # 팀 소개
 |[박성진](https://github.com/ehopaak)|[손준범](https://github.com/junbeom-Son)|[이솔](https://github.com/leessol)|[전은정](https://github.com/e-7281998)|
 |---|---|---|---|
-|사진|사진|사진|사진|
+|사진|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/af74cfa3-637d-4224-b98d-dcaa5a8bbcb6" width="150" height="200">|사진|사진|
 
 # 프로젝트 소개
 One Time Trip Card는 한국을 관광하는 외국인 관광객들을 대상으로 발급해주는 일회용 여행 카드입니다.
