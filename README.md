@@ -17,7 +17,7 @@
 |---|---|---|---|
 |사진|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/af74cfa3-637d-4224-b98d-dcaa5a8bbcb6" width="150" height="200">|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/331f813e-46ec-4445-927c-de7aff5a772c" width="150" height="200">|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/caf1f71d-78cf-44ef-b7c3-34a819beb64e" width="150" height="200">|
 
-# 프로젝트 소개
+# 프로젝트 소개 - [소개 피피티](https://drive.google.com/file/d/17JdvCT7AaNBCy5GXw4Q1YCJa0ebQ8Rkc/view?usp=sharing)
 One Time Trip Card는 한국을 관광하는 외국인 관광객들을 대상으로 발급해주는 일회용 여행 카드입니다.
 
 해외 여행을 할 때 현금을 들고 다니느라 불편함을 겪는 분들이 많습니다. Master 카드나 Visa 카드와 같이 전 세계에서 통용되는 카드가 있지만, 
