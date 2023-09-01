@@ -46,6 +46,9 @@ One Time Trip Card는 한국을 관광하는 외국인 관광객들을 대상으
 한국 수출입 은행에서 제공하는 환율 API를 Scheduler를 활용하여 개장 시간 동안 1분 단위의 환율을 업데이트합니다.
 이를 활용해 본인의 국가에서 사용하는 화폐 단위에 맞게 온라인에서 간단하게 충전할 수 있습니다.
 
+### 여행
+Kakao 지도 API를 통해 여행 경로를 구현했습니다.
+
 ## 5️⃣ 팀
 |[ehopaak](https://github.com/ehopaak)|[junbeom-Son](https://github.com/junbeom-Son)|[leessol](https://github.com/leessol)|[e-7281998](https://github.com/e-7281998)|
 |---|---|---|---|
