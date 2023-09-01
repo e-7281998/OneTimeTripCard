@@ -47,7 +47,7 @@ One Time Trip Card는 한국을 관광하는 외국인 관광객들을 대상으
 이를 활용해 본인의 국가에서 사용하는 화폐 단위에 맞게 온라인에서 간단하게 충전할 수 있습니다.
 
 ## 5️⃣ 팀
-|[박성진](https://github.com/ehopaak)|[손준범](https://github.com/junbeom-Son)|[이솔](https://github.com/leessol)|[전은정](https://github.com/e-7281998)|
+|[ehopaak](https://github.com/ehopaak)|[junbeom-Son](https://github.com/junbeom-Son)|[leessol](https://github.com/leessol)|[e-7281998](https://github.com/e-7281998)|
 |---|---|---|---|
 |<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/331e39cf-d004-4310-901a-f13f8c6e90f8" width="150" height="200">|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/af74cfa3-637d-4224-b98d-dcaa5a8bbcb6" width="150" height="200">|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/331f813e-46ec-4445-927c-de7aff5a772c" width="150" height="200">|<img src="https://github.com/OneTimeGroup/OneTimeTripCard/assets/89973303/caf1f71d-78cf-44ef-b7c3-34a819beb64e" width="150" height="200">|
 
